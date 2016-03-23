@@ -136,10 +136,10 @@ CREATE PROCEDURE mostRevenue_CustomerRepresentative()
 	 FROM Employee E
 	 INNER JOIN
 	    (SELECT E.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
-	    FROM E AND Stock AND hasStock
+	    FROM E, Stock, hasStock
 	    GROUP BY E.ID) groupedE
 	 ON E.home = groupedE.ID
-	 AND E.datetime = groupedE.MaxRevenue
+	 AND E.datetime = groupedE.MaxRevenue;
  END //
 DELIMITER;
 
@@ -151,10 +151,10 @@ CREATE PROCEDURE customer_mostRevenue()
 	FROM Client C
 	INNER JOIN
 	    (SELECT C.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
-	    FROM C AND S AND H 
+	    FROM C, S, H 
         GROUP BY C.ID) groupedC
 	ON C.ID = groupedC.ID 
-	AND C.datetime = groupedC.MaxRevenue
+	AND C.datetime = groupedC.MaxRevenue;
  END //
 DELIMITER;
 
