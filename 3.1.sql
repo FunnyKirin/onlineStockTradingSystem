@@ -180,40 +180,43 @@ CREATE PROCEDURE revenueByCustomerID(IN ID INTEGER)
  END //
 DELIMITER;
 
-#Determine which customer representative generated most total revenue @todo
+#Determine which customer representative generated most total revenue
 DELIMITER //
 CREATE PROCEDURE mostRevenue_CustomerRepresentative()
  BEGIN
-	 SELECT Employee.* # ?? get all the information of that representative
-	 FROM Trade, Employee, Order
-	 WHERE Trade.BrokerId = Employee.ID AND Trade.OrderId = StockOrder.ID AND 
+	 SELECT Employee.*
+	 FROM Employee E
+	 INNER JOIN
+	    (SELECT E.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
+	    FROM E AND Stock AND hasStock
+	    GROUP BY E.ID) groupedE
+	 ON E.home = groupedE.ID
+	 AND E.datetime = groupedE.MaxRevenue
  END //
 DELIMITER;
 
-#Determine which customer generated most total revenue @todo
+#Determine which customer generated most total revenue
 DELIMITER //
 CREATE PROCEDURE customer_mostRevenue()
  BEGIN
 	SELECT C.*
 	FROM Client C
 	INNER JOIN
-	    (SELECT C.ID, MAX(S.PricePerShare * H.NumShares) AS MaxRevenue
+	    (SELECT C.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
 	    FROM C AND S AND H
 	    GROUP BY C.ID) groupedC
-	ON C.home = groupedC.home 
+	ON C.ID = groupedC.ID 
 	AND C.datetime = groupedC.MaxRevenue
  END //
 DELIMITER;
 
-#Produce a list of most actively traded stocks @todo
+#Produce a list of most actively traded stocks
 DELIMITER //
 CREATE PROCEDURE activeStocks()
  BEGIN
-	SELECT       ,
-	             COUNT(`value`) AS `value_occurrence` 
-	    FROM     `my_table`
-	    GROUP BY `value`
-	    ORDER BY `value_occurrence` DESC
-	    LIMIT    1;
+    SELECT Trade.StockId
+	FROM Trade
+	GROUP BY Trade.StockId
+	ORDER BY COUNT(Trade.StockId) DESC
  END //
 DELIMITER;
