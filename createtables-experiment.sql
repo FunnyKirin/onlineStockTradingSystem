@@ -88,19 +88,15 @@ CREATE TABLE Transaction (
 
 CREATE TABLE StockOrder (
     NumShares INTEGER,
-    PriceperShare INTEGER,
-    ID INTEGER AUTO_INCREMENT,
     DateTime DATETIME,
     Percentage DECIMAL(10, 2),
+    PriceperShare INTEGER,
     PriceType CHAR(20),
     CHECK (PriceType IN ('Market' , 'MarketOnClose',
         'TrailingStop', 
         'HiddenStop')),
     OrderType CHAR(4),
     CHECK (OrderType IN ('buy' , 'sell')),
-    FOREIGN KEY (PriceperShare)
-    REFERENCES Stock (PriceperShare)
-    ON DELETE NO ACTION ON UPDATE CASCADE
     PRIMARY KEY (ID)
 );
 

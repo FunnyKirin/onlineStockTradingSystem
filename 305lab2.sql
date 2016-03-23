@@ -95,9 +95,9 @@ CREATE TABLE Transaction (
 
 CREATE TABLE StockOrder (
     NumShares INTEGER,
-    PricePerShare INTEGER,
     ID INTEGER,
     DateTime DATETIME,
+    PricePerShare INTEGER,
     Percentage INTEGER,
     CHECK (Percentage >= 0 AND Percentage <= 100),
     PriceType CHAR(20),
