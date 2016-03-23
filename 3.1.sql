@@ -8,7 +8,7 @@ CREATE PROCEDURE updateStockPrice(IN stockPrice INTEGER, stockSymbol CHAR(20))
 	 END//
 
 #Add, Edit and Delete information for an employee
-#ADD
+#ADD   # maybe more data to be added
 DELIMITER //
 CREATE PROCEDURE addEmployee(IN ID INTEGER, SSN INTEGER, StartDate DATE, HourlyRate INTEGER)
 	BEGIN
@@ -20,25 +20,25 @@ CREATE PROCEDURE addEmployee(IN ID INTEGER, SSN INTEGER, StartDate DATE, HourlyR
 DELIMITER //
 CREATE PROCEDURE editEmployeeSSN(IN ID INTEGER, SSN INTEGER)
 	 BEGIN
-		 UPDATE Stock
-		 SET Stock.SSN = SSN
-		 WHERE Stock.ID = ID;
+		 UPDATE Employee
+		 SET Employee.SSN = SSN
+		 WHERE Employee.ID = ID;
 	 END//
 
 DELIMITER //
 CREATE PROCEDURE editEmployeeStartDate(IN ID INTEGER, StartDate DATE)
 	 BEGIN
-		 UPDATE Stock
-		 SET Stock.StartDate = StartDate
-		 WHERE Stock.ID = ID;
+		 UPDATE Employee
+		 SET Employee.StartDate = StartDate
+		 WHERE Employee.ID = ID;
 	 END//
 
 DELIMITER //
 CREATE PROCEDURE editEmployeeHourlyRate(IN ID INTEGER, HourlyRate INTEGER)
 	 BEGIN
-		 UPDATE Stock
+		 UPDATE Employee
 		 SET HourlyRate = HourlyRate
-		 WHERE Stock.ID = ID;
+		 WHERE Employee.ID = ID;
 	 END//
 
 
@@ -46,25 +46,25 @@ CREATE PROCEDURE editEmployeeHourlyRate(IN ID INTEGER, HourlyRate INTEGER)
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER)
 	 BEGIN
-		 UPDATE Stock
-		 SET Stock.SSN = NULL
-		 WHERE Stock.ID = ID;
+		 UPDATE Employee
+		 SET Employee.SSN = NULL
+		 WHERE Employee.ID = ID;
 	 END//
 
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeStartDate(IN ID INTEGER)
 	 BEGIN
-		 UPDATE Stock
-		 SET Stock.StartDate = NULL
-		 WHERE Stock.ID = ID;
+		 UPDATE Employee
+		 SET Employee.StartDate = NULL
+		 WHERE Employee.ID = ID;
 	 END//
 
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeHourlyRate(IN ID INTEGER)
  BEGIN
-	 UPDATE Stock
-	 SET HourlyRate = NULL
-	 WHERE Stock.ID = ID;
+	 UPDATE Employee
+	 SET Employee.HourlyRate = NULL
+	 WHERE Employee.ID = ID;
  END //
 
 #Obtain a sales report for a particular month
@@ -87,7 +87,8 @@ CREATE PROCEDURE stockListing()
 DELIMITER //
 CREATE PROCEDURE stockListingBySymbol()
  BEGIN
-	 SELECT* FROM Stock
+	 SELECT* FROM Stock, StockOrder
+	 WHERE Stock.PriceperShare = StockOrder.PriceperShare
 	 ORDER BY Stock.StockSymbol;
  END //
 
@@ -95,7 +96,8 @@ CREATE PROCEDURE stockListingBySymbol()
 DELIMITER //
 CREATE PROCEDURE stockListingByName()
  BEGIN
-	 SELECT* FROM Stock
+	 SELECT* FROM StockOrder,Stock
+	 WHERE Stock.PriceperShare = StockOrder.PriceperShare
 	 ORDER BY Stock.CompanyName;
  END //
 
@@ -126,35 +128,35 @@ CREATE PROCEDURE revenueByCustomerID(IN ID INTEGER)
 	 WHERE Client.ID = ID AND Stock.StockSymbol = hasStock.StockSymbol;
  END //
 
-#Determine which customer representative generated most total revenue
-#DELIMITER //
-#CREATE PROCEDURE mostRevenue_CustomerRepresentative()
-# BEGIN
-#	 SELECT Employee.*
-#	 FROM Employee E
-#	 INNER JOIN
-#	    (SELECT E.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
-#	    FROM E AND Stock AND hasStock
-#	    GROUP BY E.ID) groupedE
-#	 ON E.home = groupedE.ID
-#	 AND E.datetime = groupedE.MaxRevenue
-# END //
-#DELIMITER;
+Determine which customer representative generated most total revenue
+DELIMITER //
+CREATE PROCEDURE mostRevenue_CustomerRepresentative()
+ BEGIN
+	 SELECT Employee.*
+	 FROM Employee E
+	 INNER JOIN
+	    (SELECT E.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
+	    FROM E AND Stock AND hasStock
+	    GROUP BY E.ID) groupedE
+	 ON E.home = groupedE.ID
+	 AND E.datetime = groupedE.MaxRevenue
+ END //
+DELIMITER;
 
-#Determine which customer generated most total revenue
-#DELIMITER //
-#CREATE PROCEDURE customer_mostRevenue()
-# BEGIN
-#	SELECT C.*
-#	FROM Client C
-#	INNER JOIN
-#	    (SELECT C.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
-#	    FROM C AND S AND H 
-#        GROUP BY C.ID) groupedC
-#	ON C.ID = groupedC.ID 
-#	AND C.datetime = groupedC.MaxRevenue
-# END //
-#DELIMITER;
+Determine which customer generated most total revenue
+DELIMITER //
+CREATE PROCEDURE customer_mostRevenue()
+ BEGIN
+	SELECT C.*
+	FROM Client C
+	INNER JOIN
+	    (SELECT C.ID, MAX(Stock.PricePerShare * hasStock.NumShares) AS MaxRevenue
+	    FROM C AND S AND H 
+        GROUP BY C.ID) groupedC
+	ON C.ID = groupedC.ID 
+	AND C.datetime = groupedC.MaxRevenue
+ END //
+DELIMITER;
 
 #Produce a list of most actively traded stocks
 DELIMITER //
