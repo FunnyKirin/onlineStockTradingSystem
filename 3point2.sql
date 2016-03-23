@@ -1,9 +1,9 @@
 # Record an order
 DELIMITER //
-CREATE PROCEDURE recordOrder(IN NumShares INTEGER, IN ID INTEGER, IN PriceType CHAR(20), IN OrderType CHAR(4))
+CREATE PROCEDURE recordOrder(IN NumShares INTEGER, IN DateTime DateTime, IN PriceType CHAR(20), IN OrderType CHAR(4), IN Percentage INTEGER, IN PriceperShare INTEGER)
 BEGIN
-	INSERT INTO stockorder(NumShares, ID, PriceType, OrderType)
-	VALUES(NumShares, ID, PriceType, OrderType);
+	INSERT INTO stockorder(NumShares,DateTime, PriceType, OrderType, Percentage, PriceperShare)
+	VALUES(NumShares,DateTime, PriceType, OrderType, Percentage, PriceperShare);
 	END//
 
 # Produce a list of customer mailing list
@@ -26,15 +26,17 @@ END//
 # Successfully hook people up in the business
 DELIMITER //
 CREATE PROCEDURE addCustomer(IN FirstName CHAR(20), IN LastName CHAR(20), IN Address CHAR(20),
-    IN ZipCode INTEGER, IN Telephone BIGINT,
+    IN ZipCode INTEGER, IN City CHAR(20), IN State CHAR(20), IN Telephone BIGINT,
 	Email CHAR(32), Rating INTEGER, CreditCardNumber BIGINT,ID INTEGER)
 BEGIN
+	INSERT ignore into location(ZipCode, City,State)
+    values(ZipCode, City, State);
 	INSERT INTO Person(FirstName, LastName, Address, ZipCode, Telephone, SSN)
     VALUES(FirstName, LastName, Address, ZipCode, Telephone, ID);
 	INSERT INTO Client(Email, Rating, CreditCardNumber, ID)
     VALUES(Email, Rating, CreditCardNumber, ID);
-    INSERT IGNORE INTO Account(DateCreated, Number)
-    VALUES(NOW(), CreditCardNumber);
+    INSERT IGNORE INTO Account(DateOpened, ClientID)
+    VALUES(NOW(), ID);
 END//
 
 # Edit customer information
@@ -45,8 +47,6 @@ BEGIN
     SET Email = E, Rating = R,
     CreditCardNumber = CCN,
     ID = I;
-    INSERT IGNORE INTO Account(DateCreated, Number)
-    VALUES(NOW(), CreditCardNumber);
 END//
 
 # Delete people
@@ -55,6 +55,4 @@ CREATE PROCEDURE deleteCustomer(CustID INTEGER)
 BEGIN
 	DELETE FROM Client
     WHERE ID = CustID;
-    DELETE FROM Person
-    WHERE SSN = CustID;
 END//

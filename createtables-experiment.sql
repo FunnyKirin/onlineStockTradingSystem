@@ -88,6 +88,7 @@ CREATE TABLE Transaction (
 
 CREATE TABLE StockOrder (
     NumShares INTEGER,
+    ID INTEGER AUTO_INCREMENT,
     DateTime DATETIME,
     Percentage DECIMAL(10, 2),
     PriceperShare INTEGER,
