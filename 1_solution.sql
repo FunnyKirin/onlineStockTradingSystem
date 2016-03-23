@@ -1,0 +1,106 @@
+
+CREATE TABLE Person (
+	SSN INTEGER,
+	LastName CHAR(20) NOT NULL,
+	FirstName CHAR(20) NOT NULL,
+	Address CHAR(20),
+	ZipCode INTEGER,
+	Telephone INTEGER,
+	PRIMARY KEY (SSN),
+	FOREIGN KEY (ZipCode) REFERENCES Location (ZipCode)
+		ON DELETE NO ACTION 
+		ON UPDATE CASCADE )
+
+CREATE TABLE Location (
+	ZipCode INTEGER,
+	City    CHAR(20) NOT NULL,
+	State   CHAR(20) NOT NULL,
+			PRIMARY KEY (ZipCode) )
+
+CREATE TABLE Employee (
+	ID EmpId,
+	SSN INTEGER,
+	StartDate DATE,
+	HourlyRate INTEGER,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (SSN) REFERENCES Person (SSN)
+		ON DELETE NO ACTION 
+		ON UPDATE CASCADE )
+
+CREATE TABLE Account (
+	Id INTEGER,
+	DateOpened DATE,
+	Client ClientId,
+	PRIMARY KEY (Id),
+	FOREIGN KEY (Client) REFERENCES Client (Id)
+		ON DELETE NO ACTION 
+		ON UPDATE CASCADE )
+
+CREATE TABLE Client (
+	Email CHAR(32),
+	Rating INTEGER,
+	CreditCardNumber INTEGER,
+	Id ClientId,
+	PRIMARY KEY (Id),
+	FOREIGN KEY (Id) REFERENCES Person (SSN)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE )
+
+CREATE TABLE Transaction (
+	Id TxnId,
+	Fee CURRENCY, 
+	DateTime DATETIME, 
+	PricePerShare CURRENCY 
+	PRIMARY KEY (Id) )
+
+CREATE TABLE Order (
+	NumShares INTEGER,
+	PricePerShare CURRENCY,
+	Id INTEGER,
+	DateTime DATETIME,
+	Percentage PERCENTAGE,
+	Price PriceType,
+	Order OrderType,
+	PRIMARY KEY (Id) )
+
+ CREATE TABLE Stock ( 
+	StockSymbol CHAR(20) NOT NULL,
+	CompanyName CHAR(20) NOT NULL, 
+	Type CHAR(20) NOT NULL, 
+	PricePerShare CURRENCY,
+	PRIMARY KEY (StockSymbol) )
+
+CREATE DOMAIN PriceType CHAR(20)
+	CHECK ( VALUE IN (‘Market’, ‘MarketOnClose’, ‘TrailingStop’, ‘HiddenStop’) )
+
+CREATE DOMAIN OrderType CHAR(5) 
+	CHECK ( VALUE IN (‘Buy’, ‘Sell’) )
+
+CREATE DOMAIN EmpId INTEGER
+	CHECK (EmpId > 0 AND EmpId < 1000000000)
+
+CREATE DOMAIN ClientId INTEGER
+	CHECK (ClientId > 0 AND ClientId < 1000000000)
+
+CREATE TABLE Trade (
+	AccountId INTEGER,
+	BrokerId EmpId,
+	TransactionId INTEGER,
+	OrderId INTEGER,
+	StockId CHAR(20),
+	PRIMARY KEY (AccountId, BrokerId, TransactionId, OrderId, StockId), 
+	FOREIGN KEY (AccountID) REFERENCES Account (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE,
+	FOREIGN KEY (BrokerId) REFERENCES Employee (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE,
+	FOREIGN KEY (TransactionID) REFERENCES Transaction (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE
+	FOREIGN KEY (OrderId) REFERENCES Order (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE
+	FOREIGN KEY (StockId) REFERENCES Stock (StockSymbol)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE )
