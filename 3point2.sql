@@ -5,7 +5,6 @@ BEGIN
 	INSERT INTO stockorder(NumShares, ID, PriceType, OrderType)
 	VALUES(NumShares, ID, PriceType, OrderType);
 	END//
-DELIMITER;
 
 # Produce a list of customer mailing list
 DELIMITER //
@@ -13,7 +12,6 @@ CREATE PROCEDURE getMailingList()
 BEGIN
 	SELECT Email FROM Client;
 	END//
-DELIMITER;
 
 # Produce a list of stock suggestions for a given customer (based on that customer's past orders) 
 DELIMITER //
@@ -24,7 +22,6 @@ BEGIN
 	FROM Account A, Stock S, StockOrder O
 	WHERE A.ClientID = CustID AND S.StockSymbol = O.StockSymbol;
 END//
-DELIMITER;
 
 # Successfully hook people up in the business
 DELIMITER //
@@ -39,7 +36,6 @@ BEGIN
     INSERT IGNORE INTO Account(DateCreated, Number)
     VALUES(NOW(), CreditCardNumber);
 END//
-DELIMITER;
 
 # Edit customer information
 DELIMITER //
@@ -52,7 +48,6 @@ BEGIN
     INSERT IGNORE INTO Account(DateCreated, Number)
     VALUES(NOW(), CreditCardNumber);
 END//
-DELIMITER;
 
 # Delete people
 DELIMITER //
