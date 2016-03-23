@@ -1,104 +1,104 @@
 #Set the share price of a stock (for simulating market fluctuations in a stock's share price)
 DELIMITER //
 CREATE PROCEDURE updateStockPrice(IN stockPrice INTEGER, stockSymbol CHAR(20))
- IF (stockPrice < 0 AND stockSymbol IS NULL)
+ IF (stockPrice < 0 AND stockSymbol IS NULL) THEN
 	 BEGIN
-		 PRINT 'invalid input'
-	 END
+		 
+	 END;
  ELSE
 	 BEGIN
 		 UPDATE Stock
 		 SET PricePerShare = stockPrice
 		 WHERE StockSymbol = stockSymbol;
-	 END //
+	 END;
 DELIMITER;
 
 #Add, Edit and Delete information for an employee
 #ADD
 DELIMITER //
 CREATE PROCEDURE addEmployee(IN ID INTEGER, SSN INTEGER, StartDate DATE, HourlyRate INTEGER)
- IF (ID < 0 AND ID > 1000000000)
-	 BEGIN
-		 PRINT 'invalid input'
-	 END
+ IF (ID < 0 AND ID > 1000000000)THEN
+	BEGIN
+		 
+	END;
  ELSE
-	 BEGIN
+	BEGIN
 		INSERT INTO Employee
 		VALUES(ID, SSN, StartDate, HourlyRate)
-	 END //
+	END;
 DELIMITER;
 
 #EDIT
 DELIMITER //
 CREATE PROCEDURE editEmployeeSSN(IN ID INTEGER, SSN INTEGER)
-  IF (ID < 0 AND ID > 1000000000)
+  IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
-		 PRINT 'invalid input'
-	 END
+     
+	 END;
  ELSE
 	 BEGIN
 		 UPDATE Stock
 		 SET Stock.SSN = SSN
 		 WHERE Stock.ID = ID;
-	 END //
+	 END;
 DELIMITER;
 
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER, StartDate DATE)
-  IF (ID < 0 AND ID > 1000000000)
+  IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
-		 PRINT 'invalid input'
-	 END
+
+	 END;
  ELSE
 	 BEGIN
 		 UPDATE Stock
 		 SET Stock.StartDate = StartDate
 		 WHERE Stock.ID = ID;
-	 END //
+	 END;
 DELIMITER;
 
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeStartDate(IN ID INTEGER, HourlyRate INTEGER)
-  IF (ID < 0 AND ID > 1000000000)
-	 BEGIN
-		 PRINT 'invalid input'
-	 END
+  IF (ID < 0 AND ID > 1000000000) THEN
+	 BEGIN 
+		
+	 END;
  ELSE
 	 BEGIN
 		 UPDATE Stock
 		 SET HourlyRate = HourlyRate
 		 WHERE Stock.ID = ID;
-	 END //
+	 END;
 DELIMITER;
 
 
 #delete
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER)
-  IF (ID < 0 AND ID > 1000000000)
+  IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
-		 PRINT 'invalid input'
-	 END
+		
+	 END;
  ELSE
 	 BEGIN
 		 UPDATE Stock
 		 SET Stock.SSN = NULL
 		 WHERE Stock.ID = ID;
-	 END //
+	 END;
 DELIMITER;
 
 DELIMITER //
 CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER)
-  IF (ID < 0 AND ID > 1000000000)
+  IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
-		 PRINT 'invalid input'
-	 END
+		 
+	 END;
  ELSE
 	 BEGIN
 		 UPDATE Stock
 		 SET Stock.StartDate = NULL
 		 WHERE Stock.ID = ID;
-	 END //
+	 END;
 DELIMITER;
 
 DELIMITER //
@@ -113,16 +113,16 @@ DELIMITER;
 #Obtain a sales report for a particular month  @todo
 DELIMITER //
 CREATE PROCEDURE monthlySalesReport(IN DateTime DATETIME)
-  IF (ID < 0 AND ID > 1000000000)
+  IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
-		 PRINT 'invalid input'
-	 END
+		 
+	 END;
  ELSE
 	 BEGIN
 		 SELECT Month(DateTime)
 		 FROM 
 		 WHERE Id = Id
-	 END //
+	 END;
 DELIMITER;
 
 #Produce a comprehensive listing of all stocks
@@ -130,7 +130,7 @@ DELIMITER //
 CREATE PROCEDURE stockListing()
  BEGIN
 	 SELECT* FROM Stock
- END //
+ END;
 DELIMITER;
 
 #Produce a list of orders by stock symbol
@@ -138,7 +138,7 @@ DELIMITER //
 CREATE PROCEDURE stockListingBySymbol()
  BEGIN
 	 SELECT* FROM Stock
-	 ORDER BY Stock.StockSymbol
+	 ORDER BY Stock.StockSymbol;
  END //
 DELIMITER;
 
@@ -147,7 +147,7 @@ DELIMITER //
 CREATE PROCEDURE stockListingByName()
  BEGIN
 	 SELECT* FROM Stock
-	 ORDER BY Stock.CompanyName
+	 ORDER BY Stock.CompanyName;
  END //
 DELIMITER;
 
@@ -157,7 +157,7 @@ CREATE PROCEDURE revenueByStock(IN StockSymbol CHAR(20))
  BEGIN
 	 SELECT* 
 	 FROM Trade
-	 WHERE Trade.StockId = StockSymbol
+	 WHERE Trade.StockId = StockSymbol;
  END //
 DELIMITER;
 
@@ -167,7 +167,7 @@ CREATE PROCEDURE revenueByStockType(IN Type CHAR(20))
  BEGIN
 	 SELECT* 
 	 FROM Trade, Stock
-	 WHERE Stock.Type = Type
+	 WHERE Stock.Type = Type;
  END //
 DELIMITER;
 
@@ -177,7 +177,7 @@ CREATE PROCEDURE revenueByCustomer(IN Type CHAR(20))
  BEGIN
 	 SELECT* 
 	 FROM Trade, Stock
-	 WHERE Stock.Type = Type
+	 WHERE Stock.Type = Type;
  END //
 DELIMITER;
 
@@ -187,16 +187,6 @@ CREATE PROCEDURE revenueByCustomer(IN Type CHAR(20))
  BEGIN
 	 SELECT* 
 	 FROM Trade, Stock
-	 WHERE Stock.Type = Type
+	 WHERE Stock.Type = Type;
  END //
-DELIMITER;
-
-
-
-
-
-
-
-
-
-
+#DELIMITER;
