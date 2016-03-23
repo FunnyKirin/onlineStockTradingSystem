@@ -6,7 +6,6 @@ BEGIN
     FROM Stock S, Account A, hasStcok H
     WHERE A.ClientID = CustID;
 END//
-DELIMITER;
 
 # A history of all current and past orders a customer has placed 
 DELIMITER //
@@ -17,7 +16,6 @@ BEGIN
     WHERE A.ClientID = CustID AND A.ID = T.AccountId 
 		AND T.OrderId = O.ID AND S.StockSymbol = T.StockId;
 END//
-DELIMITER;
 
 # Stocks available with a particular keyword or set of keywords in the stock name, and most-recent order info 
 DELIMITER //
@@ -29,7 +27,6 @@ BEGIN
 		AND O.StockSymbol = S.StockSymbol
 	GROUP BY S.StockSymbol;
 END//
-DELIMITER;
 
 # Stocks available of a particular type and most-recent order info 
 DELIMITER //
@@ -41,7 +38,6 @@ BEGIN
 		AND O.StockSymbol = S.StockSymbol
 	GROUP BY S.StockSymbol;
 END//
-DELIMITER;
 
 # Personalized stock suggestion list 
 DELIMITER //
