@@ -19,8 +19,8 @@ CREATE PROCEDURE giveSuggestion(IN CustID INTEGER)
 BEGIN
     #CREATE VIEW Suggestion(Symbol, Comp AS 'Company', Price AS 'Price/Share', Type)
 	SELECT S.StockSymbol, S.CompanyName, S.PricePerShare, S.Type
-	FROM Account A, Stock S, StockOrder O
-	WHERE A.ClientID = CustID AND S.StockSymbol = O.StockSymbol;
+	FROM Account A, Stock S, StockOrder O, Trade T
+	WHERE A.ClientID = CustID AND S.StockSymbol = T.StockId AND T.AccountId = A.ID AND T.OrderId= O.ID;
 END//
 
 # Successfully hook people up in the business

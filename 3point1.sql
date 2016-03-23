@@ -18,10 +18,11 @@ CREATE PROCEDURE addEmployee(IN ID INTEGER, SSN INTEGER, StartDate DATE, HourlyR
 
 #EDIT
 DELIMITER //
-CREATE PROCEDURE editEmployeeSSN(IN ID INTEGER, SSN INTEGER)
+CREATE PROCEDURE editEmployee(IN ID INTEGER, StartDate DATE, HourlyRate INTEGER)
 	 BEGIN
 		 UPDATE Employee
-		 SET Employee.SSN = SSN
+		 SET Employee.StartDate = StartDate,
+         HourlyRate = HourlyRate
 		 WHERE Employee.ID = ID;
 	 END//
 
