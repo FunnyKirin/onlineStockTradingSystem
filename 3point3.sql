@@ -6,12 +6,35 @@ BEGIN
     FROM Stock S, Account A, hasStcok H
     WHERE A.ClientID = CustID;
 END//
+
 # The share-price and trailing-stop history for a given conditional order.
-CREATE PROCEDURE trailingHistory(OrderID INTERGER)
+DELIMITER //
+CREATE PROCEDURE hiddenstopHistory(IN OrderID INTEGER)
 BEGIN
-	SELECT PricePerShare, TrailingStop
-    FROM Stock S, Trade T, StockOrder O
-    WHERE S.StockSymbol=Trade. 
+	SELECT S.PricePerShare, TrailingStop*TA.PricePerShare
+FROM Stock S, Trade T, StockOrder O, Transaction TA
+WHERE S.StockSymbol=T.StockId AND T.OrderId = O.ID;
+
+END//
+
+# The share-price and trailing-stop history for a given conditional order.
+DELIMITER //
+CREATE PROCEDURE trailingHistory(IN OrderID INTEGER)
+BEGIN
+	SELECT S.PricePerShare, O.Percentage*TA.PricePerShare
+FROM Stock S, Trade T, StockOrder O, Transaction TA
+WHERE S.StockSymbol=T.StockId AND T.OrderId = O.ID;
+
+END//
+
+#The share-price history of a given stock over a sertain period of time
+DELIMITER //
+CREATE PROCEDURE priceHistory(IN StockSymbol CHAR(20))
+BEGIN
+	Select S.PricePerShare
+    From Stock S
+    Where StockSymbol = S.StockSymbol;
+END//
 
 # A history of all current and past orders a customer has placed 
 DELIMITER //
