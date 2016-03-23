@@ -87,7 +87,6 @@ CREATE TABLE Transaction (
 );
 
 CREATE TABLE StockOrder (
-	StockSymbol CHAR(20) NOT NULL,
     NumShares INTEGER,
     ID INTEGER AUTO_INCREMENT,
     DateTime DATETIME,
@@ -98,54 +97,7 @@ CREATE TABLE StockOrder (
         'HiddenStop')),
     OrderType CHAR(4),
     CHECK (OrderType IN ('buy' , 'sell')),
-    PRIMARY KEY (ID),
-    FOREIGN KEY (StockSymbol) REFERENCES
-		Stock (StockSymbol)
-);
-
-CREATE TABLE Market (
-	ID INTEGER AUTO_INCREMENT,
-	BuySellType CHAR(4) NOT NULL,
-    OrderID INTEGER,
-    CHECK (BuySellType IN ('buy' , 'sell')),
-    PRIMARY KEY (ID),
-    FOREIGN KEY (OrderID) REFERENCES
-		StockOrder (ID),
-	FOREIGN KEY (BuySellType) REFERENCES
-		StockOrder (OrderType)
-);
-
-CREATE TABLE MarketOnClose (
-	ID INTEGER AUTO_INCREMENT,
-	BuySellType CHAR(4),
-    OrderID INTEGER,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (OrderID) REFERENCES
-		StockOrder (ID),
-	FOREIGN KEY (BuySellType) REFERENCES
-		StockOrder (OrderType)
-);
-
-CREATE TABLE TrailingStop (
-	ID INTEGER AUTO_INCREMENT,
-	Percentage DECIMAL(10, 2),
-    OrderID INTEGER,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (OrderID) REFERENCES
-		StockOrder (ID),
-	FOREIGN KEY (Percentage) REFERENCES
-		StockOrder (Percentage)
-);
-
-CREATE TABLE HiddenStop (
-	ID INTEGER AUTO_INCREMENT,
-	PricePerShare DECIMAL(10, 2),
-    OrderID INTEGER,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (OrderID) REFERENCES
-		StockOrder (ID),
-	FOREIGN KEY (PricePerShare) REFERENCES
-		StockOrder (PricePerShare)
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Trade (
