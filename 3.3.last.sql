@@ -1,3 +1,13 @@
+#Stocks avaliable of a particular type and most-recent order info
+DELIMITER //
+CREATE PROCEDURE specificStockWithRecentInfo()
+ BEGIN
+    SELECT Trade.StockId
+	FROM Trade, StockOrder
+	WHERE Trade.OrderId = StockOrder.ID
+ END //
+DELIMITER;
+
 # Best-Seller list of stocks
 DELIMITER //
 CREATE PROCEDURE bestSellerStocks()
@@ -9,5 +19,3 @@ CREATE PROCEDURE bestSellerStocks()
 	ORDER BY COUNT(Trade.StockId) DESC
  END //
 DELIMITER;
-
-#Personalized stock suggestion list
