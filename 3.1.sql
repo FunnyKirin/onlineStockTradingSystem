@@ -43,7 +43,7 @@ CREATE PROCEDURE editEmployeeSSN(IN ID INTEGER, SSN INTEGER)
 DELIMITER;
 
 DELIMITER //
-CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER, StartDate DATE)
+CREATE PROCEDURE editEmployeeStartDate(IN ID INTEGER, StartDate DATE)
   IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
 
@@ -57,7 +57,7 @@ CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER, StartDate DATE)
 DELIMITER;
 
 DELIMITER //
-CREATE PROCEDURE deleteEmployeeStartDate(IN ID INTEGER, HourlyRate INTEGER)
+CREATE PROCEDURE editEmployeeHourlyRate(IN ID INTEGER, HourlyRate INTEGER)
   IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN 
 		
@@ -87,7 +87,7 @@ CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER)
 DELIMITER;
 
 DELIMITER //
-CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER)
+CREATE PROCEDURE deleteEmployeeStartDate(IN ID INTEGER)
   IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
 		 
@@ -101,7 +101,7 @@ CREATE PROCEDURE deleteEmployeeSSN(IN ID INTEGER)
 DELIMITER;
 
 DELIMITER //
-CREATE PROCEDURE deleteEmployeeStartDate(IN ID INTEGER)
+CREATE PROCEDURE deleteEmployeeHourlyRate(IN ID INTEGER)
  BEGIN
 	 UPDATE Stock
 	 SET HourlyRate = NULL
@@ -109,18 +109,18 @@ CREATE PROCEDURE deleteEmployeeStartDate(IN ID INTEGER)
  END //
 DELIMITER;
 
-#Obtain a sales report for a particular month  @todo
+#Obtain a sales report for a particular month
 DELIMITER //
-CREATE PROCEDURE monthlySalesReport(IN DateTime DATETIME)
+CREATE PROCEDURE monthlySalesReport(IN month INTEGER)
   IF (ID < 0 AND ID > 1000000000) THEN
 	 BEGIN
 		 
 	 END;
  ELSE
 	 BEGIN
-		 SELECT Month(DateTime)
-		 FROM 
-		 WHERE Id = Id
+		 SELECT StockOrder.*
+		 FROM StockOrder
+		 WHERE Month(StockOrder.DateTime) = month
 	 END;
 DELIMITER;
 
