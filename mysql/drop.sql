@@ -1,0 +1,10 @@
+drop table Trade;
+drop table `stockorder`;
+drop table `transaction`;
+drop table hasstock;
+drop table `stock`;
+drop table `account`;
+drop table `client`;
+drop table `employee`;
+drop table `person`;
+drop table `location`;
