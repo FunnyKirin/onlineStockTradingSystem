@@ -8,40 +8,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-/**
- * Servlet implementation class HomeServlet
- */
-@WebServlet("/home")
+ 
+@WebServlet(urlPatterns = { "/home"})
 public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	      // Forward to /WEB-INF/views/homeView.jsp
-	       // (Users can not access directly into JSP pages placed in WEB-INF)
-		System.out.println("waht");
-	       RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp");
-	        
-	       dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+   private static final long serialVersionUID = 1L;
+ 
+   public HomeServlet() {
+       super();
+   }
+ 
+   @Override
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+ 
+        
+       // Forward to /WEB-INF/views/homeView.jsp
+       // (Users can not access directly into JSP pages placed in WEB-INF)
+       RequestDispatcher dispatcher = this.getServletContext()
+    		   .getRequestDispatcher("/WEB-INF/views/HomeView.jsp");
+        
+       dispatcher.forward(request, response);
+        
+   }
+ 
+   @Override
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+       doGet(request, response);
+   }
 }

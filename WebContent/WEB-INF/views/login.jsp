@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Netrade</title>
-<link href="../../css/login.css" rel="stylesheet" type="text/css">
+<link href="css/login.css" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script language="javascript" type="text/javascript" src="../../js/login.js"></script>
+<script language="javascript" type="text/javascript" src="js/login.js"></script>
 </head>
 <body>
     <div class="cont">
@@ -29,7 +29,7 @@
           <input type="password" class="login__input pass" placeholder="Password"/>
         </div>
         <button type="button" class="login__submit">Sign in</button>
-        <p class="login__signup">Don't have an account? &nbsp;<a href="register.html">Sign up</a></p>
+        <p class="login__signup">Don't have an account? &nbsp;<a href="register.jsp">Sign up</a></p>
       </div>
     </div>
   </div>
