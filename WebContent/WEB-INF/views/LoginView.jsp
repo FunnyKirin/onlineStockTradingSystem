@@ -4,10 +4,10 @@
 <html>
 <head>
 <title>Netrade</title>
-<link href="/Netrade/css/login.css" rel="stylesheet" type="text/css">
+<link href="css/login.css" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="/Netrade/js/login.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
 </head>
 <body>
     <div class="cont">
