@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="/Netrade/css/register.css" rel="stylesheet" type="text/css">
+<link href="css/register.css" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script language="javascript" type="text/javascript" src="../../js/register.js"></script>
+<script language="javascript" type="text/javascript" src="js/register.js"></script>
 </head>
 <body>
     <div class="form">
