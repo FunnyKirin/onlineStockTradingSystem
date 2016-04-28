@@ -1,52 +1,76 @@
 package webapp.beans;
 
 public class Person {
-	private int SSN;
-	private String lastName;
-	private String firstName;
+
+	private String firstname;
+	private String lastname;
 	private String address;
-	private int zipCode;
-	private int telephone;
+	private int SSN;
+	private String telephone;
+	private Location location;
 	
-	public Person(String initLastName, String initFirstName) {
-		lastName = initLastName;
-		firstName = initFirstName;
+	public Person() {
+		this(null, null, null, 0, null, null);
 	}
 	
-	public int getSSN() {
-		return SSN;
+	// firstname, lastname, SSN, address, telephone, location
+	public Person(String firstname, String lastname, String address, int SSN, String telephone,
+			Location location) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
+		this.SSN = SSN;
+		this.telephone = telephone;
+		this.location = location;
 	}
-	public void setSSN(int newSSN) {
-		SSN = newSSN;
+	
+	
+	public String getFirstname() {
+		return firstname;
 	}
-	public String getLastName() {
-		return lastName;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public void setLastName(String newLastName) {
-		lastName = newLastName;
+
+	public String getLastname() {
+		return lastname;
 	}
-	public String getFirstName() {
-		return firstName;
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
-	public void setFirstName(String newFirstName) {
-		firstName = newFirstName;
-	}
+
 	public String getAddress() {
 		return address;
 	}
-	public void setAddress(String newAddress) {
-		address = newAddress;
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public int getZipCode() {
-		return zipCode;
+
+	public int getSSN() {
+		return SSN;
 	}
-	public void setZipCode(int newZipCode) {
-		zipCode = newZipCode;
+
+	public void setSSN(int SSN) {
+		this.SSN = SSN;
 	}
-	public int getTelephone() {
+
+	public String getTelephone() {
 		return telephone;
 	}
-	public void setTelephone(int newTelephone) {
-		telephone = newTelephone;
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
 }

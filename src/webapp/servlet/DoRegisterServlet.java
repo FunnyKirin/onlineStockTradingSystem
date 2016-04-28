@@ -48,7 +48,7 @@ public class DoRegisterServlet extends HttpServlet {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
               
-                user = DBUtils.findUser(conn, username, password);
+                user = DBUtils.insertAccount(conn, account);
                  
                 if (user == null) {
                     hasError = true;

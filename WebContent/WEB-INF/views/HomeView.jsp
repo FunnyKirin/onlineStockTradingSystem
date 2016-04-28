@@ -15,9 +15,13 @@
 	<div class = "main">
 		<div id="fixmenu">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/login">LOG IN</a></li>
 				<li><img src="img/logo.png" class="logo"></li>
-				<li><a href="#">HELP</a></li>
+			</ul>
+		</div>
+		<div id="role">
+			<ul>
+				<li><a href="#" >Client</a></li>
+				<li><a href="#">Employee</a></li>
 			</ul>
 		</div>
 	</div>
