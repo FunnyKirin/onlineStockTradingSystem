@@ -1,3 +1,5 @@
+USE netrade;
+
 CREATE TABLE Location (
     ZipCode INTEGER,
     City CHAR(20) NOT NULL,
@@ -22,9 +24,11 @@ CREATE TABLE Person (
 CREATE TABLE Employee (
     ID INTEGER AUTO_INCREMENT,
     SSN INTEGER,
-        CHECK (SSN > 99999999 AND SSN < 1000000000),
+    CHECK (SSN > 99999999 AND SSN < 1000000000),
     StartDate DATE,
     HourlyRate INTEGER,
+	Username CHAR(32),
+	Password CHAR(32),
     PRIMARY KEY (ID),
     FOREIGN KEY (SSN)
         REFERENCES Person (SSN)
@@ -37,6 +41,8 @@ CREATE TABLE Client (
     CreditCardNumber BIGINT,
     ID INTEGER,
     CHECK (ID > 99999999 AND ID < 1000000000),
+	Username CHAR(32),
+	Password CHAR(32),
     PRIMARY KEY (ID),
     FOREIGN KEY (ID)
         REFERENCES Person (SSN)

@@ -35,7 +35,7 @@ public class DoRegisterServlet extends HttpServlet {
     	String firstname = request.getParameter("firstname");
     	String lastname = request.getParameter("lastname");
     	String address = request.getParameter("address");
-    	int SSN = Integer.parseInt(request.getParameter("SSN"));
+    	String SSNstr = request.getParameter("SSN");
     	String email = request.getParameter("email");
     	String telephone = request.getParameter("telephone");
         
@@ -45,7 +45,7 @@ public class DoRegisterServlet extends HttpServlet {
         
         		
         // Location
-        int zipcode = Integer.parseInt(request.getParameter("zipcode"));
+        String zipcodeStr = request.getParameter("zipcode");
         String city = request.getParameter("city");
     	String state = request.getParameter("state");
     	
@@ -61,8 +61,8 @@ public class DoRegisterServlet extends HttpServlet {
         if (username == null || password == null
                  || username.length() == 0 || password.length() == 0
                  || firstname == null || lastname == null
-                 || SSN <= 99999999 || SSN >= 1000000000
-                 || city == null || state == null || zipcode <= 9999
+                 || SSNstr == null || city == null
+                 || state == null || zipcodeStr == null
                  || creditCardNum == null || address == null
                  || email == null || telephone == null) {
             hasError = true;
@@ -70,6 +70,8 @@ public class DoRegisterServlet extends HttpServlet {
         } else {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
+            	int zipcode = Integer.parseInt(zipcodeStr);
+            	int SSN = Integer.parseInt(SSNstr);
             	Location location = new Location(zipcode, city, state);
             	Account account = new Account(creditCardNum, date, SSN);
             	client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, account);

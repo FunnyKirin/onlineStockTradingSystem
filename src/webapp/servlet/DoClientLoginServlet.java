@@ -32,7 +32,6 @@ public class DoClientLoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String rememberMeStr = request.getParameter("rememberMe");
         boolean remember= "Y".equals(rememberMeStr);
- 
          
         Client user = null;
         boolean hasError = false;
@@ -45,7 +44,6 @@ public class DoClientLoginServlet extends HttpServlet {
         } else {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
-              
                 user = DBUtils.loginAsClient(conn, username, password);
                  
                 if (user == null) {
