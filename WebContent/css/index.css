@@ -1,76 +1,55 @@
-body{
-	/*height:1200px; */
+html {
+	background: url(../img/background.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+body {
 	font-family: 'Nunito', sans-serif;
-	background:     linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    url(../img/background.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
 }
-*{
-	padding:0px;
-	margin:0px;
+
+* {
+	padding: 0px;
+	margin: 0px;
 	box-sizing: border-box;
-	
 }
+
 a {
 	text-decoration: none;
 }
+
 li {
 	list-style-type: none;
+	display: inline-block;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
-#fixmenu{
-	width: 100%;
-	padding:20px 20px;
-
-	top:0;
-	moz-transition: all 1s ease-in-out;
-	o-transition: all 1s ease-in-out;
-	transition: all 1s ease-in-out;
-	webkit-transition: all 1s ease-in-out;
-	position:fixed;
-	overflow: auto;
-	opacity:0;
-
+.button {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
 }
 
-#fixmenu.active {
-	z-index:1;
-	position:fixed;
-	opacity:100;
-	padding-top:10px;
-	padding-bottom:10px;
+.button:hover {
+    background-color: #008CBA;
+    color: white;
 }
 
-#fixmenu ul {
-	text-align: center;
-}
-
-#fixmenu li {
-	display: inline;
-	margin-left: 20px;
-}
-
-#fixmenu a {
-	color: #fff;
-}
-
-#fixmenu a:hover {
-	border-bottom: 3px solid #fff;
-}
-
-#role {
-	position: fixed; /* or absolute */
-  	top: 50%;
-  	left: 50%;
-}
-#role li {
-	display: inline;
-}
-
-.logo{
+.logo {
 	width: 20%;
 }

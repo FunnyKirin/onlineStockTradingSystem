@@ -3,7 +3,13 @@
   margin: 0;
   padding: 0;
 }
-
+html {
+	background: url("../img/login.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
 html, body {
   font-size: 62.5%;
   height: 100%;
@@ -36,9 +42,6 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("../img/login.jpg");
-  background-size: 100%;
-  background-repeat: no-repeat;
   overflow: auto;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }

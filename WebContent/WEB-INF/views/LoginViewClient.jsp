@@ -13,7 +13,7 @@
     <div class="cont">
   <div class="demo">
     <div class="login">
-      <div class="login__logo"><a href="index.html"><img src="img/logo.png"></a></div>
+      <div class="login__logo"><a href="${pageContext.request.contextPath}/home"><img src="img/logo.png"></a></div>
       <div class="login__form">
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">

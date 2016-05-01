@@ -7,8 +7,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
- 
-import webapp.beans.UserAccount;
+
+import webapp.beans.Client;
+import webapp.beans.Employee;
+import webapp.beans.Person;
  
 public class MyUtils {
  
@@ -30,7 +32,7 @@ public class MyUtils {
    }
  
    // Store user info in Session.
-   public static void storeLoginedUser(HttpSession session, UserAccount loginedUser) {
+   public static void storeLoginedUser(HttpSession session, Person loginedUser) {
  
        // On the JSP can access ${loginedUser}
        session.setAttribute("loginedUser", loginedUser);
@@ -38,16 +40,26 @@ public class MyUtils {
  
  
    // Get the user information stored in the session.
-   public static UserAccount getLoginedUser(HttpSession session) {
-       UserAccount loginedUser = (UserAccount) session.getAttribute("loginedUser");
+   public static Person getLoginedUser(HttpSession session) {
+       Person loginedUser = (Person) session.getAttribute("loginedUser");
        return loginedUser;
    }
  
  
-   // Store info in Cookie
-   public static void storeUserCookie(HttpServletResponse response, UserAccount user) {
+   // Store info in Cookie for client
+   public static void storeUserCookie(HttpServletResponse response, Client client) {
        System.out.println("Store user cookie");
-       Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, user.getUsername());
+       Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, client.getUsername());
+ 
+       // 1 day (Convert to seconds)
+       cookieUserName.setMaxAge(24 * 60 * 60);
+       response.addCookie(cookieUserName);
+   }
+   
+   // Store info in Cookie for client
+   public static void storeUserCookie(HttpServletResponse response, Employee employee) {
+       System.out.println("Store user cookie");
+       Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, employee.getUsername());
  
        // 1 day (Convert to seconds)
        cookieUserName.setMaxAge(24 * 60 * 60);

@@ -44,8 +44,7 @@ public class DBUtils {
 			int ssn = person.getSSN();
 			Location location = person.getLocation();
 
-			return new Employee(firstname, lastname, address, ssn, telephone, location,
-					id, dateStarted, hourlyRate);
+			return new Employee(firstname, lastname, address, ssn, telephone, location, id, dateStarted, hourlyRate);
 		}
 		return null;
 	}
@@ -255,6 +254,18 @@ public class DBUtils {
 		pstm.setString(1, account.getID());
 		pstm.setDate(2, account.getDateOpened());
 		pstm.setInt(3, account.getClientId());
+		pstm.executeUpdate();
+	}
+
+	public static void insertStock(Connection conn, Stock stock) throws SQLException {
+		// Stock
+		String sql = "Insert ignore into Stock(symbol, CompanyName, Type, PricePerShare)" + "values (?, ?, ?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, stock.getSymbol());
+		pstm.setString(2, stock.getCompany());
+		pstm.setString(3, stock.getType());
+		pstm.setDouble(4, stock.getPPS());
 		pstm.executeUpdate();
 	}
 }
