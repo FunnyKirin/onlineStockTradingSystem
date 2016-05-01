@@ -13,16 +13,16 @@ VALUES('Yang', 'Shang', 111111111, '123 Success Street', 5166328959, 11790),
     ('Smith', 'David', 123456789, '123 College Road', 5162152345, 11790),
     ('Warren', 'David', 789123456, '456 Sunken Street', 6316329987, 11794);
     
-INSERT INTO Employee(SSN, HourlyRate, StartDate)
-VALUES(123456789, 60, '2005-11-01'),
-	(789123456, 50, '2006-02-02');
+INSERT INTO Employee(SSN, HourlyRate, StartDate, Username, Password)
+VALUES(123456789, 60, '2005-11-01', 'emp1', 'password1'),
+	(789123456, 50, '2006-02-02', 'emp2', 'password2');
 
-INSERT INTO Client(Email, Rating, CreditCardNumber, ID)
-VALUES('syang@cs.sunysb.edu', 1, 1234567812345678, 111111111),
-	('vicdu@cs.sunysb.edu', 1, 5678123456781234, 222222222),
-    ('jsmith@ic.sunysb.edu', 1, 2345678923456789, 333333333),
-    ('pml@cs.sunysb.edu', 1, 6789234567892345, 444444444);
-    
+INSERT INTO Client(Email, Rating, CreditCardNumber, ID, Username, Password)
+VALUES('syang@cs.sunysb.edu', 1, 1234567812345678, 111111111, 'client', 'pass1'),
+	('vicdu@cs.sunysb.edu', 1, 5678123456781234, 222222222, 'client2', 'pass2'),
+    ('jsmith@ic.sunysb.edu', 1, 2345678923456789, 333333333, 'client3', 'pass3'),
+    ('pml@cs.sunysb.edu', 1, 6789234567892345, 444444444, 'client4', 'pass4');
+
 INSERT INTO Stock(StockSymbol, CompanyName, Type, PricePerShare)
 VALUES('GM', 'General Motors', 'automotive', 34.23),
 	('IBM', 'IBM', 'computer', 91.41),

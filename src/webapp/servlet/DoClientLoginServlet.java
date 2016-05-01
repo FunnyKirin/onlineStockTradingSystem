@@ -46,7 +46,7 @@ public class DoClientLoginServlet extends HttpServlet {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
                 user = DBUtils.loginAsClient(conn, username, password);
-                 
+                
                 if (user == null) {
                     hasError = true;
                     errorString = "Invalid username or password";
