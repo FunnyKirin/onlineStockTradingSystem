@@ -20,7 +20,7 @@
 	</div>
 	<div>
 	<button onclick="location.href = '${pageContext.request.contextPath}/clientLogin';" class="button">Client</button>
-	<button onclick="location.href = '${pageContext.request.contextPath}/employeeLogin';"class="button">Employee</button>
+	<button onclick="location.href = '${pageContext.request.contextPath}/employeeLogin';" class="button">Employee</button>
 	</div>
 </body>
 </html>
