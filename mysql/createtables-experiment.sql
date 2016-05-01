@@ -1,3 +1,5 @@
+USE netrade;
+
 CREATE TABLE Location (
     ZipCode INTEGER,
     City CHAR(20) NOT NULL,
