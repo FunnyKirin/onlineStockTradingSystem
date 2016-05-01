@@ -41,7 +41,7 @@ public class DoRegisterServlet extends HttpServlet {
         
         // Account
         String creditCardNum = request.getParameter("creditcard");
-        Date date = Date.valueOf("date"); // yyyy-mm-dd
+        String dateStr = request.getParameter("date"); // yyyy-mm-dd
         
         		
         // Location
@@ -54,26 +54,38 @@ public class DoRegisterServlet extends HttpServlet {
     	String username = request.getParameter("username");
         String password = request.getParameter("password");
         
+        
         Client client = null;
+        Location location = null;
+        Account account = null;
         boolean hasError = false;
         String errorString = null;
  
         if (username == null || password == null
-                 || username.length() == 0 || password.length() == 0
                  || firstname == null || lastname == null
-                 || SSNstr == null || city == null
+                 || SSNstr == null || city == null || dateStr == null
                  || state == null || zipcodeStr == null
                  || creditCardNum == null || address == null
                  || email == null || telephone == null) {
             hasError = true;
+            errorString = "Fill out everything before you proceed";
+        } else if (username.length() == 0 || password.length() == 0
+        		|| firstname.length() == 0 || lastname.length() == 0
+        		|| SSNstr.length() == 0 || city.length() == 0
+        		|| dateStr.length() == 0 || state.length() == 0
+        		|| zipcodeStr.length() == 0 || creditCardNum.length() == 0
+        		|| address.length() == 0 || email.length() == 0
+        		|| telephone.length() == 0) {
+        	hasError = true;
             errorString = "Fill out everything before you proceed";
         } else {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
             	int zipcode = Integer.parseInt(zipcodeStr);
             	int SSN = Integer.parseInt(SSNstr);
-            	Location location = new Location(zipcode, city, state);
-            	Account account = new Account(creditCardNum, date, SSN);
+            	Date date = Date.valueOf(dateStr);
+            	location = new Location(zipcode, city, state);
+            	account = new Account(creditCardNum, date, SSN);
             	client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, account);
                 DBUtils.insertClient(conn, client);
             	
@@ -111,7 +123,7 @@ public class DoRegisterServlet extends HttpServlet {
             MyUtils.storeLoginedUser(session, client);
       
             // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/userInfo");
+            response.sendRedirect(request.getContextPath() + "/mainClient");
         }
     }
  

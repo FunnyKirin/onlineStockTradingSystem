@@ -16,6 +16,7 @@
       <div class="login__logo"><a href="${pageContext.request.contextPath}/home"><img src="img/logo.png"></a></div>
       <div class="login__form">
       	<form action="${pageContext.request.contextPath}/doEmployeeLogin">
+      	<p style="color: red;">${errorString}</p>
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />

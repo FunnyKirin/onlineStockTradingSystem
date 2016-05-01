@@ -14,7 +14,6 @@ import webapp.beans.Location;
 import webapp.beans.Person;
 
 public class ClientUtils {
-
 	
 
 }

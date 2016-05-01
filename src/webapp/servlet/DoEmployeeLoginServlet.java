@@ -28,7 +28,7 @@ public class DoEmployeeLoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
  
-        String username = request.getParameter("userName");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
         String rememberMeStr = request.getParameter("rememberMe");
         boolean remember= "Y".equals(rememberMeStr);
@@ -94,7 +94,7 @@ public class DoEmployeeLoginServlet extends HttpServlet {
             }                       
       
             // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/userInfo");
+            response.sendRedirect(request.getContextPath() + "/mainEmployee");
         }
     }
  
