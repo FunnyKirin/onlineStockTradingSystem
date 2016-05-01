@@ -31,20 +31,24 @@ public class DBUtils {
 			pstm.setString(1, username);
 			rs = pstm.executeQuery();
 
-			// Client field
-			Date dateStarted = rs.getDate("dateStarted");
-			double hourlyRate = rs.getDouble("hourlyRate");
-			int id = rs.getInt("id");
-			Person person = findPerson(conn, rs.getInt("SSN"));
+			if (rs.next()) {
 
-			String firstname = person.getFirstname();
-			String lastname = person.getLastname();
-			String address = person.getAddress();
-			String telephone = person.getTelephone();
-			int ssn = person.getSSN();
-			Location location = person.getLocation();
+				// Employee field
+				Date dateStarted = rs.getDate("dateStarted");
+				double hourlyRate = rs.getDouble("hourlyRate");
+				int id = rs.getInt("id");
+				Person person = findPerson(conn, rs.getInt("SSN"));
 
-			return new Employee(firstname, lastname, address, ssn, telephone, location, id, dateStarted, hourlyRate);
+				String firstname = person.getFirstname();
+				String lastname = person.getLastname();
+				String address = person.getAddress();
+				String telephone = person.getTelephone();
+				int ssn = person.getSSN();
+				Location location = person.getLocation();
+
+				return new Employee(firstname, lastname, address, ssn, telephone, location, id, dateStarted,
+						hourlyRate);
+			}
 		}
 		return null;
 	}
@@ -64,21 +68,24 @@ public class DBUtils {
 			pstm.setString(1, username);
 			rs = pstm.executeQuery();
 
-			// Client field
-			String email = rs.getString("email");
-			double rating = rs.getDouble("rating");
-			Person person = findPerson(conn, rs.getInt("SSN"));
+			if (rs.next()) {
+				// Client field
+				String email = rs.getString("Email");
+				double rating = rs.getDouble("Rating");
+				Person person = findPerson(conn, rs.getInt("ID"));
 
-			String firstname = person.getFirstname();
-			String lastname = person.getLastname();
-			String address = person.getAddress();
-			String telephone = person.getTelephone();
-			int ssn = person.getSSN();
-			Location location = person.getLocation();
-			Account account = findAccount(conn, ssn);
+				String firstname = person.getFirstname();
+				String lastname = person.getLastname();
+				String address = person.getAddress();
+				String telephone = person.getTelephone();
+				int ssn = person.getSSN();
+				Location location = person.getLocation();
+				Account account = findAccount(conn, ssn);
 
-			return new Client(firstname, lastname, address, ssn, telephone, location, email, rating, account);
+				return new Client(firstname, lastname, address, ssn, telephone, location, email, rating, account);
+			}
 		}
+
 		return null;
 	}
 
@@ -115,11 +122,15 @@ public class DBUtils {
 			pstm.setString(1, symbol);
 			rs = pstm.executeQuery();
 
-			String company = rs.getString("CompanyName");
-			String type = rs.getString("type");
-			double pps = rs.getDouble("pps");
+			if (rs.next()) {
 
-			return new Stock(symbol, company, type, pps);
+				String company = rs.getString("CompanyName");
+				String type = rs.getString("type");
+				double pps = rs.getDouble("pps");
+
+				return new Stock(symbol, company, type, pps);
+
+			}
 		}
 		return null;
 	}
@@ -136,13 +147,16 @@ public class DBUtils {
 			pstm.setInt(1, SSN);
 			rs = pstm.executeQuery();
 
-			String firstname = rs.getString("Firstname");
-			String lastname = rs.getString("Lastname");
-			String address = rs.getString("Address");
-			String telephone = rs.getString("Telephone");
-			Location location = findLocation(conn, rs.getInt("Zipcode"));
+			if (rs.next()) {
 
-			return new Person(firstname, lastname, address, SSN, telephone, location);
+				String firstname = rs.getString("Firstname");
+				String lastname = rs.getString("Lastname");
+				String address = rs.getString("Address");
+				String telephone = rs.getString("Telephone");
+				Location location = findLocation(conn, rs.getInt("Zipcode"));
+
+				return new Person(firstname, lastname, address, SSN, telephone, location);
+			}
 		}
 
 		return null;
@@ -160,9 +174,12 @@ public class DBUtils {
 			pstm.setInt(1, zipcode);
 			rs = pstm.executeQuery();
 
-			String state = rs.getString("State");
-			String city = rs.getString("City");
-			return new Location(zipcode, city, state);
+			if (rs.next()) {
+
+				String state = rs.getString("State");
+				String city = rs.getString("City");
+				return new Location(zipcode, city, state);
+			}
 		}
 
 		return null;
