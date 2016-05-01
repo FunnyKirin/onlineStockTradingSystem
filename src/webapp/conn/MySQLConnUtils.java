@@ -12,11 +12,11 @@ public static Connection getMySQLConnection()
     // Note: Change the connection parameters accordingly.
     String hostName = "130.245.30.107";
     String dbName = "netrade";
-    String userName = "jieliang";
-    String password = "Database=8";
+    String userName = "steven";
+    String password = "Steven-0+";
     return getMySQLConnection(hostName, dbName, userName, password);
 }
- 
+
 public static Connection getMySQLConnection(String hostName, String dbName,
         String userName, String password) throws SQLException,
         ClassNotFoundException {
