@@ -18,6 +18,93 @@ import webapp.utils.MyUtils;
 
 @WebServlet(urlPatterns = { "/doClientLogin" })
 public class DoClientLoginServlet extends HttpServlet {
+<<<<<<< HEAD
+    private static final long serialVersionUID = 1L;
+ 
+    public DoClientLoginServlet() {
+        super();
+    }
+ 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+ 
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String rememberMeStr = request.getParameter("rememberMe");
+        boolean remember= "Y".equals(rememberMeStr);
+         
+        //System.out.println("username: "+ username);
+        Client user = null;
+        boolean hasError = false;
+        String errorString = null;
+ 
+        if (username == null || password == null
+                 || username.length() == 0 || password.length() == 0) {
+            hasError = true;
+            errorString = "Required username and password";
+        } else {
+            Connection conn = MyUtils.getStoredConnection(request);
+            try {
+                user = DBUtils.loginAsClient(conn, username, password);
+                
+                if (user == null) {
+                    hasError = true;
+                    errorString = "Invalid username or password";
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                hasError = true;
+                errorString = e.getMessage();
+            }
+        }
+        
+        // If error, forward to /WEB-INF/views/login.jsp
+        if (hasError) {
+            user = new Client();
+             
+        
+            // Store information in request attribute, before forward.
+            request.setAttribute("errorString", errorString);
+            request.setAttribute("user", user);
+ 
+       
+            // Forward to /WEB-INF/views/login.jsp
+            RequestDispatcher dispatcher //
+            = this.getServletContext().getRequestDispatcher("/WEB-INF/views/LoginViewClient.jsp");
+ 
+            dispatcher.forward(request, response);
+        }
+     
+        // If no error
+        // Store user information in Session
+        // And redirect to userInfo page.
+        else {
+            HttpSession session = request.getSession();
+            MyUtils.storeLoginedUser(session, user);
+             
+             // If user checked "Remember me".
+            if(remember)  {
+                MyUtils.storeUserCookie(response, user);
+            }
+    
+            // Else delete cookie.
+            else  {
+                MyUtils.deleteUserCookie(response);
+            }                       
+      
+            // Redirect to userInfo page.
+            response.sendRedirect(request.getContextPath() + "/ClientMain");
+        }
+    }
+ 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+ 
+=======
 	private static final long serialVersionUID = 1L;
 
 	public DoClientLoginServlet() {
@@ -99,4 +186,5 @@ public class DoClientLoginServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+>>>>>>> f82bb49ce328953864074a7a70eb51f68c1840c9
 }

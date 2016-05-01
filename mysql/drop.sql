@@ -1,5 +1,5 @@
 use netrade;
-#drop table Trade;
+drop table Trade;
 drop table `StockOrder`;
 drop table `Transaction`;
 drop table hasStock;
