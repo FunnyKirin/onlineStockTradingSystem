@@ -33,6 +33,7 @@ public class DoClientLoginServlet extends HttpServlet {
         String rememberMeStr = request.getParameter("rememberMe");
         boolean remember= "Y".equals(rememberMeStr);
          
+        //System.out.println("username: "+ username);
         Client user = null;
         boolean hasError = false;
         String errorString = null;
@@ -92,7 +93,7 @@ public class DoClientLoginServlet extends HttpServlet {
             }                       
       
             // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/userInfo");
+            response.sendRedirect(request.getContextPath() + "/ClientMain");
         }
     }
  
