@@ -25,7 +25,7 @@ public class ClientMainServlet extends HttpServlet {
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        
         RequestDispatcher dispatcher = this.getServletContext()
-        		.getRequestDispatcher("/WEB-INF/views/mainClient.jsp");
+        		.getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
          
         dispatcher.forward(request, response);
          
