@@ -18,6 +18,7 @@
 	<div class="main">
 		<img src="img/logo.png" align="middle" class="logo">
 	</div>
+	<div>
 	<button onclick="location.href = '${pageContext.request.contextPath}/clientLogin';" class="button">Client</button>
 	<button onclick="location.href = '${pageContext.request.contextPath}/employeeLogin';"class="button">Employee</button>
 	</div>
