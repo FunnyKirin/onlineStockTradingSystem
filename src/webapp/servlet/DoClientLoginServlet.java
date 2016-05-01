@@ -45,7 +45,6 @@ public class DoClientLoginServlet extends HttpServlet {
         } else {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
-              
                 user = DBUtils.loginAsClient(conn, username, password);
                  
                 if (user == null) {
