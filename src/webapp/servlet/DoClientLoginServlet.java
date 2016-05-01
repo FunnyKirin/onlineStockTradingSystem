@@ -92,8 +92,8 @@ public class DoClientLoginServlet extends HttpServlet {
                 MyUtils.deleteUserCookie(response);
             }                       
       
-            // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/ClientMain");
+            // Redirect to mainClient page.
+            response.sendRedirect(request.getContextPath() + "/clientMain");
         }
     }
  
