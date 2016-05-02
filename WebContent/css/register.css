@@ -21,19 +21,6 @@ html, body {
   }
 }
 
-svg {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  overflow: visible;
-}
-
-.svg-icon path {
-  stroke: rgba(255, 255, 255, 0.9);
-  fill: none;
-  stroke-width: 1;
-}
-
 input, button {
   outline: none;
   border: none;
@@ -48,12 +35,12 @@ input, button {
 
 .demo {
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 40%;
   margin-left: -15rem;
   margin-top: -26.5rem;
   width: 50rem;
-  height: 75rem;
+  height: 55rem;
   overflow: hidden;
 }
 
@@ -87,21 +74,15 @@ input, button {
   padding-top: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
-.login__icon {
-  margin-bottom: -0.4rem;
-  margin-right: 0.5rem;
+.login__row.firstname, .login__row.lastname, .login__row.pass, .login__row.confirmpass, .login__row.ssn, 
+.login__row.tel,.login__row.city,.login__row.state,.login__row.zipcode,.login__row.card,.login__row.date {
+  display: inline-block;
 }
-.login__icon.name path {
-  stroke-dasharray: 73.50196075439453;
-  stroke-dashoffset: 73.50196075439453;
-  -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
+.login__row.firstname, .login__row.pass, .login__row.ssn {
+	margin-right: 4rem;
 }
-.login__icon.pass path {
-  stroke-dasharray: 92.10662841796875;
-  stroke-dashoffset: 92.10662841796875;
-  -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
+.login__row.city, .login__row.state, .login__row.card {
+	margin-right: 3rem;
 }
 .login__input {
   display: inline-block;
@@ -111,8 +92,23 @@ input, button {
   background: transparent;
   color: #FDFCFD;
 }
-login__input fn, login__input ln, login__input city, login__input state {
-  display: inline;
+.login__input.firstname, .login__input.lastname, .login__input.pass, .login__input.confirmpass, .login__input.ssn, .login__input.tel {
+  width: 20rem;
+}
+.login__input.city {
+	width: 20rem;
+}
+.login__input.state {
+	width: 8rem;
+}
+.login__input.zipcode {
+	width: 10rem;
+}
+.login__input.card {
+	width: 30rem;
+}
+.login__input.date {
+	width: 10rem;
 }
 .login__submit {
   position: relative;
@@ -169,42 +165,4 @@ login__input fn, login__input ln, login__input city, login__input state {
   opacity: 0;
   -webkit-animation: none;
           animation: none;
-}
-
-@-webkit-keyframes animRipple {
-  to {
-    -webkit-transform: scale(3.5);
-            transform: scale(3.5);
-    opacity: 0;
-  }
-}
-
-@keyframes animRipple {
-  to {
-    -webkit-transform: scale(3.5);
-            transform: scale(3.5);
-    opacity: 0;
-  }
-}
-@-webkit-keyframes rotate {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@keyframes rotate {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes animatePath {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes animatePath {
-  to {
-    stroke-dashoffset: 0;
-  }
 }

@@ -21,11 +21,11 @@
 				<a href="#"><img class="navbar-brand" src="img/logo.png"></a>
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> User <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
-							<li><a href="#"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"></use></svg> Settings</a></li>
-							<li><a href="#"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+							<li><a href="#">Profile</a></li>
+							<li><a href="#">Settings</a></li>
+							<li><a href="${pageContext.request.contextPath}/home">Logout</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -37,12 +37,12 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<form role="search">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
+				<input type="text" class="form-control" placeholder="Search Stocks">
 			</div>
 		</form>
 		<ul class="nav menu">
 			<li class="active"><a href="#">Current Stocks</a></li>
-			<li><a href="#">Best-seller</a></li>
+			<li><a href="#">Best-sellers</a></li>
 			<li><a href="#">Suggestion</a></li>
 			<li><a href="#"> Tables</a></li>
 			<li><a href="#">Forms</a></li>
@@ -50,28 +50,28 @@
 			<li><a href="#">Icons</a></li>
 			<li class="parent ">
 				<a href="#">
-					<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Dropdown
+					<span data-toggle="collapse" href="#sub-item-1"></span> Dropdown
 				</a>
 				<ul class="children collapse" id="sub-item-1">
 					<li>
 						<a class="" href="#">
-							<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 1
+							Sub Item 1
 						</a>
 					</li>
 					<li>
 						<a class="" href="#">
-							<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 2
+							Sub Item 2
 						</a>
 					</li>
 					<li>
 						<a class="" href="#">
-							<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 3
+							Sub Item 3
 						</a>
 					</li>
 				</ul>
 			</li>
 			<li role="presentation" class="divider"></li>
-			<li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
+			<li><a href="login.html">Help</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
@@ -79,7 +79,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Dashboard</h1>
+				<h1 class="page-header">Current Stocks</h1>
 			</div>
 		</div><!--/.row-->
 	</div>	<!--/.main-->
