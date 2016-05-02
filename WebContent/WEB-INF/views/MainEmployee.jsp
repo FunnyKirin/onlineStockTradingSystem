@@ -71,23 +71,24 @@
 				</ul>
 			</li>
 			<li role="presentation" class="divider"></li>
-			<li><a href="#" id="help">Help</a></li>
+			<li><a href="login.html">Help</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- 		<div class="row">
+		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Current Stocks</h1>
 			</div>
-		</div>/.row -->
-		<div class="row" id="dynamic">
-		</div>
+		</div><!--/.row-->
 	</div>	<!--/.main-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script src="js/mainClient.js"></script>
+	<script src="js/chart.min.js"></script>
+	<script src="js/chart-data.js"></script>
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
 </body>
 </html>
