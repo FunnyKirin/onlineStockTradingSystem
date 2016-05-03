@@ -103,7 +103,7 @@ public class DoRegisterServlet extends HttpServlet {
 
 				account.setUsername(username);
 				account.setPassword(password);
-				DBUtils.insertClient(conn, Account);
+				DBUtils.insertClient(conn, account);
 
 			} catch (SQLException e) {
 				hasError = true;

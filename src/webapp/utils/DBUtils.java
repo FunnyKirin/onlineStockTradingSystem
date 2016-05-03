@@ -214,16 +214,24 @@ public class DBUtils {
 		pstm.executeUpdate();
 
 		// Client
-		sql = "Insert ignore into Client(Id, Email, Rating, Username, Password, CreditCardNumber)"
-				+ "values (?, ?, ?, ?, ?, ?)";
+		sql = "Insert ignore into Client(Id, Email, Rating, CreditCardNumber)"
+				+ "values (?, ?, ?, ?)";
 		pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, account.getSSN());
 		pstm.setString(2, account.getEmail());
 		pstm.setDouble(3, account.getRating());
-		pstm.setString(4, account.getUsername());
-		pstm.setString(5, account.getPassword());
-		pstm.setString(6, account.getCreditCardNum());
+		pstm.setString(4, account.getCreditCardNum());
+		pstm.executeUpdate();
+		
+		// Account
+		sql = "Insert ignore into Account(DateOpened, ClientID, Username, Password)"
+				+ "values(?,?,?,?)";
+		pstm = conn.prepareStatement(sql);
+		pstm.setDate(1, account.getDateOpened());
+		pstm.setInt(2, account.getClientId());
+		pstm.setString(3, account.getUsername());
+		pstm.setString(4, account.getPassword());
 		pstm.executeUpdate();
 	}
 

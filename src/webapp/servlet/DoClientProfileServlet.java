@@ -122,7 +122,7 @@ public class DoClientProfileServlet extends HttpServlet {
 				//client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum);
 
 				//client.setCreditCardNum(creditCardNum);
-				DBUtils.insertClient(conn, client);
+				DBUtils.insertClient(conn, account);
 
 			} catch (SQLException e) {
 				hasError = true;
