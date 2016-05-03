@@ -29,10 +29,16 @@ public class DoClientMainServlet extends HttpServlet{
 	@Override
 	protected void  doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
+<<<<<<< HEAD
 		
 	}
 	
 	@Override
+=======
+	}
+	
+    @Override
+>>>>>>> 047dbadd20f3877eff7db8bf3ad2b1175a806b76
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);

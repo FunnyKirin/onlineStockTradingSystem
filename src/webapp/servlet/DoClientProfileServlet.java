@@ -30,29 +30,24 @@ public class DoClientProfileServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-//        Connection conn = MyUtils.getStoredConnection(request);
-//        Client user = DBUtils.findAccount(conn, clientId);
-//        
-//        //Person
-//        request.setAttribute("firstname", user.getFirstname());
-//        request.setAttribute("lastname", user.getLastname());
-//        request.setAttribute("address", user.getAddress());
-//        request.setAttribute("SSN", user.getSSN());
-//        request.setAttribute("email", user.getEmail());
-//        request.setAttribute("telephone", user.getTelephone());
-//        
-//        //Account
-//        request.setAttribute("creditcard", user.getEmail());
-//        request.setAttribute("date", user.getTelephone());
-//        
-//        //location
-//        request.setAttribute("zipcode", user.getSSN());
-//        request.setAttribute("city", user.getEmail());
-//        request.setAttribute("state", user.getTelephone());
-//        
-//        //Client
-//        request.setAttribute("username",user);   
+		
+    	HttpSession session = request.getSession();
+    	Client loginedUser = (Client) MyUtils.getLoginedUser(session);
+        //Person
+        request.setAttribute("firstname", loginedUser.getFirstname());
+        request.setAttribute("lastname", loginedUser.getLastname());
+        request.setAttribute("address", loginedUser.getAddress());
+        request.setAttribute("SSN", loginedUser.getSSN());
+        request.setAttribute("email", loginedUser.getEmail());
+        request.setAttribute("telephone", loginedUser.getTelephone());
+        
+        //location
+        request.setAttribute("zipcode", loginedUser.getLocation().getZipcode());
+        request.setAttribute("city", loginedUser.getLocation().getCity());
+        request.setAttribute("state", loginedUser.getLocation().getState());
+        
+        //Client
+        request.setAttribute("username",loginedUser.getUsername());   
         
 		// Person
 		String firstname = request.getParameter("firstname");
@@ -165,7 +160,6 @@ public class DoClientProfileServlet extends HttpServlet {
 		// Store user information in Session
 		// And redirect to userInfo page.
 		else {
-			HttpSession session = request.getSession();
 			MyUtils.storeLoginedUser(session, client);
 
 			// Redirect to userInfo page.
