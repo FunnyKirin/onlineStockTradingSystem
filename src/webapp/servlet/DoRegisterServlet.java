@@ -98,13 +98,12 @@ public class DoRegisterServlet extends HttpServlet {
 				}
 				
 				location = new Location(zipcode, city, state);
-				account = new Account(date, SSN);
-				client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, account);
+				account = new Account(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum, date, SSN);
+				client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum);
 
-				client.setCreditCardNum(creditCardNum);
-				client.setUsername(username);
-				client.setPassword(password);
-				DBUtils.insertClient(conn, client);
+				account.setUsername(username);
+				account.setPassword(password);
+				DBUtils.insertClient(conn, Account);
 
 			} catch (SQLException e) {
 				hasError = true;

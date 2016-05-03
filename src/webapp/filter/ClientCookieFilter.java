@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
  
-import webapp.beans.Person;
+import webapp.beans.*;
 import webapp.utils.DBUtils;
 import webapp.utils.MyUtils;
  
@@ -58,7 +58,7 @@ public class ClientCookieFilter implements Filter {
        if (checked == null && conn != null) {
            String username = MyUtils.getUserNameInCookie(req);
            try {
-               Person user = DBUtils.loginAsClient(conn, username, null);
+               Account user = DBUtils.loginAsClient(conn, username, null);
                MyUtils.storeLoginedUser(session, user);
            } catch (SQLException e) {
                e.printStackTrace();

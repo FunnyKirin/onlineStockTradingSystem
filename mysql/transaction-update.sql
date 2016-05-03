@@ -17,20 +17,20 @@ INSERT INTO Employee(SSN, HourlyRate, StartDate, Username, Password)
 VALUES(123456789, 60, '2005-11-01', 'emp1', 'password1'),
 	(789123456, 50, '2006-02-02', 'emp2', 'password2');
 
-INSERT INTO Client(Email, Rating, CreditCardNumber, ID, Username, Password)
-VALUES('syang@cs.sunysb.edu', 1, 1234567812345678, 111111111, 'client', 'pass1'),
-	('vicdu@cs.sunysb.edu', 1, 5678123456781234, 222222222, 'client2', 'pass2'),
-    ('jsmith@ic.sunysb.edu', 1, 2345678923456789, 333333333, 'client3', 'pass3'),
-    ('pml@cs.sunysb.edu', 1, 6789234567892345, 444444444, 'client4', 'pass4');
+INSERT INTO Client(Email, Rating, CreditCardNumber, ID)
+VALUES('syang@cs.sunysb.edu', 1, 1234567812345678, 111111111),
+	('vicdu@cs.sunysb.edu', 1, 5678123456781234, 222222222),
+    ('jsmith@ic.sunysb.edu', 1, 2345678923456789, 333333333),
+    ('pml@cs.sunysb.edu', 1, 6789234567892345, 444444444);
 
 INSERT INTO Stock(StockSymbol, CompanyName, Type, PricePerShare)
 VALUES('GM', 'General Motors', 'automotive', 34.23),
 	('IBM', 'IBM', 'computer', 91.41),
     ('F', 'Ford', 'automotive', 9.0);
     
-INSERT INTO Account(DateOpened, ClientID)
-VALUES('2006-10-01', 444444444), 
-	('2006-10-15', 222222222);
+INSERT INTO Account(DateOpened, ClientID, Username, Password)
+VALUES('2006-10-01', 444444444, 'a1', 'p1'), 
+	('2006-10-15', 222222222, 'a2', 'p2');
 
 INSERT INTO hasStock(AccountId,	StockSymbol, NumShares)
 VALUES(1, 'GM', 250),

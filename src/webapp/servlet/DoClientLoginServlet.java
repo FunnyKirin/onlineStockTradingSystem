@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import webapp.beans.Client;
+import webapp.beans.*;
 import webapp.utils.DBUtils;
 import webapp.utils.MyUtils;
 
@@ -34,7 +34,7 @@ public class DoClientLoginServlet extends HttpServlet {
         boolean remember= "Y".equals(rememberMeStr);
          
         //System.out.println("username: "+ username);
-        Client user = null;
+        Account user = null;
         boolean hasError = false;
         String errorString = null;
  
@@ -60,7 +60,7 @@ public class DoClientLoginServlet extends HttpServlet {
         
         // If error, forward to /WEB-INF/views/login.jsp
         if (hasError) {
-            user = new Client();
+            user = new Account();
              
         
             // Store information in request attribute, before forward.

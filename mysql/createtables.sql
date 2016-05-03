@@ -41,8 +41,6 @@ CREATE TABLE Client (
     CreditCardNumber BIGINT,
     ID INTEGER,
     CHECK (ID > 99999999 AND ID < 1000000000),
-	Username CHAR(32),
-	Password CHAR(32),
     PRIMARY KEY (ID),
     FOREIGN KEY (ID)
         REFERENCES Person (SSN)
@@ -55,6 +53,9 @@ CREATE TABLE Account (
     DateOpened DATE,
     ClientID INTEGER,
     CHECK (ClientID > 99999999 AND ClientID < 1000000000),
+    
+	Username CHAR(32),
+	Password CHAR(32),
     PRIMARY KEY (ID),
     FOREIGN KEY (ClientID)
         REFERENCES Client (ID)

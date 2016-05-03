@@ -24,7 +24,7 @@ public class ManagerUtils {
 		ResultSet rs = pstm.executeQuery();
 		
 		while (rs.next()) {
-			String email = rs.getString("email");
+			String email = rs.getString("Email");
 			emails.add(email);
 			System.out.println(email);
 		}

@@ -23,7 +23,7 @@ public class ClientUtils {
 		pstm.setInt(1, clientId);
 		ResultSet rs = pstm.executeQuery();
 		
-		System.out.println("Symbol: "+StockSymbol);
+		System.out.println("Symbol: ");
 		if (rs.next()) {
 			sql = "SELECT * from hasStock where AccountId = ?;";
 			pstm = conn.prepareStatement(sql);

@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import webapp.beans.Client;
-import webapp.beans.Employee;
-import webapp.beans.Person;
+import webapp.beans.*;
  
 public class MyUtils {
  
@@ -47,9 +45,9 @@ public class MyUtils {
  
  
    // Store info in Cookie for client
-   public static void storeUserCookie(HttpServletResponse response, Client client) {
+   public static void storeUserCookie(HttpServletResponse response, Account account) {
        System.out.println("Store user cookie");
-       Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, client.getUsername());
+       Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, account.getUsername());
  
        // 1 day (Convert to seconds)
        cookieUserName.setMaxAge(24 * 60 * 60);

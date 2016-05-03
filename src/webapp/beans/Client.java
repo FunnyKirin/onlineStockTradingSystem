@@ -7,23 +7,18 @@ public class Client extends Person {
 	 * Location location;
 	 */
 
-	private String username;
-	private String password;
-
 	private String email;
 	private double rating;
 	private String creditCardNum;
-	private Account account;
 
 	public Client() {}
 
 	public Client(String firstname, String lastname, String address, 
 			int SSN, String telephone, Location location,
-			String email, double rating, Account account) {
+			String email, double rating, String creditCardNum) {
 		super(firstname, lastname, address, SSN, telephone, location);
 		this.email = email;
 		this.rating = rating;
-		this.setAccount(account);
 	}
 
 	public String getEmail() {
@@ -42,29 +37,6 @@ public class Client extends Person {
 		this.rating = rating;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 
 	public String getCreditCardNum() {
 		return creditCardNum;
