@@ -41,13 +41,13 @@
 			</div>
 		</form> -->
 		<ul class="nav menu">
-			<li><input type="submit" class="submit" value="Current Stocks" /></li>
+			<li><input type="submit" class="submit" id="currentStocks" value="Current Stocks" /></li>
 			<li><input type="submit" class="submit" id="orders" value="order histories" /></li>
 			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
 			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
 			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
 			<li class="parent">
-				<a href="#">
+				<a href="">
 					<span data-toggle="collapse" href="#sub-item-1">stocks and order info</span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">

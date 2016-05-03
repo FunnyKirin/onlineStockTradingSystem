@@ -41,13 +41,11 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="#">Current Stocks</a></li>
-			<li><a href="#" id="mailing">Mailing List</a></li>
-			<li><a href="#">Suggestion</a></li>
-			<li><a href="#"> Tables</a></li>
-			<li><a href="#">Forms</a></li>
-			<li><a href="#">Alerts &amp; Panels</a></li>
-			<li><a href="#">Icons</a></li>
+			<li><input type="submit" class="submit" value="Current Stocks" /></li>
+			<li><input type="submit" class="submit" id="orders" value="order histories" /></li>
+			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
+			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
+			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
 			<li class="parent ">
 				<a href="#">
 					<span data-toggle="collapse" href="#sub-item-1"></span> Dropdown

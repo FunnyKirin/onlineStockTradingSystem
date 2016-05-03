@@ -94,7 +94,7 @@ public class DoEmployeeLoginServlet extends HttpServlet {
             }                       
       
             // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/mainEmployee");
+            response.sendRedirect(request.getContextPath() + "/employeeMain");
         }
     }
  

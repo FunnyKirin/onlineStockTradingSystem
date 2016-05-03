@@ -8,23 +8,27 @@ $('#help').on('click', function (e) {
 
 //<input type="text" name="query" value="${messages.query}">
 var $currentStocks = '<div class="row"><div class="col-lg-12"><h1 class="page-header">Current Stocks</h1></div></div>';
-var $currentStocks = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
-var $currentStocks = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
-var $currentStocks = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
+var $search = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
+var $search = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
+var $search = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
 
 $('#currentStocks').on('click', function (e) {
 	$('#dynamic').empty();
 	$('#dynamic').append($currentStocks);
 });
-$('#currentStocks').on('click', function (e) {
+$('#orders').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($currentStocks);
+	$('#dynamic').append($search);
 });
-$('#currentStocks').on('click', function (e) {
+$('#searchStock').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($currentStocks);
+	$('#dynamic').append($search);
 });
-$('#currentStocks').on('click', function (e) {
+$('#Best-sellers').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($currentStocks);
+	$('#dynamic').append($search);
+});
+$('#Suggestions').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($search);
 });
