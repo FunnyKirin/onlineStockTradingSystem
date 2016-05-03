@@ -31,5 +31,8 @@ public class ManagerUtils {
 		
 		return emails;
 	}
-
+	
+	public static void setStockSharePrice(Stock stock, double pps) {
+		stock.setPPS(pps);
+	}
 }

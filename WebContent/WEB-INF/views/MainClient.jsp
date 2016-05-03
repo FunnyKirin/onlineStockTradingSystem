@@ -18,7 +18,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="#"><img class="navbar-brand" src="img/logo.png"></a>
+				<img class="navbar-brand" src="img/logo.png">
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
@@ -35,22 +35,20 @@
 	</nav>
 
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-		<form role="search">
+<!-- 		<form role="search">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search Stocks">
 			</div>
-		</form>
+		</form> -->
 		<ul class="nav menu">
-			<li class="active"><a href="#">Current Stocks</a></li>
-			<li><a href="#">Best-sellers</a></li>
-			<li><a href="#">Suggestion</a></li>
-			<li><a href="#"> Tables</a></li>
-			<li><a href="#">Forms</a></li>
-			<li><a href="#">Alerts &amp; Panels</a></li>
-			<li><a href="#">Icons</a></li>
-			<li class="parent ">
+			<li><input type="submit" class="submit" value="Current Stocks" /></li>
+			<li><input type="submit" class="submit" id="orders" value="order histories" /></li>
+			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
+			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
+			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
+			<li class="parent">
 				<a href="#">
-					<span data-toggle="collapse" href="#sub-item-1"></span> Dropdown
+					<span data-toggle="collapse" href="#sub-item-1">stocks and order info</span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">
 					<li>
@@ -77,13 +75,8 @@
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- 		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Current Stocks</h1>
-			</div>
-		</div>/.row -->
 		<div class="row" id="dynamic">
-		</div>
+		</div><!--/.row -->
 	</div>	<!--/.main-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

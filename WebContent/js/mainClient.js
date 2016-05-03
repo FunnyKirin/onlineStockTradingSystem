@@ -4,3 +4,27 @@ $('#help').on('click', function (e) {
 			"<p>Please email gofaraway@gmail.com</p><h2>Problems about the transactions</h2><p>Please email liyun@gmail.com</p></div>");
 	$('#dynamic').append($content);
 });
+
+
+//<input type="text" name="query" value="${messages.query}">
+var $currentStocks = '<div class="row"><div class="col-lg-12"><h1 class="page-header">Current Stocks</h1></div></div>';
+var $currentStocks = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
+var $currentStocks = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
+var $currentStocks = '<form role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search Stocks"></div></form>';
+
+$('#currentStocks').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($currentStocks);
+});
+$('#currentStocks').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($currentStocks);
+});
+$('#currentStocks').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($currentStocks);
+});
+$('#currentStocks').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($currentStocks);
+});

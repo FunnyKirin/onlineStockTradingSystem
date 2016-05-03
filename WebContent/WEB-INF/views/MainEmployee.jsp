@@ -9,7 +9,7 @@
 <link href="css/mainClient.css" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+ 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
@@ -42,7 +42,7 @@
 		</form>
 		<ul class="nav menu">
 			<li class="active"><a href="#">Current Stocks</a></li>
-			<li><a href="#">Best-sellers</a></li>
+			<li><a href="#" id="mailing">Mailing List</a></li>
 			<li><a href="#">Suggestion</a></li>
 			<li><a href="#"> Tables</a></li>
 			<li><a href="#">Forms</a></li>
@@ -77,18 +77,17 @@
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Current Stocks</h1>
 			</div>
-		</div><!--/.row-->
+		</div>/.row -->
+		<div class="row" id="dynamic">
+		</div>
 	</div>	<!--/.main-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
+	<script src="js/mainEmployee.js"></script>
 </body>
 </html>
