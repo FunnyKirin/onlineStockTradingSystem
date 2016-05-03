@@ -29,16 +29,8 @@ public class DoEmployeeMainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	Connection conn = MyUtils.getStoredConnection(request);
-    	ManagerUtils temp = new ManagerUtils();
-    	ArrayList<String> x;
-		try {
-			x = ManagerUtils.getMailingList(conn);
-			request.setAttribute("email", x);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	
+    	String handle = request.getParameter("handle");
     }
  
     @Override
