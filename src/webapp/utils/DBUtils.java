@@ -90,19 +90,13 @@ public class DBUtils {
 	}
 
 	public static Account findAccount(Connection conn, int clientId) throws SQLException {
-		String sql = "Select ClientID from Account where ClientID = ?";
+		String sql = "Select * from Account where ClientID = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, clientId);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
-			sql = "Select * from Account where ClientID = ?";
-			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, clientId);
-			rs = pstm.executeQuery();
-
 			Date dateOpened = rs.getDate("DateOpened");
-
 			return new Account(dateOpened, clientId);
 		}
 
@@ -110,75 +104,87 @@ public class DBUtils {
 	}
 
 	public static Stock findStock(Connection conn, String symbol) throws SQLException {
-		String sql = "Select symbol from Stock where symbol = ?";
+		String sql = "Select * from Stock where symbol = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, symbol);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
-			sql = "Select * from Stock where symbol = ?";
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, symbol);
-			rs = pstm.executeQuery();
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("type");
+			double pps = rs.getDouble("pps");
 
-			if (rs.next()) {
+			return new Stock(symbol, company, type, pps);
 
-				String company = rs.getString("CompanyName");
-				String type = rs.getString("type");
-				double pps = rs.getDouble("pps");
-
-				return new Stock(symbol, company, type, pps);
-
-			}
 		}
 		return null;
 	}
 
 	public static Person findPerson(Connection conn, int SSN) throws SQLException {
-		String sql = "Select SSN from Person where SSN = ?";
+		String sql = "Select * from Person where SSN = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, SSN);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
-			sql = "Select * from Person where SSN = ?";
-			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, SSN);
-			rs = pstm.executeQuery();
 
-			if (rs.next()) {
+			String firstname = rs.getString("Firstname");
+			String lastname = rs.getString("Lastname");
+			String address = rs.getString("Address");
+			String telephone = rs.getString("Telephone");
+			Location location = findLocation(conn, rs.getInt("Zipcode"));
 
-				String firstname = rs.getString("Firstname");
-				String lastname = rs.getString("Lastname");
-				String address = rs.getString("Address");
-				String telephone = rs.getString("Telephone");
-				Location location = findLocation(conn, rs.getInt("Zipcode"));
-
-				return new Person(firstname, lastname, address, SSN, telephone, location);
-			}
+			return new Person(firstname, lastname, address, SSN, telephone, location);
 		}
 
 		return null;
 	}
 
 	public static Location findLocation(Connection conn, int zipcode) throws SQLException {
-		String sql = "Select zipcode from Location where Zipcode = ?";
+		String sql = "Select * from Location where Zipcode = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, zipcode);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
-			sql = "Select * from Location where Zipcode = ?";
-			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, zipcode);
-			rs = pstm.executeQuery();
+			String state = rs.getString("State");
+			String city = rs.getString("City");
+			
+			return new Location(zipcode, city, state);
+		}
 
-			if (rs.next()) {
+		return null;
+	}
 
-				String state = rs.getString("State");
-				String city = rs.getString("City");
-				return new Location(zipcode, city, state);
-			}
+	public static Client findClient(Connection conn, String username) throws SQLException {
+		String sql = "Select * from Client where username = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, username);
+		ResultSet rs = pstm.executeQuery();
+
+		Client client = null;
+		if (rs.next()) {
+			String email = rs.getString("email");
+			double rating = rs.getDouble("Rating");
+			int id = rs.getInt("ID");
+			String password = rs.getString("Password");
+
+			Person person = findPerson(conn, id);
+			Account account = findAccount(conn, id);
+			if (person == null || account == null)
+				return null;
+
+			String firstname = person.getFirstname();
+			String lastname = person.getLastname();
+			String address = person.getAddress();
+			String telephone = person.getTelephone();
+			Location location = person.getLocation();
+
+			client = new Client(firstname, lastname, address, id, telephone, location, email, rating, account);
+			client.setUsername(username);
+			client.setPassword(password);
+
+			return client;
 		}
 
 		return null;
