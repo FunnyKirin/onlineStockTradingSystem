@@ -34,8 +34,8 @@ public class DBUtils {
 			if (rs.next()) {
 
 				// Employee field
-				Date dateStarted = rs.getDate("dateStarted");
-				double hourlyRate = rs.getDouble("hourlyRate");
+				Date dateStarted = rs.getDate("StartDate");
+				double hourlyRate = rs.getDouble("HourlyRate");
 				int id = rs.getInt("id");
 				Person person = findPerson(conn, rs.getInt("SSN"));
 

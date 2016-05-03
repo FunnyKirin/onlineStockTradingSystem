@@ -26,11 +26,18 @@ public class ClientMainServlet extends HttpServlet {
             throws ServletException, IOException {
     	HttpSession session = request.getSession();
     	Client loginedUser = (Client) MyUtils.getLoginedUser(session);
+    	
+    	if (loginedUser == null) {
+    		// Redirect to login page.
+            response.sendRedirect(request.getContextPath() + "/clientLogin");
+            return;
+    	}
          
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        
         RequestDispatcher dispatcher = this.getServletContext()
         		.getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+        request.setAttribute("user", loginedUser.getUsername());
          
         dispatcher.forward(request, response);
     }

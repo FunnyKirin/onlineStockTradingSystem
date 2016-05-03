@@ -7,9 +7,6 @@ public class Client extends Person {
 	 * Location location;
 	 */
 
-	private String username;
-	private String password;
-
 	private String email;
 	private double rating;
 	private String creditCardNum;
@@ -40,22 +37,6 @@ public class Client extends Person {
 
 	public void setRating(double rating) {
 		this.rating = rating;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Account getAccount() {

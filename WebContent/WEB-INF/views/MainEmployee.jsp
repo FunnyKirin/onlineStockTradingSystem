@@ -7,6 +7,15 @@
 <title>Netrade</title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link href="css/mainClient.css" rel="stylesheet">
+
+<script>
+function setHandle(handle) {
+	console.log(handle);
+	document.getElementById("handle").value = handle;
+	console.log(document.getElementById("handle").value);
+}
+</script>
+
 </head>
 <body>
  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -40,12 +49,15 @@
 				<input type="text" class="form-control" placeholder="Search Stocks">
 			</div>
 		</form>
+		<form action="${pageContext.request.contextPath}/doEmployeeMain">
 		<ul class="nav menu">
-			<li><input type="submit" class="submit" value="Current Stocks" /></li>
-			<li><input type="submit" class="submit" id="orders" value="order histories" /></li>
-			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
-			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
-			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
+			<li><input onclick="setHandle('current_stock');" type="submit" class="submit" value="Current Stocks" /></li>
+			<li><input onclick="setHandle('order_history');" type="submit" class="submit" id="orders" value="Order History" /></li>
+			<li><input onclick="setHandle('search_stock');" type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
+			<li><input onclick="setHandle('best_seller');" type="submit" class="submit" id="Best-sellers" value="Best-Sellers" /></li>
+			<li><input onclick="setHandle('suggestions');" type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
+			<li><input onclick="setHandle('mailing_list');" type="submit" class="submit" id="Mailing" value="Mailing List" /></li>
+			<li><input type="hidden" name="handle" value="current_stock" /></li>
 			<li class="parent ">
 				<a href="#">
 					<span data-toggle="collapse" href="#sub-item-1"></span> Dropdown
@@ -71,6 +83,7 @@
 			<li role="presentation" class="divider"></li>
 			<li><a href="login.html">Help</a></li>
 		</ul>
+		</form>
 
 	</div><!--/.sidebar-->
 
@@ -81,6 +94,7 @@
 			</div>
 		</div>/.row -->
 		<div class="row" id="dynamic">
+			<div>${mainPanel}</div>
 		</div>
 	</div>	<!--/.main-->
 

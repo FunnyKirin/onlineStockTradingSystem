@@ -30,7 +30,30 @@ public class DoEmployeeMainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	String handle = request.getParameter("handle");
+    	Connection conn = MyUtils.getStoredConnection(request);
+		
+		String handle = request.getParameter("handle");
+		String content = "<h3>";
+		switch (handle) {
+		case "mailing_list":
+			try {
+				ArrayList<String> emails = ManagerUtils.getMailingList(conn);
+				if (emails.isEmpty()) {
+					content += "We don't have any client.</h3>";
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		default:
+			content = "Invalid Operation</h3>";
+		}
+		
+		request.setAttribute("mainPanel", content);
+		// Not a valid one, forward
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");
+        dispatcher.forward(request, response);
     }
  
     @Override
