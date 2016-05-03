@@ -22,13 +22,15 @@ public class ClientUtils {
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, clientId);
 		ResultSet rs = pstm.executeQuery();
-
+		
+		System.out.println("Symbol: "+StockSymbol);
 		if (rs.next()) {
-			sql = "	SELECT S.* from NumShares FROM Stock S, Account A, hasStcok H WHERE A.ClientID = H.AccountId and S.StockSymbol = H.StockSymbol;";
+			sql = "SELECT * from hasStock where AccountId = ?;";
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, clientId);
 			rs = pstm.executeQuery();
-
+			String StockSymbol = rs.getString("StockSymbol");
+			System.out.println("Symbol: "+StockSymbol);
 			return currentStocks;
 		}
 

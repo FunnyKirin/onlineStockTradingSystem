@@ -1,6 +1,8 @@
 package webapp.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import webapp.beans.Client;
+import webapp.utils.ClientUtils;
+import webapp.utils.MyUtils;
  
 @WebServlet(urlPatterns = { "/clientMain"})
 public class ClientMainServlet extends HttpServlet {
@@ -20,7 +27,17 @@ public class ClientMainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+		Connection conn = MyUtils.getStoredConnection(request);
+		HttpSession session= request.getSession();
+		Client thisClient = (Client)MyUtils.getLoginedUser(session);
+		int thisClientID= thisClient.getSSN();
+
+		try {
+			ClientUtils.getCurrentStocks(conn, thisClientID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
          
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        
