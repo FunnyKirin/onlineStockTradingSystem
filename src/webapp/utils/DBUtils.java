@@ -101,10 +101,9 @@ public class DBUtils {
 			pstm.setInt(1, clientId);
 			rs = pstm.executeQuery();
 
-			String accountId = rs.getString("Id");
 			Date dateOpened = rs.getDate("DateOpened");
 
-			return new Account(accountId, dateOpened, clientId);
+			return new Account(dateOpened, clientId);
 		}
 
 		return null;
@@ -193,8 +192,8 @@ public class DBUtils {
 		insertAccount(conn, client.getAccount());
 
 		// Person
-		String sql = "Insert ignore into Person(Firstname, Lastname, Address, Telephone, SSN, State, City, Zipcode, AccountId)"
-				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "Insert ignore into Person(Firstname, Lastname, Address, Telephone, SSN, Zipcode)"
+				+ "values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setString(1, client.getFirstname());
@@ -202,14 +201,12 @@ public class DBUtils {
 		pstm.setString(3, client.getAddress());
 		pstm.setString(4, client.getTelephone());
 		pstm.setInt(5, client.getSSN());
-		pstm.setString(6, client.getLocation().getState());
-		pstm.setString(7, client.getLocation().getCity());
-		pstm.setInt(8, client.getLocation().getZipcode());
-		pstm.setString(9, client.getAccount().getID());
+		pstm.setInt(6, client.getLocation().getZipcode());
 		pstm.executeUpdate();
 
 		// Client
-		sql = "Insert ignore into Client(Id, Email, Rating, Username, Password)" + "values (?, ?, ?, ?, ?)";
+		sql = "Insert ignore into Client(Id, Email, Rating, Username, Password, CreditCardNumber)"
+				+ "values (?, ?, ?, ?, ?, ?)";
 		pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, client.getSSN());
@@ -217,6 +214,7 @@ public class DBUtils {
 		pstm.setDouble(3, client.getRating());
 		pstm.setString(4, client.getUsername());
 		pstm.setString(5, client.getPassword());
+		pstm.setString(6, client.getCreditCardNum());
 		pstm.executeUpdate();
 	}
 
@@ -224,7 +222,7 @@ public class DBUtils {
 		// Location
 		insertLocation(conn, employee.getLocation());
 
-		String sql = "Insert ignore into Person(Firstname, Lastname, Address, Telephone, SSN, State, City, Zipcode)"
+		String sql = "Insert ignore into Person(Firstname, Lastname, Address, Telephone, SSN, Zipcode)"
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -233,9 +231,7 @@ public class DBUtils {
 		pstm.setString(3, employee.getAddress());
 		pstm.setString(4, employee.getTelephone());
 		pstm.setInt(5, employee.getSSN());
-		pstm.setString(6, employee.getLocation().getState());
-		pstm.setString(7, employee.getLocation().getCity());
-		pstm.setInt(8, employee.getLocation().getZipcode());
+		pstm.setInt(6, employee.getLocation().getZipcode());
 		pstm.executeUpdate();
 
 		// Employee
@@ -254,7 +250,7 @@ public class DBUtils {
 
 	public static void insertLocation(Connection conn, Location location) throws SQLException {
 		// Location
-		String sql = "Insert ignore into Location(Zipcode, City, State)" + "values(?, ?, ?)";
+		String sql = "Insert ignore into Location(Zipcode, City, State) values(?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, location.getZipcode());
@@ -265,12 +261,11 @@ public class DBUtils {
 
 	public static void insertAccount(Connection conn, Account account) throws SQLException {
 		// Account
-		String sql = "Insert ignore into Account(ID, DateOpened, ClientID)" + "values (?, ?, ?)";
+		String sql = "Insert ignore into Account(DateOpened, ClientID) values (?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, account.getID());
-		pstm.setDate(2, account.getDateOpened());
-		pstm.setInt(3, account.getClientId());
+		pstm.setDate(1, account.getDateOpened());
+		pstm.setInt(2, account.getClientId());
 		pstm.executeUpdate();
 	}
 

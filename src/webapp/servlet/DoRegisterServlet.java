@@ -64,34 +64,59 @@ public class DoRegisterServlet extends HttpServlet {
 				|| address == null || email == null || telephone == null || confirmpass == null) {
 			hasError = true;
 			errorString = "Fill out everything before you proceed";
-			System.out.println("Where is he?");
 		} else if (username.length() == 0 || password.length() == 0 || firstname.length() == 0 || lastname.length() == 0
 				|| SSNstr.length() == 0 || city.length() == 0 || dateStr.length() == 0 || state.length() == 0
 				|| zipcodeStr.length() == 0 || creditCardNum.length() == 0 || address.length() == 0
 				|| email.length() == 0 || telephone.length() == 0 || confirmpass.length() == 0) {
 			hasError = true;
 			errorString = "Fill out everything before you proceed";
-			System.out.println("Shit gone wrong!");
-		} else if (password != confirmpass) {
+		} else if (!password.equals(confirmpass)) {
 			hasError = true;
 			errorString = "You didn't confirm your password properly";
 		} else {
 			Connection conn = MyUtils.getStoredConnection(request);
 			try {
+				// Check field formats
+				String email_pattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+				if (!(creditCardNum.matches("[0-9]+") && creditCardNum.length() == 16)) {
+					throw new Exception("Invalid credit card");
+				} else if (!(telephone.matches("[0-9]+") && telephone.length() == 10)) {
+					throw new Exception("Invalid telephone");
+				} else if (!(email.matches(email_pattern))) {
+					throw new Exception("Invalid email");
+				}
+				
 				int zipcode = Integer.parseInt(zipcodeStr);
 				int SSN = Integer.parseInt(SSNstr);
 				Date date = Date.valueOf(dateStr);
+				
+				if (zipcode < 10000 || zipcode > 99999) {
+					throw new NumberFormatException("Invalid zip");
+				} else if (SSN < 100000000 || SSN > 999999999) {
+					throw new NumberFormatException("Invalid zip");
+				}
+				
 				location = new Location(zipcode, city, state);
-				account = new Account(creditCardNum, date, SSN);
+				account = new Account(date, SSN);
 				client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, account);
 
+				client.setCreditCardNum(creditCardNum);
 				client.setUsername(username);
 				client.setPassword(password);
-				System.out.println("code reached here");
 				DBUtils.insertClient(conn, client);
 
 			} catch (SQLException e) {
+				hasError = true;
+				errorString = e.getMessage();
 				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				hasError = true;
+				errorString = e.getMessage();
+			} catch (IllegalArgumentException e2) {
+				hasError = true;
+				errorString = "Invalid date";
+			} catch (Exception e) {
 				hasError = true;
 				errorString = e.getMessage();
 			}

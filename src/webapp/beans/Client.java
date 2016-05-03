@@ -12,6 +12,7 @@ public class Client extends Person {
 
 	private String email;
 	private double rating;
+	private String creditCardNum;
 	private Account account;
 
 	public Client() {}
@@ -63,6 +64,14 @@ public class Client extends Person {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public String getCreditCardNum() {
+		return creditCardNum;
+	}
+
+	public void setCreditCardNum(String creditCardNum) {
+		this.creditCardNum = creditCardNum;
 	}
 
 }
