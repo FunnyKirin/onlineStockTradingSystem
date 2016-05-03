@@ -5,9 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Netrade</title>
+<link href="css/register.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/register.js"></script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/do">
+   <jsp:include page="/WEB-INF/views/Header.jsp"/>
+<form action="${pageContext.request.contextPath}/doClientProfile">
         <div class="login__row firstname">
           <input type="text" name="firstname" class="login__input firstname" placeholder="First Name"/>
         </div>
