@@ -71,7 +71,7 @@ public class DoClientProfileServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String confirmpass = request.getParameter("confirmpass");
 
-		Client client = null;
+		//Client client = null;
 		Location location = null;
 		Account account = null;
 		boolean hasError = false;
@@ -158,7 +158,7 @@ public class DoClientProfileServlet extends HttpServlet {
 		// Store user information in Session
 		// And redirect to userInfo page.
 		else {
-			MyUtils.storeLoginedUser(session, client);
+			MyUtils.storeLoginedUser(session, account);
 
 			// Redirect to userInfo page.
 			response.sendRedirect(request.getContextPath() + "/clientLogin");

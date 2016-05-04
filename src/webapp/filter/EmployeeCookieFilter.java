@@ -13,12 +13,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
- 
+
+import webapp.beans.Employee;
 import webapp.beans.Person;
 import webapp.utils.DBUtils;
 import webapp.utils.MyUtils;
  
-@WebFilter(filterName = "cookieFilter", urlPatterns = { "/*" })
+@WebFilter(filterName = "cookieFilterE", urlPatterns = { "/employeeMain" })
 public class EmployeeCookieFilter implements Filter {
  
    public EmployeeCookieFilter() {
@@ -40,7 +41,7 @@ public class EmployeeCookieFilter implements Filter {
        HttpServletRequest req = (HttpServletRequest) request;
        HttpSession session = req.getSession();
  
-       Person userInSession = MyUtils.getLoginedUser(session);
+       Employee userInSession = MyUtils.getLoginedEmployee(session);
     
        if (userInSession != null) {
            session.setAttribute("COOKIE_CHECKED", "CHECKED");
@@ -58,7 +59,7 @@ public class EmployeeCookieFilter implements Filter {
        if (checked == null && conn != null) {
            String username = MyUtils.getUserNameInCookie(req);
            try {
-               Person user = DBUtils.loginAsEmployee(conn, username, null);
+               Employee user = DBUtils.loginAsEmployee(conn, username, null);
                MyUtils.storeLoginedUser(session, user);
            } catch (SQLException e) {
                e.printStackTrace();

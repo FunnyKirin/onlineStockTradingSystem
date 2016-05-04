@@ -28,43 +28,50 @@ public class DoEmployeeMainServlet extends HttpServlet {
 	public DoEmployeeMainServlet() {
 		super();
 	}
-
+	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void  doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
 
 		Connection conn = MyUtils.getStoredConnection(request);
 
 		String handle = request.getParameter("handle");
 		String content = "<h3>";
 		switch (handle) {
-		case "stock_by_name":
+		case "mailing_list":
 			try {
-				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't got no stock babe";
+				ArrayList<String> emails = ManagerUtils.getMailingList(conn);
+				if (emails.isEmpty()) {
+					content += "We don't have any client";
 				} else {
-					for (Stock s : stocks) {
-						content += s + "<br />";
+					for (String email : emails) {
+						content += email + "<br />";
 					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			break;
-		case "stock_by_symbol":
+		case "order_history":
 			try {
-				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't got no stock babe";
+				ArrayList<History> history_list = ManagerUtils.getOrderHistory(conn);
+				if (history_list == null) {
+					content += "You don't have a history";
 				} else {
-					for (Stock s : stocks) {
-						content += s + "<br />";
+					content += "Order ID | Stock Symbol | # of Shares | Price Type | Order Type<br />";
+					for (History h : history_list) {
+						content += h.getId() + " ";
+						content += h.getSymbol() + " ";
+						content += h.getNumShares() + " ";
+						content += h.getPriceType() + " ";
+						content += h.getOrderType() + "<br />";
 					}
 				}
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 			break;
 		default:
 			content += "Invalid Operation";
@@ -73,7 +80,7 @@ public class DoEmployeeMainServlet extends HttpServlet {
 		content += "</h3>";
 		request.setAttribute("mainPanel", content);
 		// forward
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");
 		dispatcher.forward(request, response);
 	}
 
