@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/doEmployeeMain" })
+@WebServlet(urlPatterns = { "/doManagerMain" })
 public class DoManagerMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
