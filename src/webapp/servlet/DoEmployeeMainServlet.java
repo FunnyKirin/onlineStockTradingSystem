@@ -36,72 +36,23 @@ public class DoEmployeeMainServlet extends HttpServlet {
 		Connection conn = MyUtils.getStoredConnection(request);
 
 		String handle = request.getParameter("handle");
-		String content = "<h3>";
+		
+		String content = "";
 		switch (handle) {
 		case "mailing_list":
 			try {
 				ArrayList<String> emails = ManagerUtils.getMailingList(conn);
 				if (emails.isEmpty()) {
-					content += "We don't have any client";
+					content += "<h3>We don't have any client</h3>";
 				} else {
+					content += "<table border=\"1\" cellpadding=\"5\" cellspacing=\"1\">";
+					content += "<tr><th>Client Email</th></tr>";
 					for (String email : emails) {
-						content += email + "<br />";
+						content += "<tr><td>" + email + "</td></tr>";
 					}
+					content += "</table>";
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "order_history":
-			try {
-				ArrayList<History> history_list = ManagerUtils.getOrderHistory(conn, 444444444);
-				if (history_list.isEmpty()) {
-					content += "You don't have a history";
-				} else {
-					content += "Order ID | Stock Symbol | # of Shares | Price Type | Order Type<br />";
-					for (History h : history_list) {
-						content += h.getId() + " ";
-						content += h.getSymbol() + " ";
-						content += h.getNumShares() + " ";
-						content += h.getPriceType() + " ";
-						content += h.getOrderType() + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case "best_seller":
-			try {
-				ArrayList<String> best = ManagerUtils.getBestSellers(conn);
-				if (best.isEmpty()) {
-					content += "You don't have a history";
-				} else {
-					for (String s : best) {
-						content += s + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case "current_stocks":
-			try {
-				ArrayList<Stock> stocks = ManagerUtils.getStocks(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't have a history";
-				} else {
-					for (Stock s : stocks) {
-						content += s.getSymbol() + " ";
-						content += s.getCompany() + " ";
-						content += s.getType() + " ";
-						content += s.getPPS() + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -109,7 +60,7 @@ public class DoEmployeeMainServlet extends HttpServlet {
 			content += "Invalid Operation";
 		}
 
-		content += "</h3>";
+		content += "";
 		request.setAttribute("mainPanel", content);
 		// forward
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");

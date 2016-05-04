@@ -108,9 +108,6 @@
         <div class="login__row card">
           <input type="text" name="creditcard" class="login__input card" placeholder="Credit Card"/>
         </div>
-        <div class="login__row date">
-          <input type="text" name="date" class="login__input date" placeholder="Date"/>
-        </div>
         
         <input type="submit" value="Submit" class="login__submit"/>
         </form>

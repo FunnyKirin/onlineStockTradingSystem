@@ -3,6 +3,7 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -41,7 +42,6 @@ public class DoRegisterServlet extends HttpServlet {
 
 		// Account
 		String creditCardNum = request.getParameter("creditcard");
-		String dateStr = request.getParameter("date"); // yyyy-mm-dd
 
 		// Location
 		String zipcodeStr = request.getParameter("zipcode");
@@ -52,8 +52,14 @@ public class DoRegisterServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirmpass = request.getParameter("confirmpass");
+		
+		Calendar cal = Calendar.getInstance();
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int month = cal.get(Calendar.MONTH);
+		int year = cal.get(Calendar.YEAR);
+		String dateStr = year + "-" + month + "-" + day;
 
-		Client client = null;
+		//Client client = null;
 		Location location = null;
 		Account account = null;
 		boolean hasError = false;
@@ -101,7 +107,7 @@ public class DoRegisterServlet extends HttpServlet {
 				
 				location = new Location(zipcode, city, state);
 				account = new Account(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum, date, SSN);
-				client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum);
+				//client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum);
 
 				account.setUsername(username);
 				account.setPassword(password);
@@ -125,7 +131,7 @@ public class DoRegisterServlet extends HttpServlet {
 
 		// If error, forward to /WEB-INF/views/RegisterView.jsp
 		if (hasError) {
-			client = new Client();
+			account = new Account();
 
 			// Store information in request attribute, before forward.
 			request.setAttribute("errorString", errorString);
