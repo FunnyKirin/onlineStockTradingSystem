@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/doEmployeeMain" })
+@WebServlet(urlPatterns = { "/doManagerMain" })
 public class DoManagerMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class DoManagerMainServlet extends HttpServlet {
 		content += "</h3>";
 		request.setAttribute("mainPanel", content);
 		// forward
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainManager.jsp");
 		dispatcher.forward(request, response);
 	}
 
