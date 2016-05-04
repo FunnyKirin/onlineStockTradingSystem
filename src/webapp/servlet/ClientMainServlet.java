@@ -3,6 +3,7 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,10 +35,10 @@ public class ClientMainServlet extends HttpServlet {
 		Account thisClient = (Account)MyUtils.getLoginedUser(session);
 		int Id= thisClient.getId();
 		System.out.println("account ID "+ Id);
-		
-		
+		ArrayList<hasStock> currentStocks;
 		try {
-			ClientUtils.getCurrentStocks(conn, Id);
+			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
+			request.setAttribute("stocks", currentStocks);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
