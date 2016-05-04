@@ -33,6 +33,7 @@ public class ClientMainServlet extends HttpServlet {
 		Connection conn = MyUtils.getStoredConnection(request);
 		HttpSession session= request.getSession();
 		Account thisClient = (Account)MyUtils.getLoginedUser(session);
+		
 		int Id= thisClient.getId();
 		System.out.println("account ID "+ Id);
 		ArrayList<hasStock> currentStocks;
