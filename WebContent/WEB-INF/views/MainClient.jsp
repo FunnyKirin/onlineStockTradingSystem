@@ -52,9 +52,10 @@
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
-			<form role="search" class="search">
+			<form role="search" class="search" action="">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search Stocks">
+					<input type="submit" class="form-control" placeholder="Search">
 				</div>
 			</form>
 			<table class = "orderHistories">
@@ -90,6 +91,7 @@
         			</tr>
     			</c:forEach>
 			</table>
+			
 			<table class = "currentStocks">
 				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>price</td><td>number</td></tr>
     			<c:forEach var="stock" items="${stocks}">
@@ -102,6 +104,7 @@
         			</tr>
     			</c:forEach>
 			</table>
+			
 			<table class = "trailingHistory">
 				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
     			<c:forEach var="trailingHistory" items="${trailingHistorys}">
@@ -111,6 +114,7 @@
         			</tr>
     			</c:forEach>
 			</table>
+			
 			<table class = "hiddenHistory">
 				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
     			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
@@ -120,12 +124,23 @@
         			</tr>
     			</c:forEach>
 			</table>
+			
+			<div class = "stockPriceHis">
 			<form action="" id="datePicker">
 				<input type="date" name="bday" max="1979-12-31">
 				<input type="date" name="bday" min="2000-01-02">
 				<input type="submit"> 
 			</form>
-			
+			<table>
+				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
+    			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
+        			<tr>
+            			<td>${hiddenHistory.stockSymbol}</td>
+            			<td>${hiddenHistory.numOfShares}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			</div>
 		</div><!--/.row -->
 	</div>	<!--/.main-->
 
