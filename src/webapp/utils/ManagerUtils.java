@@ -11,6 +11,7 @@ import webapp.beans.Stock;
 import webapp.beans.Account;
 import webapp.beans.Client;
 import webapp.beans.Employee;
+import webapp.beans.History;
 import webapp.beans.Location;
 import webapp.beans.Person;
 
@@ -32,7 +33,29 @@ public class ManagerUtils {
 		return emails;
 	}
 	
+	public static ArrayList<History> getOrderHistory(Connection conn) throws SQLException {
+		ArrayList<History> history_list = new ArrayList<History>();
+		String sql = "call orderHistory()";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String id = rs.getString("ID");
+			String symbol = rs.getString("StockSymbol");
+			String numShares = rs.getString("numShares");
+			String priceType = rs.getString("priceType");
+			String orderType = rs.getString("orderType");
+			
+			history_list.add(new History(id, symbol, numShares, priceType, orderType));
+		}
+		
+		return history_list;
+	}
+	
 	public static void setStockSharePrice(Stock stock, double pps) {
 		stock.setPPS(pps);
 	}
 }
+
+

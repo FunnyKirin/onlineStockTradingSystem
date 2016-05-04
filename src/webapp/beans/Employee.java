@@ -11,6 +11,8 @@ public class Employee extends Person {
 
 	private String username;
 	private String password;
+	
+	private boolean isBroker;
 
 	public Employee() {
 
@@ -70,6 +72,14 @@ public class Employee extends Person {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isBroker() {
+		return isBroker;
+	}
+
+	public void setBroker(boolean isBroker) {
+		this.isBroker = isBroker;
 	}
 
 }

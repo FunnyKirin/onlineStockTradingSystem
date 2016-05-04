@@ -42,5 +42,22 @@ public class ClientUtils {
 		return stockSuggestions;
 	}
 	
-	
+	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		
+		String sql = "call stockListingByName();";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stocks.add(new Stock(symbol, company, type, pps));
+		}
+		
+		return stocks;
+	}
 }
