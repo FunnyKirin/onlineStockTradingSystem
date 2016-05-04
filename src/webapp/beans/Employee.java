@@ -19,9 +19,8 @@ public class Employee extends Person {
 	}
 
 	public Employee(String firstname, String lastname, String address, int SSN, String telephone, Location location,
-			int id, Date dateStarted, double hourlyRate, boolean isManager) {
+			Date dateStarted, double hourlyRate, boolean isManager) {
 		super(firstname, lastname, address, SSN, telephone, location);
-		this.id = id;
 		this.dateStarted = dateStarted;
 		this.hourlyRate = hourlyRate;
 		this.isManager = isManager;

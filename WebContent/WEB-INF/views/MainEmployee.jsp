@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,16 +52,13 @@ function setHandle(handle) {
 		</form>
 		<form action="${pageContext.request.contextPath}/doEmployeeMain">
 		<ul class="nav menu">
-			<li><input onclick="setHandle('current_stocks');" type="submit" class="submit" value="Current Stocks" /></li>
-			<li><input onclick="setHandle('order_history');" type="submit" class="submit" id="orders" value="Order History" /></li>
-			<li><input onclick="setHandle('search_stock');" type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
-			<li><input onclick="setHandle('best_seller');" type="submit" class="submit" id="Best-sellers" value="Best-Sellers" /></li>
-			<li><input onclick="setHandle('suggestions');" type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
-			<li><input onclick="setHandle('mailing_list');" type="submit" class="submit" id="Mailing" value="Mailing List" /></li>
+			<li><input onclick="setHandle('record_order');" type="submit" class="submit" id="record_order" value="Record an Order" /></li>
+			<li><a href="customerList">Customer Info</a></li>
+			<li><input onclick="setHandle('suggestions');" type="submit" class="submit" id="suggestions" value="Suggestions" /></li>
+			<li><input onclick="setHandle('mailing_list');" type="submit" class="submit" id="mailing_list" value="Mailing List" /></li>
 			<li><input type="hidden" id="handle" name="handle" value="current_stock" /></li>
 			
 			<li role="presentation" class="divider"></li>
-			<li><a href="login.html">Help</a></li>
 		</ul>
 		</form>
 
@@ -69,6 +67,7 @@ function setHandle(handle) {
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
 			<div>${mainPanel}</div>
+			
 		</div>
 	</div>	<!--/.main-->
 

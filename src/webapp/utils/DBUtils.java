@@ -38,7 +38,7 @@ public class DBUtils {
 				double hourlyRate = rs.getDouble("HourlyRate");
 				int id = rs.getInt("id");
 				boolean isManager = "Y".equals(rs.getString("IsManager"));
-				
+
 				Person person = findPerson(conn, rs.getInt("SSN"));
 
 				String firstname = person.getFirstname();
@@ -48,8 +48,10 @@ public class DBUtils {
 				int ssn = person.getSSN();
 				Location location = person.getLocation();
 
-				return new Employee(firstname, lastname, address, ssn, telephone, location, id, dateStarted,
-						hourlyRate, isManager);
+				Employee e = new Employee(firstname, lastname, address, ssn, telephone, 
+						location, dateStarted, hourlyRate, isManager);
+				e.setId(id);
+				return e;
 			}
 		}
 		return null;
@@ -75,20 +77,21 @@ public class DBUtils {
 				int Id = rs.getInt("ID");
 				Date dateOpened = rs.getDate("DateOpened");
 				int clientId = rs.getInt("clientID");
-				
+
 				Client client = findClient(conn, clientId);
 				String email = client.getEmail();
 				double rating = client.getRating();
 				int SSN = client.getSSN();
 				String creditCardNum = client.getCreditCardNum();
-				
+
 				Person person = findPerson(conn, SSN);
 				String lastName = person.getLastname();
 				String firstName = person.getFirstname();
 				String address = person.getAddress();
 				String telephone = person.getTelephone();
 				Location location = person.getLocation();
-				Account account = new Account(firstName, lastName, address, SSN, telephone, location, email, rating, creditCardNum, dateOpened, clientId);
+				Account account = new Account(firstName, lastName, address, SSN, telephone, location, email, rating,
+						creditCardNum, dateOpened, clientId);
 				account.setId(Id);
 				return account;
 			}
@@ -96,7 +99,38 @@ public class DBUtils {
 
 		return null;
 	}
-/**
+
+	public static void deleteAccount(Connection conn, int id) throws SQLException {
+		String sql = "Delete from Account where id = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeQuery();
+	}
+
+	public static void deleteClient(Connection conn, int id) throws SQLException {
+		String sql = "Delete from Account where cilentId = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeQuery();
+
+		sql = "Delete from Client where id = ?";
+		pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeQuery();
+
+		sql = "Delete from Person where id = ?";
+		pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeQuery();
+	}
+
+	public static void deletePerson(Connection conn, int id) throws SQLException {
+		String sql = "Delete from Person where SSN = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.executeQuery();
+	}
+
 	public static Account findAccount(Connection conn, int clientId) throws SQLException {
 		String sql = "Select * from Account where ClientID = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -104,13 +138,30 @@ public class DBUtils {
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
+			Client client = findClient(conn, clientId);
+			if (client == null)
+				return null;
+
+			String email = client.getEmail();
+			double rating = client.getRating();
+			String creditCardNum = client.getCreditCardNum();
+			int id = client.getSSN();
+
+			String firstname = client.getFirstname();
+			String lastname = client.getLastname();
+			String address = client.getAddress();
+			String telephone = client.getTelephone();
+			Location location = client.getLocation();
 			Date dateOpened = rs.getDate("DateOpened");
-			return new Account(dateOpened, clientId);
+
+			return new Account(firstname, lastname, address, id, telephone, location, email, rating, creditCardNum,
+					dateOpened, id);
+
 		}
 
 		return null;
 	}
-**/
+
 	public static Stock findStock(Connection conn, String symbol) throws SQLException {
 		String sql = "Select * from Stock where symbol = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -157,7 +208,7 @@ public class DBUtils {
 		if (rs.next()) {
 			String state = rs.getString("State");
 			String city = rs.getString("City");
-			
+
 			return new Location(zipcode, city, state);
 		}
 
@@ -178,7 +229,7 @@ public class DBUtils {
 			int id = rs.getInt("ID");
 
 			Person person = findPerson(conn, id);
-			//Account account = findAccount(conn, id);
+			// Account account = findAccount(conn, id);
 			if (person == null)
 				return null;
 
@@ -190,19 +241,51 @@ public class DBUtils {
 
 			client = new Client(firstname, lastname, address, id, telephone, location, email, rating, creditCardNum);
 
-
 			return client;
 		}
 
 		return null;
 	}
 
+	public static Employee findEmployee(Connection conn, int SSN) throws SQLException {
+		String sql = "Select * from Employee where SSN = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, SSN);
+		ResultSet rs = pstm.executeQuery();
+
+		Employee employee = null;
+		if (rs.next()) {
+			int id = SSN;
+			Date dateStarted = rs.getDate("StartDate");
+			double hourlyRate = rs.getDouble("hourlyRate");
+			boolean isManager = "Y".equals(rs.getString("IsManager"));
+			
+			Person person = findPerson(conn, id);
+			// Account account = findAccount(conn, id);
+			if (person == null)
+				return null;
+
+			String firstname = person.getFirstname();
+			String lastname = person.getLastname();
+			String address = person.getAddress();
+			String telephone = person.getTelephone();
+			Location location = person.getLocation();
+
+			employee = new Employee(firstname, lastname, address, SSN, telephone, location,
+					dateStarted, hourlyRate, isManager);
+
+			return employee;
+		}
+
+		return null;
+	}
+	
 	public static void insertClient(Connection conn, Account account) throws SQLException {
 		// Location
 		insertLocation(conn, account.getLocation());
 
 		// Account
-		//insertAccount(conn, client.getAccount());
+		// insertAccount(conn, client.getAccount());
 
 		// Person
 		String sql = "Insert ignore into Person(Firstname, Lastname, Address, Telephone, SSN, Zipcode)"
@@ -218,8 +301,7 @@ public class DBUtils {
 		pstm.executeUpdate();
 
 		// Client
-		sql = "Insert ignore into Client(Id, Email, Rating, CreditCardNumber)"
-				+ "values (?, ?, ?, ?)";
+		sql = "Insert ignore into Client(Id, Email, Rating, CreditCardNumber)" + "values (?, ?, ?, ?)";
 		pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, account.getSSN());
@@ -227,10 +309,9 @@ public class DBUtils {
 		pstm.setDouble(3, account.getRating());
 		pstm.setString(4, account.getCreditCardNum());
 		pstm.executeUpdate();
-		
+
 		// Account
-		sql = "Insert ignore into Account(DateOpened, ClientID, Username, Password)"
-				+ "values(?,?,?,?)";
+		sql = "Insert ignore into Account(DateOpened, ClientID, Username, Password)" + "values(?,?,?,?)";
 		pstm = conn.prepareStatement(sql);
 		pstm.setDate(1, account.getDateOpened());
 		pstm.setInt(2, account.getClientId());
@@ -244,7 +325,7 @@ public class DBUtils {
 		insertLocation(conn, employee.getLocation());
 
 		String sql = "Insert ignore into Person(Firstname, Lastname, Address, Telephone, SSN, Zipcode)"
-				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setString(1, employee.getFirstname());
@@ -257,7 +338,7 @@ public class DBUtils {
 
 		// Employee
 		sql = "Insert ignore into Employee(SSN, Id, StartDate, Username, Password, HourlyRate)"
-				+ "values (?, ?, ?, ?, ?)";
+				+ "values (?, ?, ?, ?, ?, ?)";
 		pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, employee.getSSN());
