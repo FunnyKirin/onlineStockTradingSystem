@@ -32,7 +32,10 @@ public class ClientUtils {
 	
 	public static ArrayList<History> getOrderHistory(Connection conn, int AccountID)throws SQLException {
 		ArrayList<History> orderHistory = new ArrayList<History>();
-		PreparedStatement pstm = conn.prepareStatement("call orderHistory("+AccountID+")");
+		String sql = "call orderHistory(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, AccountID);
+
 		ResultSet rs = pstm.executeQuery();
 		System.out.println("history!");
 		while(rs.next()){

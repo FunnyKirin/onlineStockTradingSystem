@@ -13,7 +13,7 @@ VALUES('Yang', 'Shang', 111111111, '123 Success Street', 5166328959, 11790),
     ('Smith', 'David', 123456789, '123 College Road', 5162152345, 11790),
     ('Warren', 'David', 789123456, '456 Sunken Street', 6316329987, 11794);
     
-INSERT INTO Employee(SSN, HourlyRate, StartDate, Username, Password)
+INSERT INTO Employee(SSN, HourlyRate, StartDate, Username, Password, IsManager)
 VALUES(123456789, 60, '2005-11-01', 'emp1', 'password1', 'N'),
 	(789123456, 50, '2006-02-02', 'emp2', 'password2', 'Y');
 
