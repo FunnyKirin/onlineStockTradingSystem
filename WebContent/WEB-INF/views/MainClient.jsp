@@ -58,22 +58,25 @@
 				</div>
 			</form>
 			<table class = "orderHistories">
-				<tr><td>Stock Symbol</td><td>number of shares</td><td>Date</td></tr>
+				<tr><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">
         			<tr>
             			<td>${order.symbol}</td>
             			<td>${order.numShares}</td>
+            			<td>${order.priceType}</td>
+            			<td>${order.orderType }</td>
             			<td>${order.date}
         			</tr>
     			</c:forEach>
 			</table>
 			<table class = "bestSellers">
-				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td></tr>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${bestSellers}">
         			<tr>
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
+            			<td>${stock.PPS }</td>
         			</tr>
     			</c:forEach>
 			</table>
@@ -88,10 +91,13 @@
     			</c:forEach>
 			</table>
 			<table class = "currentStocks">
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>price</td><td>number</td></tr>
     			<c:forEach var="stock" items="${stocks}">
         			<tr>
             			<td>${stock.stockSymbol}</td>
+            			<td>${stock.companyName}</td>
+            			<td>${stock.type}</td>
+            			<td>${stock. pricePerShare}</td>
             			<td>${stock.numOfShares}</td>
         			</tr>
     			</c:forEach>

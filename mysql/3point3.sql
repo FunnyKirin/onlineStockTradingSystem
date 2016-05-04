@@ -91,9 +91,9 @@ CREATE PROCEDURE specificStockWithRecentInfo(IN PriceType CHAR(20))
 DELIMITER //
 CREATE PROCEDURE bestSellerStocks()
  BEGIN
-    SELECT Trade.StockId
-	FROM Trade, StockOrder
-	WHERE Trade.OrderId = StockOrder.ID AND StockOrder.OrderType = 'sell'
+    SELECT Trade.StockId, Stock.CompanyName, Stock.PricePerShare, Stock.Type
+	FROM Trade, StockOrder, Stock
+	WHERE Trade.OrderId = StockOrder.ID AND StockOrder.OrderType = 'sell' AND Stock.StockSymbol = Trade.StockId
 	GROUP BY Trade.StockId
 	ORDER BY COUNT(Trade.StockId) DESC;
  END //

@@ -6,7 +6,6 @@ public class Stock {
 	private String company;
 	private String type;
 	private double pps; // price per share
-	
 	public Stock() {
 		this (null, null, null, 0);
 	}
