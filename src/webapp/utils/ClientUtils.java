@@ -22,9 +22,9 @@ public class ClientUtils {
 			hasStock thisStock = new hasStock();
 			String StockSymbol = rs.getString("StockSymbol");
 			int numOfShares = rs.getInt("NumShares");
-			thisStock.setNumberOfShares(numOfShares);
+			thisStock.setNumOfShares(numOfShares);
 			thisStock.setStockSymbol(StockSymbol);
-			System.out.println(thisStock.getStockSymbol()+" "+thisStock.getNumberOfShares());
+			System.out.println(thisStock.getStockSymbol()+" "+thisStock.getNumOfShares());
 			currentStocks.add(thisStock);
 		}
 		return currentStocks;
