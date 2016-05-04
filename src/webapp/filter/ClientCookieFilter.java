@@ -18,7 +18,7 @@ import webapp.beans.*;
 import webapp.utils.DBUtils;
 import webapp.utils.MyUtils;
  
-@WebFilter(filterName = "cookieFilter", urlPatterns = { "/*" })
+@WebFilter(filterName = "cookieFilterC", urlPatterns = { "/clientMain" })
 public class ClientCookieFilter implements Filter {
  
    public ClientCookieFilter() {

@@ -142,7 +142,7 @@ public class DoRegisterServlet extends HttpServlet {
 		// And redirect to userInfo page.
 		else {
 			HttpSession session = request.getSession();
-			MyUtils.storeLoginedUser(session, client);
+			MyUtils.storeLoginedUser(session, account);
 
 			// Redirect to userInfo page.
 			response.sendRedirect(request.getContextPath() + "/clientLogin");

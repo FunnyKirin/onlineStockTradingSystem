@@ -51,35 +51,14 @@ function setHandle(handle) {
 		</form>
 		<form action="${pageContext.request.contextPath}/doEmployeeMain">
 		<ul class="nav menu">
-			<li><input onclick="setHandle('current_stock');" type="submit" class="submit" value="Current Stocks" /></li>
+			<li><input onclick="setHandle('current_stocks');" type="submit" class="submit" value="Current Stocks" /></li>
 			<li><input onclick="setHandle('order_history');" type="submit" class="submit" id="orders" value="Order History" /></li>
 			<li><input onclick="setHandle('search_stock');" type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
 			<li><input onclick="setHandle('best_seller');" type="submit" class="submit" id="Best-sellers" value="Best-Sellers" /></li>
 			<li><input onclick="setHandle('suggestions');" type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
 			<li><input onclick="setHandle('mailing_list');" type="submit" class="submit" id="Mailing" value="Mailing List" /></li>
 			<li><input type="hidden" id="handle" name="handle" value="current_stock" /></li>
-			<li class="parent ">
-				<a href="#">
-					<span data-toggle="collapse" href="#sub-item-1"></span> Dropdown
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li>
-						<a class="" href="#">
-							Sub Item 1
-						</a>
-					</li>
-					<li>
-						<a class="" href="#">
-							Sub Item 2
-						</a>
-					</li>
-					<li>
-						<a class="" href="#">
-							Sub Item 3
-						</a>
-					</li>
-				</ul>
-			</li>
+			
 			<li role="presentation" class="divider"></li>
 			<li><a href="login.html">Help</a></li>
 		</ul>
@@ -88,11 +67,6 @@ function setHandle(handle) {
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- 		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Current Stocks</h1>
-			</div>
-		</div>/.row -->
 		<div class="row" id="dynamic">
 			<div>${mainPanel}</div>
 		</div>

@@ -62,14 +62,13 @@ public class DoEmployeeLoginServlet extends HttpServlet {
         // If error, forward to /WEB-INF/views/login.jsp
         if (hasError) {
             employee = new Employee();
-             
         
             // Store information in request attribute, before forward.
             request.setAttribute("errorString", errorString);
             request.setAttribute("user", employee);
  
        
-            // Forward to /WEB-INF/views/login.jsp
+            // Forward
             RequestDispatcher dispatcher //
             = this.getServletContext().getRequestDispatcher("/WEB-INF/views/LoginViewEmployee.jsp");
  
@@ -93,8 +92,10 @@ public class DoEmployeeLoginServlet extends HttpServlet {
                 MyUtils.deleteUserCookie(response);
             }                       
       
-            // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/employeeMain");
+            if (employee.isManager())
+            	response.sendRedirect(request.getContextPath() + "/managerMain");
+            else
+            	response.sendRedirect(request.getContextPath() + "/employeeMain");
         }
     }
  
