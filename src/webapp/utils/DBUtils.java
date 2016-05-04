@@ -37,6 +37,8 @@ public class DBUtils {
 				Date dateStarted = rs.getDate("StartDate");
 				double hourlyRate = rs.getDouble("HourlyRate");
 				int id = rs.getInt("id");
+				boolean isManager = "Y".equals(rs.getString("IsManager"));
+				
 				Person person = findPerson(conn, rs.getInt("SSN"));
 
 				String firstname = person.getFirstname();
@@ -47,7 +49,7 @@ public class DBUtils {
 				Location location = person.getLocation();
 
 				return new Employee(firstname, lastname, address, ssn, telephone, location, id, dateStarted,
-						hourlyRate);
+						hourlyRate, isManager);
 			}
 		}
 		return null;

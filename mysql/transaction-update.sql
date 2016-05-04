@@ -14,8 +14,8 @@ VALUES('Yang', 'Shang', 111111111, '123 Success Street', 5166328959, 11790),
     ('Warren', 'David', 789123456, '456 Sunken Street', 6316329987, 11794);
     
 INSERT INTO Employee(SSN, HourlyRate, StartDate, Username, Password)
-VALUES(123456789, 60, '2005-11-01', 'emp1', 'password1'),
-	(789123456, 50, '2006-02-02', 'emp2', 'password2');
+VALUES(123456789, 60, '2005-11-01', 'emp1', 'password1', 'N'),
+	(789123456, 50, '2006-02-02', 'emp2', 'password2', 'Y');
 
 INSERT INTO Client(Email, Rating, CreditCardNumber, ID)
 VALUES('syang@cs.sunysb.edu', 1, 1234567812345678, 111111111),

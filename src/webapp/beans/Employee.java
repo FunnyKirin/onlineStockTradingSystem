@@ -12,18 +12,19 @@ public class Employee extends Person {
 	private String username;
 	private String password;
 	
-	private boolean isBroker;
+	private boolean isManager;
 
 	public Employee() {
 
 	}
 
 	public Employee(String firstname, String lastname, String address, int SSN, String telephone, Location location,
-			int id, Date dateStarted, double hourlyRate) {
+			int id, Date dateStarted, double hourlyRate, boolean isManager) {
 		super(firstname, lastname, address, SSN, telephone, location);
 		this.id = id;
 		this.dateStarted = dateStarted;
 		this.hourlyRate = hourlyRate;
+		this.isManager = isManager;
 	}
 
 	public int getId() {
@@ -74,12 +75,9 @@ public class Employee extends Person {
 		this.password = password;
 	}
 
-	public boolean isBroker() {
-		return isBroker;
+	public boolean isManager() {
+		return isManager;
 	}
 
-	public void setBroker(boolean isBroker) {
-		this.isBroker = isBroker;
-	}
 
 }

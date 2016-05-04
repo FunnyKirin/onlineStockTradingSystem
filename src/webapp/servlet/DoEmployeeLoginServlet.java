@@ -92,8 +92,10 @@ public class DoEmployeeLoginServlet extends HttpServlet {
                 MyUtils.deleteUserCookie(response);
             }                       
       
-            // Redirect to userInfo page.
-            response.sendRedirect(request.getContextPath() + "/employeeMain");
+            if (employee.isManager())
+            	response.sendRedirect(request.getContextPath() + "/managerMain");
+            else
+            	response.sendRedirect(request.getContextPath() + "/employeeMain");
         }
     }
  
