@@ -14,10 +14,10 @@ public class hasStock {
 		this.stockSymbol = stockSymbol;
 	}
 	
-	public void setNumberOfShares(int nos){
+	public void setNumOfShares(int nos){
 		numOfShares = nos;
 	}
-	public int getNumberOfShares(){
+	public int getNumOfShares(){
 		return numOfShares;
 	}
 	

@@ -24,6 +24,7 @@ public class ClientUtils {
 			int numOfShares = rs.getInt("NumShares");
 			thisStock.setNumberOfShares(numOfShares);
 			thisStock.setStockSymbol(StockSymbol);
+			System.out.println(thisStock.getStockSymbol()+" "+thisStock.getNumberOfShares());
 			currentStocks.add(thisStock);
 		}
 		return currentStocks;
