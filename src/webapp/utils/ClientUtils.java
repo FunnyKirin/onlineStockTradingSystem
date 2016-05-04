@@ -44,9 +44,10 @@ public class ClientUtils {
 			String numShares = rs.getString("numShares");
 			String priceType = rs.getString("priceType");
 			String orderType = rs.getString("orderType");
+			Date date = rs.getDate("DateTime");
 			System.out.println("history:"+id+symbol+numShares+priceType+orderType);
 
-			orderHistory.add(new History(id, symbol, numShares, priceType, orderType));
+			orderHistory.add(new History(id, symbol, numShares, priceType, orderType, date));
 
 		}
 		return orderHistory;
@@ -54,34 +55,12 @@ public class ClientUtils {
 	
 	public static ArrayList<Stock> getBestSellers(Connection conn) throws SQLException {
 		ArrayList<Stock> bestSellers = new ArrayList<Stock>();
-		
 		return bestSellers;
 	}
 	
 	public static ArrayList<Stock> getStockSuggestions(Connection conn) throws SQLException {
 		ArrayList<Stock> stockSuggestions = new ArrayList<Stock>();
 		return stockSuggestions;
-	}
-	
-	public static ArrayList<History> getOrderHistory(Connection conn, int accountId) throws SQLException {
-		ArrayList<History> history_list = new ArrayList<History>();
-		String sql = "call orderHistory(?)";
-
-		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, accountId);
-		ResultSet rs = pstm.executeQuery();
-		
-		while (rs.next()) {
-			String id = rs.getString("ID");
-			String symbol = rs.getString("StockSymbol");
-			String numShares = rs.getString("numShares");
-			String priceType = rs.getString("priceType");
-			String orderType = rs.getString("orderType");
-			
-			history_list.add(new History(id, symbol, numShares, priceType, orderType));
-		}
-		
-		return history_list;
 	}
 	
 	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {

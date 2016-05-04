@@ -1,19 +1,26 @@
 package webapp.beans;
 
+import java.sql.Date;
+
 public class History {
 	private String id;
 	private String symbol;
 	private String numShares;
 	private String priceType;
 	private String orderType;
-
-	public History(String id, String symbol, String numShares, String priceType, String orderType) {
+	private Date date;
+	public History(String id, String symbol, String numShares, String priceType, String orderType,Date date) {
 		super();
 		this.id = id;
 		this.symbol = symbol;
 		this.numShares = numShares;
 		this.priceType = priceType;
 		this.orderType = orderType;
+		this.date=date;
+	}
+	
+	public Date getDate(){
+		return date;
 	}
 
 	public String getId() {

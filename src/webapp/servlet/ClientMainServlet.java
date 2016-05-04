@@ -33,26 +33,16 @@ public class ClientMainServlet extends HttpServlet {
 		Connection conn = MyUtils.getStoredConnection(request);
 		HttpSession session= request.getSession();
 		Account thisClient = (Account)MyUtils.getLoginedUser(session);
-		
 		int Id= thisClient.getId();
 		System.out.println("account ID "+ Id);
 		ArrayList<hasStock> currentStocks;
-		ArrayList<History> orderHistories;
+
+		ArrayList<History> orderHistory;
 		try {
 			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
 			request.setAttribute("stocks", currentStocks);
-			
-			orderHistories = ClientUtils.getOrderHistory(conn, Id);
-			request.setAttribute("orders", orderHistories);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		ArrayList<History> orderHistory;
-		try {
 			orderHistory = ClientUtils.getOrderHistory(conn, Id);
-			//!!!request.setAttribute("stocks", orderHistory);
+			request.setAttribute("orders", orderHistory);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

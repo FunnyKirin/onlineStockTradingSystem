@@ -41,12 +41,12 @@ END//
 DELIMITER //
 CREATE PROCEDURE orderHistory(CustID INTEGER)
 BEGIN
-	SELECT O.ID, S.StockSymbol, O.NumShares, O.PriceType, O.OrderType 
+	SELECT O.ID, S.StockSymbol, O.NumShares, O.PriceType, O.OrderType, O.DateTime
     FROM StockOrder O, Trade T, Stock S, Account A
     WHERE A.ID = CustID AND A.ID = T.AccountId 
 	AND T.OrderId = O.ID AND S.StockSymbol = T.StockId;
 END//
-
+drop procedure if exists orderHistory;
 # Stocks available with a particular keyword or set of keywords in the stock name, and most-recent order info 
 DELIMITER //
 CREATE PROCEDURE searchAvailStockByName(IN SName CHAR(20))

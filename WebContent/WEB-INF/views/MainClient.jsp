@@ -58,11 +58,12 @@
 				</div>
 			</form>
 			<table class = "orderHistories">
-				<tr><td>Date</td><td>number of shares</td></tr>
+				<tr><td>Stock Symbol</td><td>number of shares</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">
         			<tr>
-            			<td>${order.date}</td>
+            			<td>${order.symbol}</td>
             			<td>${order.numShares}</td>
+            			<td>${order.date}
         			</tr>
     			</c:forEach>
 			</table>
