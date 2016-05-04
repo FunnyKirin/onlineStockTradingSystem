@@ -30,6 +30,25 @@ public class ClientUtils {
 		return currentStocks;
 	}
 	
+	public static ArrayList<History> getOrderHistory(Connection conn, int AccountID)throws SQLException {
+		ArrayList<History> orderHistory = new ArrayList<History>();
+		PreparedStatement pstm = conn.prepareStatement("call orderHistory("+AccountID+")");
+		ResultSet rs = pstm.executeQuery();
+		System.out.println("history!");
+		while(rs.next()){
+			String id = rs.getString("ID");
+			String symbol = rs.getString("StockSymbol");
+			String numShares = rs.getString("numShares");
+			String priceType = rs.getString("priceType");
+			String orderType = rs.getString("orderType");
+			System.out.println("history:"+id+symbol+numShares+priceType+orderType);
+
+			orderHistory.add(new History(id, symbol, numShares, priceType, orderType));
+
+		}
+		return orderHistory;
+	}
+	
 	public static ArrayList<Stock> getBestSellers(Connection conn) throws SQLException {
 		ArrayList<Stock> bestSellers = new ArrayList<Stock>();
 		return bestSellers;

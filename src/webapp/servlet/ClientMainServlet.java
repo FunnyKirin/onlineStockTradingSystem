@@ -44,16 +44,16 @@ public class ClientMainServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-    	/**
-    	HttpSession session = request.getSession();
-    	Account loginedUser = (Account) MyUtils.getLoginedUser(session);
-    	
-    	if (loginedUser == null) {
-    		// Redirect to login page.
-            response.sendRedirect(request.getContextPath() + "/clientLogin");
-            return;
-    	}
-         **/
+		ArrayList<History> orderHistory;
+		try {
+			orderHistory = ClientUtils.getOrderHistory(conn, Id);
+			//request.setAttribute("stocks", orderHistory);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        
         RequestDispatcher dispatcher = this.getServletContext()
