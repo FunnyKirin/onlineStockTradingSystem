@@ -48,6 +48,18 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
 		</div><!--/.row -->
+		<input class="row" id="content" value="${user.currentStocks}"/>
+		<table>
+		<table>
+    		<c:forEach var="stock" items="${stocks}">
+        		<tr>
+            		<td>${stock.symbol}</td>
+            		<td>${stock.company}</td>
+            		<td>${stock.type}</td>
+        		</tr>
+    		</c:forEach>
+		</table>
+		</table>
 	</div>	<!--/.main-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
