@@ -97,3 +97,4 @@ CREATE PROCEDURE bestSellerStocks()
 	GROUP BY Trade.StockId
 	ORDER BY COUNT(Trade.StockId) DESC;
  END //
+drop procedure if exists bestSellerStocks;
