@@ -1,3 +1,4 @@
+USE netrade;
 # A customer's current stock holdings 
 DELIMITER //
 CREATE PROCEDURE listStock(IN CustID INTEGER)

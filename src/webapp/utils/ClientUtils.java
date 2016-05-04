@@ -7,29 +7,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import webapp.beans.Stock;
-import webapp.beans.Account;
-import webapp.beans.Client;
-import webapp.beans.Employee;
-import webapp.beans.Location;
-import webapp.beans.Person;
+import webapp.beans.*;
 
 public class ClientUtils {
 	//@todo
-	public static ArrayList<Stock> getCurrentStocks(Connection conn, int AccountID) throws SQLException {
-		ArrayList<Stock> currentStocks = new ArrayList<Stock>();
+	public static ArrayList<hasStock> getCurrentStocks(Connection conn, int AccountID) throws SQLException {
+		ArrayList<hasStock> currentStocks = new ArrayList<hasStock>();
 		String sql = "SELECT * from hasStock where AccountId = ?;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, AccountID);
 		ResultSet rs = pstm.executeQuery();
-		
-		if (rs.next()) {
-			String StockSymbol = rs.getString("StockSymbol");
-			System.out.println("Symbol: "+StockSymbol);
-			return currentStocks;
-		}
+		while (rs.next()) {
 
-		return null;
+			hasStock thisStock = new hasStock();
+			String StockSymbol = rs.getString("StockSymbol");
+			int numOfShares = rs.getInt("NumShares");
+			thisStock.setNumberOfShares(numOfShares);
+			thisStock.setStockSymbol(StockSymbol);
+			currentStocks.add(thisStock);
+		}
+		return currentStocks;
 	}
 	
 	public static ArrayList<Stock> getBestSellers(Connection conn) throws SQLException {

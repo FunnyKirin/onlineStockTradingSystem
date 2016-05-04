@@ -135,3 +135,9 @@ CREATE TABLE Trade (
 		REFERENCES Transaction(Id)
 		ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
+CREATE TABLE stockHistory(
+	 StockSymbol CHAR(20),
+     PricePerShare DECIMAL(10, 2),
+     Primary key (StockSymbol)
+)

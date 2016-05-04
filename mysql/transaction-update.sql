@@ -48,5 +48,6 @@ VALUES(50, '2015-01-01', 100),
 INSERT INTO Trade(AccountId, BrokerId, OrderId, StockId, TransactionId)
 VALUES(1, 1, 1, 'GM', 1),
 		(2, 2, 2, 'IBM', 2);
+        
 
 commit;

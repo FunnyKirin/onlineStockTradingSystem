@@ -1,3 +1,4 @@
+USE netrade;
 # Record an order
 DELIMITER //
 CREATE PROCEDURE recordOrder(IN NumShares INTEGER, IN DateTime DateTime, IN PriceType CHAR(20), IN OrderType CHAR(4), IN Percentage INTEGER, IN PriceperShare INTEGER)

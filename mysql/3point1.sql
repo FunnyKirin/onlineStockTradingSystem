@@ -1,3 +1,5 @@
+USE netrade;
+
 #Set the share price of a stock (for simulating market fluctuations in a stock's share price)
 DELIMITER //
 CREATE PROCEDURE updateStockPrice(IN stockPrice INTEGER, stockSymbol CHAR(20))
