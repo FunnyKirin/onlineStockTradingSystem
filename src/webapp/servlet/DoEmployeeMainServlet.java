@@ -14,51 +14,72 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import webapp.beans.Client;
+import webapp.utils.ClientUtils;
 import webapp.utils.DBUtils;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
+import webapp.beans.History;
+import webapp.beans.Stock;
 
 @WebServlet(urlPatterns = { "/doEmployeeMain" })
 public class DoEmployeeMainServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
- 
-    public DoEmployeeMainServlet() {
-        super();
-    }
- 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	
-    	Connection conn = MyUtils.getStoredConnection(request);
-		
+	private static final long serialVersionUID = 1L;
+
+	public DoEmployeeMainServlet() {
+		super();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Connection conn = MyUtils.getStoredConnection(request);
+
 		String handle = request.getParameter("handle");
 		String content = "<h3>";
 		switch (handle) {
-		case "mailing_list":
+		case "stock_by_name":
 			try {
-				ArrayList<String> emails = ManagerUtils.getMailingList(conn);
-				if (emails.isEmpty()) {
-					content += "We don't have any client.</h3>";
+				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
+				if (stocks.isEmpty()) {
+					content += "You don't got no stock babe";
+				} else {
+					for (Stock s : stocks) {
+						content += s + "<br />";
+					}
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "stock_by_symbol":
+			try {
+				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
+				if (stocks.isEmpty()) {
+					content += "You don't got no stock babe";
+				} else {
+					for (Stock s : stocks) {
+						content += s + "<br />";
+					}
+				}
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			break;
 		default:
-			content = "Invalid Operation</h3>";
+			content += "Invalid Operation";
 		}
-		
+
+		content += "</h3>";
 		request.setAttribute("mainPanel", content);
-		// Not a valid one, forward
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");
-        dispatcher.forward(request, response);
-    }
- 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
+		// forward
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 }
