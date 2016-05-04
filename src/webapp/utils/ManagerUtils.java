@@ -33,11 +33,31 @@ public class ManagerUtils {
 		return emails;
 	}
 	
-	public static ArrayList<History> getOrderHistory(Connection conn) throws SQLException {
-		ArrayList<History> history_list = new ArrayList<History>();
-		String sql = "call orderHistory()";
+	public static ArrayList<Stock> getStocks(Connection conn) throws SQLException  {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		String sql = "select * from Stock";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stocks.add(new Stock(symbol, company, type, pps));
+		}
+		
+		return stocks;
+	}
+	
+	public static ArrayList<History> getOrderHistory(Connection conn, int accountId) throws SQLException {
+		ArrayList<History> history_list = new ArrayList<History>();
+		String sql = "call orderHistory(?)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, accountId);
 		ResultSet rs = pstm.executeQuery();
 		
 		while (rs.next()) {
@@ -51,6 +71,22 @@ public class ManagerUtils {
 		}
 		
 		return history_list;
+	}
+	
+	public static ArrayList<String> getBestSellers(Connection conn) throws SQLException  {
+		ArrayList<String> best = new ArrayList<String>();
+		String sql = "call bestSellerStocks()";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String id = rs.getString("StockId");
+			
+			best.add(id);
+		}
+		
+		return best;
 	}
 	
 	public static void setStockSharePrice(Stock stock, double pps) {

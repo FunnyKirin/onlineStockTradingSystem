@@ -54,8 +54,8 @@ public class DoEmployeeMainServlet extends HttpServlet {
 			break;
 		case "order_history":
 			try {
-				ArrayList<History> history_list = ManagerUtils.getOrderHistory(conn);
-				if (history_list == null) {
+				ArrayList<History> history_list = ManagerUtils.getOrderHistory(conn, 444444444);
+				if (history_list.isEmpty()) {
 					content += "You don't have a history";
 				} else {
 					content += "Order ID | Stock Symbol | # of Shares | Price Type | Order Type<br />";
@@ -71,7 +71,39 @@ public class DoEmployeeMainServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			break;
+		case "best_seller":
+			try {
+				ArrayList<String> best = ManagerUtils.getBestSellers(conn);
+				if (best.isEmpty()) {
+					content += "You don't have a history";
+				} else {
+					for (String s : best) {
+						content += s + "<br />";
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "current_stocks":
+			try {
+				ArrayList<Stock> stocks = ManagerUtils.getStocks(conn);
+				if (stocks.isEmpty()) {
+					content += "You don't have a history";
+				} else {
+					for (Stock s : stocks) {
+						content += s.getSymbol() + " ";
+						content += s.getCompany() + " ";
+						content += s.getType() + " ";
+						content += s.getPPS() + "<br />";
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		default:
 			content += "Invalid Operation";
