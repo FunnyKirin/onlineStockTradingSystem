@@ -14,7 +14,11 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<ul class="nav menu">
 			<li><input type="submit" class="submit" id="currentStocks" value="Current Stocks" /></li>
-			<li><input type="submit" class="submit" id="orders" value="order histories" /></li>
+			<li><input type="submit" class="submit" id="trailingHistory" value="Trailing-stop history" /></li>
+			<li><input type="submit" class="submit" id="hiddenHistory" value="Hidden-stop history" /></li>
+			<li><input type="submit" class="submit" id="stockPriceHis" value="Stock Price History" /></li>
+			<li><input type="submit" class="submit" id="orderHistories" value="order histories" /></li>
+			<li><input type="submit" class="submit" id="stockByType" value="Stocks and order Info" /></li>
 			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
 			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
 			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
@@ -48,12 +52,64 @@
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
+			<form role="search" class="search">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search Stocks">
+				</div>
+			</form>
+			<table class = "orderHistories">
+				<tr><td>Date</td><td>number of shares</td></tr>
+    			<c:forEach var="order" items="${orders}">
+        			<tr>
+            			<td>${order.date}</td>
+            			<td>${order.numShares}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			<table class = "bestSellers">
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td></tr>
+    			<c:forEach var="stock" items="${bestSellers}">
+        			<tr>
+            			<td>${stock.symbol}</td>
+            			<td>${stock.company}</td>
+            			<td>${stock.type}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			<table class = "suggestion">
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td></tr>
+    			<c:forEach var="stock" items="${suggestions}">
+        			<tr>
+            			<td>${stock.symbol}</td>
+            			<td>${stock.company}</td>
+            			<td>${stock.type}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
 			<table class = "currentStocks">
-				<tr></tr>
+				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
     			<c:forEach var="stock" items="${stocks}">
         			<tr>
             			<td>${stock.stockSymbol}</td>
             			<td>${stock.numOfShares}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			<table class = "trailingHistory">
+				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
+    			<c:forEach var="trailingHistory" items="${trailingHistorys}">
+        			<tr>
+            			<td>${trailingHistory.stockSymbol}</td>
+            			<td>${trailingHistory.numOfShares}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			<table class = "hiddenHistory">
+				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
+    			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
+        			<tr>
+            			<td>${hiddenHistory.stockSymbol}</td>
+            			<td>${hiddenHistory.numOfShares}</td>
         			</tr>
     			</c:forEach>
 			</table>
@@ -62,6 +118,7 @@
 				<input type="date" name="bday" min="2000-01-02">
 				<input type="submit"> 
 			</form>
+			
 		</div><!--/.row -->
 	</div>	<!--/.main-->
 

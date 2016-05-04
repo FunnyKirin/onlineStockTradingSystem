@@ -43,7 +43,7 @@ CREATE PROCEDURE orderHistory(CustID INTEGER)
 BEGIN
 	SELECT O.ID, S.StockSymbol, O.NumShares, O.PriceType, O.OrderType 
     FROM StockOrder O, Trade T, Stock S, Account A
-    WHERE A.ClientID = CustID AND A.ID = T.AccountId 
+    WHERE A.ID = CustID AND A.ID = T.AccountId 
 	AND T.OrderId = O.ID AND S.StockSymbol = T.StockId;
 END//
 
