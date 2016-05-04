@@ -39,17 +39,21 @@ public class DoEmployeeMainServlet extends HttpServlet {
 			try {
 				ArrayList<String> emails = ManagerUtils.getMailingList(conn);
 				if (emails.isEmpty()) {
-					content += "We don't have any client.</h3>";
+					content += "We don't have any client";
+				} else {
+					for (String email: emails) {
+						content += email + "<br />";
+					}
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
 		default:
-			content = "Invalid Operation</h3>";
+			content += "Invalid Operation";
 		}
 		
+		content += "</h3>";
 		request.setAttribute("mainPanel", content);
 		// Not a valid one, forward
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");

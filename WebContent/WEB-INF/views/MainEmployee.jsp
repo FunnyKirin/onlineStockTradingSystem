@@ -57,7 +57,7 @@ function setHandle(handle) {
 			<li><input onclick="setHandle('best_seller');" type="submit" class="submit" id="Best-sellers" value="Best-Sellers" /></li>
 			<li><input onclick="setHandle('suggestions');" type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
 			<li><input onclick="setHandle('mailing_list');" type="submit" class="submit" id="Mailing" value="Mailing List" /></li>
-			<li><input type="hidden" name="handle" value="current_stock" /></li>
+			<li><input type="hidden" id="handle" name="handle" value="current_stock" /></li>
 			<li class="parent ">
 				<a href="#">
 					<span data-toggle="collapse" href="#sub-item-1"></span> Dropdown
