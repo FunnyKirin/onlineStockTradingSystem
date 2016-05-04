@@ -4,7 +4,7 @@ var $date = $('#datePicker'), $datePicker = $date.clone (true);
 var $date = $('#datePicker'), $datePicker = $date.clone (true);
 var $date = $('#datePicker'), $datePicker = $date.clone (true);
 var $date = $('#datePicker'), $datePicker = $date.clone (true);
-var $date = $('#datePicker'), $datePicker = $date.clone (true);
+var orderHis = $('.orderHistories'), $orderHis = orderHis.clone (true);
 var bestSellers = $('.bestSellers'), $bestSellers = bestSellers.clone (true);
 var suggestion = $('.suggestion'), $suggestion = suggestion.clone (true);
 var search = $('.search'), $search = search.clone(true);
@@ -19,6 +19,7 @@ var $help = $("<div class='row'><div class='col-lg-12'><h1 class='page-header'>H
 $(document).ready(function() {
 	currentStocks.remove();
 	datePicker.remove();
+	orderHis.remove();
 	bestSellers.remove();
 	suggestion.remove();
 	search.remove();
@@ -28,7 +29,23 @@ $('#currentStocks').on('click', function (e) {
 	$('#dynamic').append($currentStocksHeader);
 	$('#dynamic').append($currentStocks);
 });
-$('#orders').on('click', function (e) {
+$('#trailingHistory').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($datePicker);
+});
+$('#hiddenHistory').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($datePicker);
+});
+$('#stockPriceHis').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($datePicker);
+});
+$('#orderHistories').on('click', function (e) {
+	$('#dynamic').empty();
+	$('#dynamic').append($orderHis);
+});
+$('#stockByType').on('click', function (e) {
 	$('#dynamic').empty();
 	$('#dynamic').append($datePicker);
 });
@@ -38,11 +55,11 @@ $('#searchStock').on('click', function (e) {
 });
 $('#Best-sellers').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($search);
+	$('#dynamic').append($bestSellers);
 });
 $('#Suggestions').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($search);
+	$('#dynamic').append($suggestion);
 });
 $('#help').on('click', function (e) {
 	$('#dynamic').empty();

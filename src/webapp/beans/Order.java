@@ -1,6 +1,7 @@
 package webapp.beans;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Order {
 	private int id;
@@ -8,7 +9,7 @@ public class Order {
 	private int numShares;
 	
 	public Order() {
-		this(0, null, 0);
+		this(0,null,0);
 	}
 	
 	public Order(int id, Date date, int numShares) {
@@ -35,6 +36,4 @@ public class Order {
 	public void setNumShares(int numShares) {
 		this.numShares = numShares;
 	}
-	
-	
 }

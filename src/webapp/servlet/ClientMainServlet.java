@@ -37,9 +37,13 @@ public class ClientMainServlet extends HttpServlet {
 		int Id= thisClient.getId();
 		System.out.println("account ID "+ Id);
 		ArrayList<hasStock> currentStocks;
+		ArrayList<History> orderHistories;
 		try {
 			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
 			request.setAttribute("stocks", currentStocks);
+			
+			orderHistories = ClientUtils.getOrderHistory(conn, Id);
+			request.setAttribute("orders", orderHistories);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
