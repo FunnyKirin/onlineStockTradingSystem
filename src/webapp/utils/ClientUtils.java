@@ -16,19 +16,14 @@ import webapp.beans.Person;
 
 public class ClientUtils {
 	//@todo
-	public static ArrayList<Stock> getCurrentStocks(Connection conn, int clientId) throws SQLException {
+	public static ArrayList<Stock> getCurrentStocks(Connection conn, int AccountID) throws SQLException {
 		ArrayList<Stock> currentStocks = new ArrayList<Stock>();
-		String sql = "Select ClientID from Account where ClientID = ?";
+		String sql = "SELECT * from hasStock where AccountId = ?;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, clientId);
+		pstm.setInt(1, AccountID);
 		ResultSet rs = pstm.executeQuery();
 		
-		System.out.println("Symbol: ");
 		if (rs.next()) {
-			sql = "SELECT * from hasStock where AccountId = ?;";
-			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, clientId);
-			rs = pstm.executeQuery();
 			String StockSymbol = rs.getString("StockSymbol");
 			System.out.println("Symbol: "+StockSymbol);
 			return currentStocks;

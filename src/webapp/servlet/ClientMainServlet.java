@@ -27,19 +27,23 @@ public class ClientMainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-/**
+
+    	
 		Connection conn = MyUtils.getStoredConnection(request);
 		HttpSession session= request.getSession();
-		Client thisClient = (Client)MyUtils.getLoginedUser(session);
-		int thisClientID= thisClient.getSSN();
-
+		Account thisClient = (Account)MyUtils.getLoginedUser(session);
+		int Id= thisClient.getId();
+		System.out.println("account ID "+ Id);
+		
+		
 		try {
-			ClientUtils.getCurrentStocks(conn, thisClientID);
+			ClientUtils.getCurrentStocks(conn, Id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		**/
+		
+    	/**
     	HttpSession session = request.getSession();
     	Account loginedUser = (Account) MyUtils.getLoginedUser(session);
     	
@@ -48,12 +52,12 @@ public class ClientMainServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/clientLogin");
             return;
     	}
-         
+         **/
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        
         RequestDispatcher dispatcher = this.getServletContext()
         		.getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
-        request.setAttribute("user", loginedUser.getUsername());
+        request.setAttribute("user", thisClient.getUsername());
          
         dispatcher.forward(request, response);
     }

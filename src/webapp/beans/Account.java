@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class Account extends Client{
-	//private int Id;
+	private int Id;
 	private Date dateOpened;
 	private int clientId;
 	private String username;
@@ -19,6 +19,13 @@ public class Account extends Client{
 		//this.Id=Id;
 		this.dateOpened = dateOpened;
 		this.clientId = clientId;
+	}
+	
+	public void setId(int Id){
+		this.Id=Id;
+	}
+	public int getId(){
+		return Id;
 	}
 	
 	public Date getDateOpened() {

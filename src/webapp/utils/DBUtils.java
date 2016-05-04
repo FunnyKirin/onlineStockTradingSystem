@@ -86,7 +86,9 @@ public class DBUtils {
 				String address = person.getAddress();
 				String telephone = person.getTelephone();
 				Location location = person.getLocation();
-				return new Account(firstName, lastName, address, SSN, telephone, location, email, rating, creditCardNum, dateOpened, clientId);
+				Account account = new Account(firstName, lastName, address, SSN, telephone, location, email, rating, creditCardNum, dateOpened, clientId);
+				account.setId(Id);
+				return account;
 			}
 		}
 
