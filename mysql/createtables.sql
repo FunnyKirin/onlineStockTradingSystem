@@ -30,7 +30,7 @@ CREATE TABLE Employee (
 	Username CHAR(32),
 	Password CHAR(32),
 	IsManager CHAR(1),
-	CHECK IsManager IN ("Y", "N"),
+	CHECK (IsManager IN ("Y", "N")),
     PRIMARY KEY (ID),
     FOREIGN KEY (SSN)
         REFERENCES Person (SSN)
