@@ -37,7 +37,7 @@ public class DoManagerMainServlet extends HttpServlet {
 		content += "</h3>";
 		request.setAttribute("mainPanel", content);
 		// forward
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainEmployee.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainManager.jsp");
 		dispatcher.forward(request, response);
 	}
 

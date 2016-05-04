@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -47,19 +48,21 @@
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
+			<table class = "currentStocks">
+				<tr></tr>
+    			<c:forEach var="stock" items="${stocks}">
+        			<tr>
+            			<td>${stock.stockSymbol}</td>
+            			<td>${stock.numOfShares}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			<form action="" id="datePicker">
+				<input type="date" name="bday" max="1979-12-31">
+				<input type="date" name="bday" min="2000-01-02">
+				<input type="submit"> 
+			</form>
 		</div><!--/.row -->
-		<input class="row" id="content" value="${user.currentStocks}"/>
-		<table>
-		<table>
-    		<c:forEach var="stock" items="${stocks}">
-        		<tr>
-            		<td>${stock.symbol}</td>
-            		<td>${stock.company}</td>
-            		<td>${stock.type}</td>
-        		</tr>
-    		</c:forEach>
-		</table>
-		</table>
 	</div>	<!--/.main-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
