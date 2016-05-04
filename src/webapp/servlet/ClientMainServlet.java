@@ -38,6 +38,7 @@ public class ClientMainServlet extends HttpServlet {
 		ArrayList<hasStock> currentStocks;
 		ArrayList<History> orderHistory;
 		ArrayList<Stock> bestSeller;
+		ArrayList<Stock> suggestion;
 		try {
 			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
 			request.setAttribute("stocks", currentStocks);
@@ -46,6 +47,9 @@ public class ClientMainServlet extends HttpServlet {
 			//bestSeller
 			bestSeller=ClientUtils.getBestSellers(conn);
 			request.setAttribute("bestSellers", bestSeller);
+			//suggestion
+			suggestion = ClientUtils.getStockSuggestions(conn, Id);
+			request.setAttribute("suggestions", suggestion);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

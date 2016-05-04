@@ -81,12 +81,13 @@
     			</c:forEach>
 			</table>
 			<table class = "suggestion">
-				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td></tr>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${suggestions}">
         			<tr>
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
+            			<td>${stock.PPS }</td>
         			</tr>
     			</c:forEach>
 			</table>
