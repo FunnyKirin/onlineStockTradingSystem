@@ -89,9 +89,6 @@ public class DoClientMainServlet extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else{
-            doGet(request, response);
-
         }
         
         if (request.getParameter("searchTypeButton") != null) {
@@ -102,9 +99,6 @@ public class DoClientMainServlet extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else{
-            doGet(request, response);
-
         }
     }
     

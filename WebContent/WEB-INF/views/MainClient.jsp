@@ -61,6 +61,7 @@
 					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
+			
 			<table class = "searchResult">
 				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${searchResult}">
