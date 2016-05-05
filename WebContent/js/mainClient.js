@@ -1,9 +1,7 @@
 var currentStocks = $('.currentStocks'), $currentStocks = currentStocks.clone (true);
-var datePicker = $('#datePicker'), $datePicker = datePicker.clone (true);
-var $date = $('#datePicker'), $datePicker = $date.clone (true);
-var $date = $('#datePicker'), $datePicker = $date.clone (true);
-var $date = $('#datePicker'), $datePicker = $date.clone (true);
-var $date = $('#datePicker'), $datePicker = $date.clone (true);
+var trailingHistory = $('.trailingHistory'), $trailingHistory = trailingHistory.clone (true);
+var hiddenHistory = $('.hiddenHistory'), $hiddenHistory = hiddenHistory.clone (true);
+var stockPriceHis = $('.stockPriceHis'), $stockPriceHis = stockPriceHis.clone (true);
 var orderHis = $('.orderHistories'), $orderHis = orderHis.clone (true);
 var bestSellers = $('.bestSellers'), $bestSellers = bestSellers.clone (true);
 var suggestion = $('.suggestion'), $suggestion = suggestion.clone (true);
@@ -18,7 +16,9 @@ var $help = $("<div class='row'><div class='col-lg-12'><h1 class='page-header'>H
 
 $(document).ready(function() {
 	currentStocks.remove();
-	datePicker.remove();
+	trailingHistory.remove();
+	hiddenHistory.remove();
+	stockPriceHis.remove();
 	orderHis.remove();
 	bestSellers.remove();
 	suggestion.remove();
@@ -35,11 +35,11 @@ function getStopHis(order) {
 }
 $('#trailingHistory').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($datePicker);
+	$('#dynamic').append($trailingHistory);
 });
 $('#hiddenHistory').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($datePicker);
+	$('#dynamic').append($hiddenHistory);
 });
 $('#stockPriceHis').on('click', function (e) {
 	$('#dynamic').empty();
