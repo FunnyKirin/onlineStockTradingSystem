@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import webapp.beans.Account;
 import webapp.beans.Client;
 import webapp.beans.History;
 import webapp.beans.OrderHistory;
 import webapp.beans.Stock;
+import webapp.beans.hasStock;
 import webapp.utils.ClientUtils;
 import webapp.utils.DBUtils;
 import webapp.utils.ManagerUtils;
@@ -39,20 +41,47 @@ public class DoClientMainServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	ArrayList<Stock> currentStocks = (ArrayList<Stock>)request.getAttribute("stocks");
-    	ArrayList<Stock> orders = (ArrayList<Stock>)request.getAttribute("orders");
-    	ArrayList<Stock> bestSellers = (ArrayList<Stock>)request.getAttribute("bestSellers");
-    	ArrayList<Stock> suggestions = (ArrayList<Stock>)request.getAttribute("suggestions");
+    	Connection conn = MyUtils.getStoredConnection(request);
+		HttpSession session= request.getSession();
+		Account thisClient = (Account)MyUtils.getLoginedUser(session);
+		int Id= thisClient.getId();
+		ArrayList<hasStock> currentStocks;
+		ArrayList<History> orders;
+		ArrayList<Stock> bestSellers;
+		ArrayList<Stock> suggestions;
+    	try{
+    		
     	
+		currentStocks = ClientUtils.getCurrentStocks(conn, Id);
+		//request.setAttribute("stocks", currentStocks);
+		//order history
+		orders = ClientUtils.getOrderHistory(conn, Id);
+		//request.setAttribute("orders", orderHistory);
+		//bestSeller
+		bestSellers=ClientUtils.getBestSellers(conn);
+	//	request.setAttribute("bestSellers", bestSeller);
+		//suggestion
+		suggestions = ClientUtils.getStockSuggestions(conn, Id);
+//		request.setAttribute("suggestions", suggestion);
+
+    	//ArrayList<Stock> currentStocks = (ArrayList<Stock>)request.getAttribute("stocks");
+    	//ArrayList<Stock> orders = (ArrayList<Stock>)request.getAttribute("orders");
+    	//ArrayList<Stock> bestSellers = (ArrayList<Stock>)request.getAttribute("bestSellers");
+    	//ArrayList<Stock> suggestions = (ArrayList<Stock>)request.getAttribute("suggestions");
+
+    	request.setAttribute("stocks", currentStocks);
+    	request.setAttribute("orders", orders);
+    	request.setAttribute("bestSellers", bestSellers);
+    	request.setAttribute("suggestions", suggestions);
+    	}	 catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         if (request.getParameter("searchNameButton") != null) {
         	String searchText = request.getParameter("searchText");
 
         	try {
 				searchByName(searchText,request, response);
-	        	request.setAttribute("stocks", currentStocks);
-	        	request.setAttribute("orders", orders);
-	        	request.setAttribute("bestSellers", bestSellers);
-	        	request.setAttribute("suggestions", suggestions);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,10 +90,6 @@ public class DoClientMainServlet extends HttpServlet{
         
         if (request.getParameter("searchTypeButton") != null) {
         	String searchText = request.getParameter("searchText");
-        	request.setAttribute("stocks", currentStocks);
-        	request.setAttribute("orders", orders);
-        	request.setAttribute("bestSellers", bestSellers);
-        	request.setAttribute("suggestions", suggestions);
         	try {
 				searchByType(searchText,request, response);
 			} catch (SQLException e) {
@@ -77,10 +102,17 @@ public class DoClientMainServlet extends HttpServlet{
         	String searchText = request.getParameter("searchHistoryText");
         	try {
         		searchHistory(Integer.parseInt(searchText),request, response);
-            	request.setAttribute("stocks", currentStocks);
-            	request.setAttribute("orders", orders);
-            	request.setAttribute("bestSellers", bestSellers);
-            	request.setAttribute("suggestions", suggestions);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        if (request.getParameter("searchStockHistoryButton") != null) {
+        	String searchText = request.getParameter("searchStockHistoryText");
+        	try {
+        		StockHistory(searchText,request, response);
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,6 +133,10 @@ public class DoClientMainServlet extends HttpServlet{
 		}
     	
 		request.setAttribute("searchResult", result);
+		
+		
+		
+		
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
     }
@@ -134,6 +170,23 @@ public class DoClientMainServlet extends HttpServlet{
 		}
     	System.out.println("out:"+result.get(0).getDate());
 		request.setAttribute("OrderHistorys", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+		
+    }
+    
+    public void StockHistory(String input, HttpServletRequest request, HttpServletResponse response)
+        	throws ServletException, IOException, SQLException {
+    
+    	ArrayList<OrderHistory> result = new ArrayList<OrderHistory>();
+    	Connection conn = MyUtils.getStoredConnection(request);
+    	try {
+			result=ClientUtils.StockHistory(input, conn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("StockHistory", result);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
     }

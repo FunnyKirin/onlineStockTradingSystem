@@ -57,7 +57,7 @@
 				<div class="form-group">
 					
 					<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
-					<input type="submit" name="searchNameButton" class="form-control" placeholder="Search" id="searchButton">
+					<input type="submit" name="searchNameButton" class="form-control" value="Search by Name" placeholder="Search" id="searchButton">
 					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
@@ -68,7 +68,7 @@
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
-            			<td>${stock.PPS }</td>
+            			<td>${stock.pps }</td>
         			</tr>
     			</c:forEach>
 			</table>
@@ -105,16 +105,10 @@
             			<td>${OrderHistory.price}</td>
             			<td>${OrderHistory.type}</td>
             			<td>${OrderHistory.value}</td>
-            			<td>${OrderHistory.sellPrice }</td>
-            			<td>${OrderHistory.numShares }</td>
-            			<td>${OrderHistory.date}</td>
-<<<<<<< HEAD
-			
-=======
             			<td>${OrderHistory.sellPrice}</td>
             			<td>${OrderHistory.numShares}</td>
-            			<td>${OrderHistory.date}
->>>>>>> e42e79fc9b55b560a84337c951435b04b2fb1350
+            			<td>${OrderHistory.date}</td>
+
         			</tr>
     			</c:forEach>
 			</table>
@@ -127,7 +121,7 @@
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
-            			<td>${stock.PPS }</td>
+            			<td>${stock.pps }</td>
         			</tr>
     			</c:forEach>
 			</table>
@@ -138,7 +132,7 @@
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
-            			<td>${stock.PPS }</td>
+            			<td>${stock.pps }</td>
         			</tr>
     			</c:forEach>
 			</table>
@@ -150,44 +144,30 @@
             			<td>${stock.stockSymbol}</td>
             			<td>${stock.companyName}</td>
             			<td>${stock.type}</td>
-            			<td>${stock. pricePerShare}</td>
+            			<td>${stock.pricePerShare}</td>
             			<td>${stock.numOfShares}</td>
         			</tr>
     			</c:forEach>
 			</table>
 			
-			<table class = "trailingHistory">
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
-    			<c:forEach var="trailingHistory" items="${trailingHistorys}">
-        			<tr>
-            			<td>${trailingHistory.stockSymbol}</td>
-            			<td>${trailingHistory.numOfShares}</td>
-        			</tr>
-    			</c:forEach>
-			</table>
-			
-			<table class = "hiddenHistory">
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
-    			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
-        			<tr>
-            			<td>${hiddenHistory.stockSymbol}</td>
-            			<td>${hiddenHistory.numOfShares}</td>
-        			</tr>
-    			</c:forEach>
-			</table>
-			
 			<div class = "stockPriceHis">
-			<form action="" id="datePicker">
+						<form role="search" class="search" action="doClientMain" method="post">
+			
+				<input type="text" name="searchStockHistoryText" value="Stock Symbol"  class="form-control" placeholder="Search" >
+				<input type="submit" name="searchStockHistoryButton" value="Search"  class="form-control" placeholder="Search Stock">
+</form>
+
+<!-- 			<form action="" id="datePicker">
 				<input type="date" name="bday" max="1979-12-31">
 				<input type="date" name="bday" min="2000-01-02">
 				<input type="submit"> 
-			</form>
+			</form> -->
 			<table>
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
-    			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
+				<tr><td>Price</td><td>Date</td></tr>
+    			<c:forEach var="OrderHistory" items="${StockHistory}">
         			<tr>
-            			<td>${hiddenHistory.stockSymbol}</td>
-            			<td>${hiddenHistory.numOfShares}</td>
+            			<td>${OrderHistory.price}</td>
+            			<td>${OrderHistory.date}</td>
         			</tr>
     			</c:forEach>
 			</table>
