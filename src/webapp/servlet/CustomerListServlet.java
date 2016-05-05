@@ -3,7 +3,6 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import webapp.beans.Client;
+
+import webapp.beans.Account;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
  
@@ -30,9 +30,9 @@ public class CustomerListServlet extends HttpServlet {
     	Connection conn = MyUtils.getStoredConnection(request);
     	 
         String errorString = null;
-        List<Client> list = null;
+        List<Account> list = null;
         try {
-            list = ManagerUtils.getClients(conn);
+            list = ManagerUtils.getAccounts(conn);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

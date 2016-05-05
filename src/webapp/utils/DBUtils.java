@@ -100,10 +100,10 @@ public class DBUtils {
 		return null;
 	}
 
-	public static void deleteAccount(Connection conn, int id) throws SQLException {
-		String sql = "Delete from Account where id = ?";
+	public static void deleteAccount(Connection conn, String username) throws SQLException {
+		String sql = "Delete from Account where username = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, id);
+		pstm.setString(1, username);
 		pstm.executeUpdate();
 	}
 
@@ -139,13 +139,16 @@ public class DBUtils {
 		System.out.println("Employee deletion");
 	}
 
-	public static Account findAccount(Connection conn, int clientId) throws SQLException {
-		String sql = "Select * from Account where ClientID = ?";
+	public static Account findAccount(Connection conn, String username) throws SQLException {
+		String sql = "Select * from Account where Username = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, clientId);
+		pstm.setString(1, username);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
+			int clientId = rs.getInt("ClientID");
+			
+			
 			Client client = findClient(conn, clientId);
 			if (client == null)
 				return null;
@@ -153,18 +156,25 @@ public class DBUtils {
 			String email = client.getEmail();
 			double rating = client.getRating();
 			String creditCardNum = client.getCreditCardNum();
-			int id = client.getSSN();
-
+			
 			String firstname = client.getFirstname();
 			String lastname = client.getLastname();
 			String address = client.getAddress();
 			String telephone = client.getTelephone();
 			Location location = client.getLocation();
+			
 			Date dateOpened = rs.getDate("DateOpened");
+			int id = rs.getInt("ClientID");
+			int accountId = rs.getInt("ID");
+			String password = rs.getString("password");
 
-			return new Account(firstname, lastname, address, id, telephone, location, email, rating, creditCardNum,
-					dateOpened, id);
-
+			Account a = new Account(firstname, lastname, address, id, telephone, location, email, 
+					rating, creditCardNum, dateOpened, id);
+			a.setUsername(username);
+			a.setPassword(password);
+			a.setId(accountId);
+			
+			return a;
 		}
 
 		return null;
@@ -306,6 +316,10 @@ public class DBUtils {
 		// Client
 		String sql = "Update Client Set email = ?, rating = ?, CreditCardNumber = ? Where ID = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, client.getEmail());
+		pstm.setDouble(2, client.getRating());
+		pstm.setString(3, client.getCreditCardNum());
+		pstm.setInt(4, client.getSSN());
 		pstm.executeUpdate();
 	}
 
@@ -342,10 +356,6 @@ public class DBUtils {
 		pstm.setString(3, employee.getPassword());
 		pstm.setInt(4, employee.getSSN());
 		pstm.executeUpdate();
-	}
-
-	public static void updateClient(Connection conn, int SSN) throws SQLException {
-
 	}
 
 	public static void insertClient(Connection conn, Account account) throws SQLException {
