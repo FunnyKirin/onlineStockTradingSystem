@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import webapp.beans.Client;
 import webapp.beans.History;
+import webapp.beans.OrderHistory;
 import webapp.beans.Stock;
 import webapp.utils.ClientUtils;
 import webapp.utils.DBUtils;
@@ -72,15 +73,16 @@ public class DoClientMainServlet extends HttpServlet{
 
 		content += "</h3>";
 		request.setAttribute("mainPanel", content);
+		**/
 		// forward
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
-		**/
 	}
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         if (request.getParameter("searchNameButton") != null) {
         	String searchText = request.getParameter("searchText");
         	try {
@@ -89,9 +91,6 @@ public class DoClientMainServlet extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else{
-            doGet(request, response);
-
         }
         
         if (request.getParameter("searchTypeButton") != null) {
@@ -102,9 +101,16 @@ public class DoClientMainServlet extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else{
-            doGet(request, response);
-
+        }
+        
+        if (request.getParameter("searchHistoryButton") != null) {
+        	String searchText = request.getParameter("searchHistoryText");
+        	try {
+        		searchHistory(Integer.parseInt(searchText),request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
     
@@ -138,6 +144,22 @@ public class DoClientMainServlet extends HttpServlet{
 		}
     	
 		request.setAttribute("searchResult", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+    
+    public void searchHistory(int input, HttpServletRequest request, HttpServletResponse response)
+    	throws ServletException, IOException, SQLException {
+    	ArrayList<OrderHistory> result = new ArrayList<OrderHistory>();
+		Connection conn = MyUtils.getStoredConnection(request);
+    	try {
+			result=ClientUtils.searchOrderHistory(input, conn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	System.out.println("out:"+result.get(0).getDate());
+		request.setAttribute("OrderHistorys", result);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
     }

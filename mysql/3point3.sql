@@ -12,11 +12,12 @@ END//
 DELIMITER //
 CREATE PROCEDURE hiddenstopHistory(IN OrderID INTEGER)
 BEGIN
-	SELECT S.PricePerShare, TrailingStop*TA.PricePerShare
-FROM Stock S, Trade T, StockOrder O, Transaction TA
-WHERE S.StockSymbol=T.StockId AND T.OrderId = O.ID;
+SELECT S.StockSymbol, H.PricePerShare, O.PriceType, O.Percentage, O.NumShares, H.stockDate
+FROM Stock S, Trade T, StockOrder O, stockHistory H
+WHERE T.OrderId= OrderID AND S.StockSymbol=T.StockId AND T.OrderId = O.ID AND H.StockSymbol = S.StockSymbol;
 
 END//
+drop procedure hiddenstopHistory;
 
 # The share-price and trailing-stop history for a given conditional order.
 DELIMITER //
@@ -67,7 +68,7 @@ BEGIN
     WHERE S.Type LIKE CONCAT('%', CONCAT(SType, '%'))
 	GROUP BY S.StockSymbol;
 END//
-drop procedure searchAvailStockByType;
+#drop procedure searchAvailStockByType;
 
 # Personalized stock suggestion list 
 DELIMITER //
@@ -97,4 +98,4 @@ CREATE PROCEDURE bestSellerStocks()
 	GROUP BY Trade.StockId
 	ORDER BY COUNT(Trade.StockId) DESC;
  END //
-drop procedure if exists bestSellerStocks;
+#drop procedure if exists bestSellerStocks;
