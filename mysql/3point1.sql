@@ -74,9 +74,10 @@ CREATE PROCEDURE deleteEmployeeHourlyRate(IN ID INTEGER)
 DELIMITER //
 CREATE PROCEDURE monthlySalesReport(IN month INTEGER)
 	BEGIN
-		SELECT StockOrder.*
-		FROM StockOrder
-		WHERE MONTH(StockOrder.DateTime) = month;
+		SELECT T.*
+		FROM Trade T, StockOrder O
+		WHERE MONTH(StockOrder.DateTime) = month
+			AND T.OrderId = O.Id;
 	END//
 
 #Produce a comprehensive listing of all stocks

@@ -32,6 +32,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="addEmployee" >Add Employee</a>
+	<a href="addEmployee" >Add Employee</a><br />
+	<a href="managerMain" >Back</a>
 </body>
 </html>

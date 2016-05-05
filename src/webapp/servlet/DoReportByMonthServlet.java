@@ -12,16 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import webapp.beans.Employee;
-import webapp.utils.DBUtils;
+import webapp.beans.Trade;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/editEmployee" })
-public class EditEmployeeServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/doReportByMonth" })
+public class DoReportByMonthServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public EditEmployeeServlet() {
+    public DoReportByMonthServlet() {
         super();
     }
  
@@ -30,34 +29,36 @@ public class EditEmployeeServlet extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         
-        String SSNstr = request.getParameter("ssn");
+        String monthStr = request.getParameter("month");
  
-        Employee employee = null;
+        ArrayList<Trade> trades = null;
         String errorString = null;
  
         try {
-        	int SSN = Integer.parseInt(SSNstr);
-            employee = DBUtils.findEmployee(conn, SSN);
+        	int month = Integer.parseInt(monthStr);
+            trades = ManagerUtils.getSalesReportByMonth(conn, month);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
+        } catch(NumberFormatException ee) {
+        	errorString = "Invalid input";
         }
  
          
         // If no error.
         // The product does not exist to edit.
         // Redirect to productList page.
-        if (errorString != null && employee == null) {
-            response.sendRedirect(request.getServletPath() + "/stockList");
+        if (errorString != null && trades == null) {
+            response.sendRedirect("reportByMonth");
             return;
         }
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("emp", employee);
+        request.setAttribute("trades", trades);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/EditEmployeeView.jsp");
+                .getRequestDispatcher("/WEB-INF/views/SalesByMonthView.jsp");
         dispatcher.forward(request, response);
  
     }

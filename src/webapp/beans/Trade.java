@@ -5,18 +5,19 @@ public class Trade {
 	private Employee employee;
 	private Order order;
 	private Stock stock;
+	private Transaction transaction;
 
 	public Trade() {
 
 	}
 
-	public Trade(Account account, Employee employee, Order order, Stock stock, int id) {
+	public Trade(Account account, Employee employee, Order order, Stock stock, Transaction transaction) {
 		super();
 		this.account = account;
 		this.employee = employee;
 		this.order = order;
 		this.stock = stock;
-		this.id = id;
+		this.transaction = transaction;
 	}
 
 	public Account getAccount() {

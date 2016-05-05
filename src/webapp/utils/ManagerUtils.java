@@ -8,14 +8,44 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import webapp.beans.Stock;
+import webapp.beans.Trade;
+import webapp.beans.Transaction;
 import webapp.beans.Account;
 import webapp.beans.Client;
 import webapp.beans.Employee;
 import webapp.beans.History;
 import webapp.beans.Location;
+import webapp.beans.Order;
 import webapp.beans.Person;
 
 public class ManagerUtils {
+	public static ArrayList<Trade> getSalesReportByMonth(Connection conn, int month) throws SQLException {
+		ArrayList<Trade> trades = new ArrayList<Trade>();
+		
+		String sql = "call monthlySalesReport(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, month);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			Account account = new Account();
+			Employee employee = new Employee();
+			Order order = new Order();
+			Stock stock = new Stock();
+			Transaction transaction = new Transaction();
+			
+			account.setId(rs.getInt("AccountId"));
+			employee.setId(rs.getInt("BrokerId"));
+			order.setId(rs.getInt("OrderId"));
+			stock.setSymbol(rs.getString("StockId"));
+			transaction.setId(rs.getInt("TransactionId"));
+			
+			trades.add(new Trade(account, employee, order, stock, transaction));
+		}
+		
+		return trades;
+	}
+	
 	public static Client getCoolestClient(Connection conn) throws SQLException {
 		String sql = "call customer_mostRevenue()";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -36,8 +66,10 @@ public class ManagerUtils {
 		ResultSet rs = pstm.executeQuery();
 		
 		if (rs.next()) {
-			int id = rs.getInt("Employee SSN");
-			Employee employee = DBUtils.findEmployee(conn, id);
+			int ssn = rs.getInt("Employee SSN");
+			int id = rs.getInt("Employee ID");
+			Employee employee = DBUtils.findEmployee(conn, ssn);
+			employee.setId(id);
 			return employee;
 		}
 		
@@ -79,6 +111,20 @@ public class ManagerUtils {
 		return stocks;
 	}
 
+	public static ArrayList<Stock> getActiveStocks(Connection conn) throws SQLException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		String sql = "call activeStocks()";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			String symbol = rs.getString("Active Stocks");
+			stocks.add(DBUtils.findStock(conn, symbol));
+		}
+
+		return stocks;
+	}
+	
 	public static ArrayList<Client> getClients(Connection conn) throws SQLException {
 		ArrayList<Client> clients = new ArrayList<Client>();
 

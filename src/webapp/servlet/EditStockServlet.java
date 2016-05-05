@@ -12,16 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import webapp.beans.Employee;
+import webapp.beans.Stock;
 import webapp.utils.DBUtils;
-import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/editEmployee" })
-public class EditEmployeeServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/editStock" })
+public class EditStockServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public EditEmployeeServlet() {
+    public EditStockServlet() {
         super();
     }
  
@@ -29,35 +28,37 @@ public class EditEmployeeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-        
-        String SSNstr = request.getParameter("ssn");
  
-        Employee employee = null;
+        Stock stock = null;
         String errorString = null;
+        
+        String symbol = request.getParameter("symbol");
  
         try {
-        	int SSN = Integer.parseInt(SSNstr);
-            employee = DBUtils.findEmployee(conn, SSN);
+            stock = DBUtils.findStock(conn, symbol);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
+        } catch (Exception e2) {
+        	e2.printStackTrace();
+            errorString = e2.getMessage();
         }
  
          
         // If no error.
         // The product does not exist to edit.
         // Redirect to productList page.
-        if (errorString != null && employee == null) {
-            response.sendRedirect(request.getServletPath() + "/stockList");
+        if (errorString != null && stock == null) {
+            response.sendRedirect("stockList");
             return;
         }
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("emp", employee);
+        request.setAttribute("stock", stock);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/EditEmployeeView.jsp");
+                .getRequestDispatcher("/WEB-INF/views/EditStockView.jsp");
         dispatcher.forward(request, response);
  
     }

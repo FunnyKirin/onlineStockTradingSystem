@@ -10,7 +10,7 @@
 <body>
 	<h3>Give Suggestion</h3>
 	<form action="doGiveSuggestion">
-		<input type="text" name="client_id" /> <input type="submit"
+		Client ID: <input type="text" name="client_id" /> <input type="submit"
 			value="Submit" />
 	</form>
 	<br />
@@ -26,10 +26,6 @@
 				<th>Type</th>
 				<th>Price/Share</th>
 			</tr>
-
-
-
-
 
 			<c:forEach items="${stocks}" var="s">
 				<tr>

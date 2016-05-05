@@ -52,11 +52,12 @@ function setHandle(handle) {
 		</form>
 		<form action="${pageContext.request.contextPath}/doEmployeeMain">
 		<ul class="nav menu">
-			
+			<li><input type="hidden" id="handle" name="handle" value="mailing_list" /></li>
 			<li><input onclick="setHandle('mailing_list');" type="submit" class="submit" id="Mailing" value="Mailing List" /></li>
+			<li role="presentation" class="divider"></li>
 			<li><a href="giveSuggestion">Give Suggestion</a></li>
 			<li><a href="customerList">Customer Info</a></li>
-			<li><input type="hidden" id="handle" name="handle" value="mailing_list" /></li>
+			
 		</ul>
 		</form>
 

@@ -139,6 +139,14 @@ public class DBUtils {
 		System.out.println("Employee deletion");
 	}
 
+	public static void fluxStock(Connection conn, String symbol, double pps) throws SQLException {
+		String sql = "Update Stock Set PricePerShare = ? where StockSymbol = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setDouble(1, pps);
+		pstm.setString(2, symbol);
+		pstm.executeUpdate();
+	}
+	
 	public static Account findAccount(Connection conn, String username) throws SQLException {
 		String sql = "Select * from Account where Username = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -164,12 +172,11 @@ public class DBUtils {
 			Location location = client.getLocation();
 			
 			Date dateOpened = rs.getDate("DateOpened");
-			int id = rs.getInt("ClientID");
 			int accountId = rs.getInt("ID");
 			String password = rs.getString("password");
 
-			Account a = new Account(firstname, lastname, address, id, telephone, location, email, 
-					rating, creditCardNum, dateOpened, id);
+			Account a = new Account(firstname, lastname, address, clientId, telephone, location, email, 
+					rating, creditCardNum, dateOpened, clientId);
 			a.setUsername(username);
 			a.setPassword(password);
 			a.setId(accountId);
@@ -180,16 +187,55 @@ public class DBUtils {
 		return null;
 	}
 
+	public static Account findAccount(Connection conn, int id) throws SQLException {
+		String sql = "Select * from Account where ID = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			int uid = rs.getInt("ClientID");
+			
+			Client client = findClient(conn, uid);
+			if (client == null)
+				return null;
+
+			String email = client.getEmail();
+			double rating = client.getRating();
+			String creditCardNum = client.getCreditCardNum();
+			
+			String firstname = client.getFirstname();
+			String lastname = client.getLastname();
+			String address = client.getAddress();
+			String telephone = client.getTelephone();
+			Location location = client.getLocation();
+			
+			Date dateOpened = rs.getDate("DateOpened");
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+
+			Account a = new Account(firstname, lastname, address, uid, telephone, location, email, 
+					rating, creditCardNum, dateOpened, uid);
+			a.setUsername(username);
+			a.setPassword(password);
+			a.setId(id);
+			
+			return a;
+		}
+
+		return null;
+	}
+	
 	public static Stock findStock(Connection conn, String symbol) throws SQLException {
-		String sql = "Select * from Stock where symbol = ?";
+		String sql = "Select * from Stock where StockSymbol = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, symbol);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
 			String company = rs.getString("CompanyName");
-			String type = rs.getString("type");
-			double pps = rs.getDouble("pps");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
 
 			return new Stock(symbol, company, type, pps);
 
@@ -273,12 +319,51 @@ public class DBUtils {
 
 		Employee employee = null;
 		if (rs.next()) {
-			int id = SSN;
+			int ssn = SSN;
+			int id = rs.getInt("ID");
 			Date dateStarted = rs.getDate("StartDate");
 			double hourlyRate = rs.getDouble("hourlyRate");
 			boolean isManager = "Y".equals(rs.getString("IsManager"));
 			String username = rs.getString("username");
 			String password = rs.getString("password");
+
+			Person person = findPerson(conn, ssn);
+			// Account account = findAccount(conn, id);
+			if (person == null)
+				return null;
+
+			String firstname = person.getFirstname();
+			String lastname = person.getLastname();
+			String address = person.getAddress();
+			String telephone = person.getTelephone();
+			Location location = person.getLocation();
+
+			employee = new Employee(firstname, lastname, address, SSN, telephone, location, dateStarted, hourlyRate,
+					isManager);
+			employee.setUsername(username);
+			employee.setPassword(password);
+			employee.setId(id);
+
+			return employee;
+		}
+
+		return null;
+	}
+
+	public static Employee findEmployeeById(Connection conn, int id) throws SQLException {
+		String sql = "Select * from Employee where ID = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		ResultSet rs = pstm.executeQuery();
+
+		Employee employee = null;
+		if (rs.next()) {
+			Date dateStarted = rs.getDate("StartDate");
+			double hourlyRate = rs.getDouble("hourlyRate");
+			boolean isManager = "Y".equals(rs.getString("IsManager"));
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+			int SSN = rs.getInt("SSN");
 
 			Person person = findPerson(conn, id);
 			// Account account = findAccount(conn, id);
@@ -295,13 +380,14 @@ public class DBUtils {
 					isManager);
 			employee.setUsername(username);
 			employee.setPassword(password);
+			employee.setId(id);
 
 			return employee;
 		}
 
 		return null;
 	}
-
+	
 	public static void updateAccount(Connection conn, Account account) throws SQLException {
 		// Account
 		String sql = "Update Account Set Username = ?, Password = ? Where ClientID = ?";

@@ -54,21 +54,21 @@
 
 		<form action="${pageContext.request.contextPath}/doManagerMain">
 			<ul class="nav menu">
-				<li><input onclick="setHandle('list_stocks');" type="submit"
-					class="submit" id="stocks_by_name" value="List Stocks" /></li>
-
 				<li><input onclick="setHandle('stocks_by_name');" type="submit"
 					class="submit" id="stocks_by_name" value="Stocks by Customer Name" /></li>
 				<li><input onclick="setHandle('stocks_by_symbol');"
 					type="submit" class="submit" id="stocks_by_symbol"
 					value="Stocks by Stock Symbol" /></li>
-				<li><input onclick="setHandle('best_employee');"
-					type="submit" class="submit" id="best_employee"
-					value="Best Employee" /></li>
-				<li><input onclick="setHandle('best_client');"
-					type="submit" class="submit" id="best_client"
-					value="Best Client" /></li>
+				<li><input onclick="setHandle('best_employee');" type="submit"
+					class="submit" id="best_employee" value="Best Employee" /></li>
+				<li><input onclick="setHandle('best_client');" type="submit"
+					class="submit" id="best_client" value="Best Client" /></li>
+				<li role="presentation" class="divider"></li>
+
 				<li><a href="employeeList">Employee Info</a></li>
+				<li><a href="stockList">List Stocks</a></li>
+				<li><a href="activeStocks">Actively Traded Stocks</a></li>
+				<li><a href="reportByMonth">Sales by Month</a></li>
 
 				<li><input type="hidden" id="handle" name="handle"
 					value="list_stocks" /></li>
