@@ -7,7 +7,7 @@ var $date = $('#datePicker'), $datePicker = $date.clone (true);
 var orderHis = $('.orderHistories'), $orderHis = orderHis.clone (true);
 var bestSellers = $('.bestSellers'), $bestSellers = bestSellers.clone (true);
 var suggestion = $('.suggestion'), $suggestion = suggestion.clone (true);
-var search = $('.search'), $search = search.clone(true);
+var search = $('.searchResult'), $search = search.clone(true);
 
 var $currentStocksHeader = '<div class="row"><div class="col-lg-12"><h1 class="page-header">Current Stocks</h1></div></div>';
 var $trailingHeader = '<div class="row"><div class="col-lg-12"><h1 class="page-header">Trailing-stop History</h1></div></div>';

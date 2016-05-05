@@ -32,8 +32,17 @@ public class ClientUtils {
 		}
 		return currentStocks;
 	}
-	public static ArrayList<> getTrailingHis(Connection conn) throws SQLException {
-		
+	public static ArrayList<TrailingStopHistory> getTrailingHis(Connection conn, int orderID) throws SQLException {
+		ArrayList<TrailingStopHistory> trailingHisList = new ArrayList<TrailingStopHistory>();
+		String sql = "call trailingHistory(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, orderID);
+
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()){
+			
+		}
+		return trailingHisList;
 	}
 	public static ArrayList<History> getOrderHistory(Connection conn, int AccountID)throws SQLException {
 		ArrayList<History> orderHistory = new ArrayList<History>();
