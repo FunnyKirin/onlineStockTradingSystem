@@ -43,7 +43,7 @@ $('#hiddenHistory').on('click', function (e) {
 });
 $('#stockPriceHis').on('click', function (e) {
 	$('#dynamic').empty();
-	$('#dynamic').append($datePicker);
+	$('#dynamic').append($stockPriceHis);
 });
 $('#orderHistories').on('click', function (e) {
 	$('#dynamic').empty();

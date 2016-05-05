@@ -105,8 +105,8 @@
             			<td>${OrderHistory.price}</td>
             			<td>${OrderHistory.type}</td>
             			<td>${OrderHistory.value}</td>
-            			<td>${OrderHistory.sellPrice }</td>
-            			<td>${OrderHistory.numShares }</td>
+            			<td>${OrderHistory.sellPrice}</td>
+            			<td>${OrderHistory.numShares}</td>
             			<td>${OrderHistory.date}</td>
 
         			</tr>
@@ -150,32 +150,14 @@
     			</c:forEach>
 			</table>
 			
-			<table class = "trailingHistory">
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
-    			<c:forEach var="trailingHistory" items="${trailingHistorys}">
-        			<tr>
-            			<td>${trailingHistory.stockSymbol}</td>
-            			<td>${trailingHistory.numOfShares}</td>
-        			</tr>
-    			</c:forEach>
-			</table>
-			
-			<table class = "hiddenHistory">
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
-    			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
-        			<tr>
-            			<td>${hiddenHistory.stockSymbol}</td>
-            			<td>${hiddenHistory.numOfShares}</td>
-        			</tr>
-    			</c:forEach>
-			</table>
-			
 			<div class = "stockPriceHis">
-			<form action="" id="datePicker">
+				<input type="text" name="searchHistoryText" value=""  class="form-control" placeholder="Search" >
+				<input type="submit" name="searchHistoryButton" class="form-control" placeholder="Search Stock">
+<!-- 			<form action="" id="datePicker">
 				<input type="date" name="bday" max="1979-12-31">
 				<input type="date" name="bday" min="2000-01-02">
 				<input type="submit"> 
-			</form>
+			</form> -->
 			<table>
 				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
     			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
