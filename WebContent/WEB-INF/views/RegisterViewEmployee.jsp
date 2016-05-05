@@ -17,7 +17,7 @@
 		<div class="register">
 			<div class="register__form">
 				<h3 style="color: red;">${errorString}</h3>
-				<form action="${pageContext.request.contextPath}/doRegister">
+				<form action="${pageContext.request.contextPath}/doEmployeeRegister">
 					<div class="login__row firstname">
 						<input type="text" name="firstname" class="login__input firstname"
 							placeholder="First Name" />
@@ -27,7 +27,7 @@
 							placeholder="Last Name" />
 					</div>
 					<div class="login__row">
-						<input type="text" name="email" class="login__input email"
+						<input type="text" name="hourly_rate" class="login__input hourlyrate"
 							placeholder="Hourly Rate" />
 					</div>
 					<div class="login__row">
@@ -119,7 +119,7 @@
 					</div>
 
 					<div class="login__row ismanager">
-						<select name="state" class="login__input ismanager">
+						<select name="ismanager" class="login__input ismanager">
 							<option value="Y">Manager</option>
 							<option value="N">Customer Rep.</option>
 						</select>

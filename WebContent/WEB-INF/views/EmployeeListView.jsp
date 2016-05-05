@@ -27,8 +27,8 @@
 				<td>${emp.firstname}</td>
 				<td>${emp.lastname}</td>
 				<td>${emp.dateStarted}</td>
-				<td><a href="editCustomer?id=${emp.SSN}">Edit</a></td>
-				<td><a href="deleteCustomer?id=${emp.SSN}">Delete</a></td>
+				<td><a href="editEmployee?ssn=${emp.SSN}">Edit</a></td>
+				<td><a href="deleteEmployee?ssn=${emp.SSN}">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
