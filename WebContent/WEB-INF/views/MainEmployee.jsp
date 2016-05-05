@@ -43,11 +43,6 @@ function setHandle(handle) {
 	</nav>
 
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search Stocks">
-			</div>
-		</form>
 		<form action="${pageContext.request.contextPath}/doEmployeeMain">
 		<ul class="nav menu">
 			<li><input type="hidden" id="handle" name="handle" value="mailing_list" /></li>
@@ -56,6 +51,7 @@ function setHandle(handle) {
 			<li><a href="giveSuggestion">Give Suggestion</a></li>
 			<li><a href="customerList">Customer Info</a></li>
 			<li><a href="recordOrder">Record an Order</a></li>
+			<li><a href="orderList">Review Orders</a></li>
 		</ul>
 		</form>
 

@@ -54,9 +54,9 @@ public class DoRecordOrderServlet extends HttpServlet {
 		String buySell = request.getParameter("buy_sell");
 		String type = request.getParameter("order_type");
 		String feeStr = request.getParameter("fee");
+		String orderIdStr = request.getParameter("order_id");
 		String numSharesStr = request.getParameter("num_shares");
 		String accountIdStr = request.getParameter("account_id");
-		String ppsStr = request.getParameter("pps");
 
 		String errorString = null;
 
@@ -70,32 +70,28 @@ public class DoRecordOrderServlet extends HttpServlet {
 		Stock stock = null;
 		Account account = null;
 		Employee employee = null;
+		Order order = null;
 
 		try {
 			int numShares = Integer.parseInt(numSharesStr);
 			int accountId = Integer.parseInt(accountIdStr);
+			int orderId = Integer.parseInt(orderIdStr);
 			int eid = MyUtils.getLoginedEmployee(request.getSession()).getId();
 			double fee = Double.parseDouble(feeStr);
 
 			stock = DBUtils.findStock(conn, symbol);
 			account = DBUtils.findAccount(conn, accountId);
 			employee = DBUtils.findEmployeeById(conn, eid);
-
-			Order o = new Order();
-			o.setNumShares(numShares);
-			o.setType(type);
-			o.setOrderType(buySell);
-			o.setPps(0);
+			order = DBUtils.findOrder(conn, orderId);
 
 			Transaction t = new Transaction();
 			t.setFee(fee);
 			t.setPps(stock.getPps());
 
 			t = DBUtils.insertTransaction(conn, t);
-			o = DBUtils.insertOrder(conn, o);
 
-			Trade trade = new Trade(account, employee, o, stock, t);
-			DBUtils.insertTrade(conn, trade);
+			Trade trade = new Trade(account, employee, order, stock, t);
+			DBUtils.insertTrade(conn, trade, "buy".equals(buySell));
 
 		} catch (SQLException e) {
 			errorString = e.getMessage();
