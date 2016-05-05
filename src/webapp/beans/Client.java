@@ -19,6 +19,7 @@ public class Client extends Person {
 		super(firstname, lastname, address, SSN, telephone, location);
 		this.email = email;
 		this.rating = rating;
+		this.creditCardNum = creditCardNum;
 	}
 
 	public String getEmail() {

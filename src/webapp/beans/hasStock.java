@@ -1,6 +1,5 @@
 package webapp.beans;
 
-import webapp.beans.*;
 
 public class hasStock {
 	

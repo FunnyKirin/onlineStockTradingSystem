@@ -68,6 +68,22 @@ public class ManagerUtils {
 		return clients;
 	}
 
+	public static ArrayList<Account> getAccounts(Connection conn) throws SQLException {
+		ArrayList<Account> accounts = new ArrayList<Account>();
+
+		String sql = "select Username, ClientID from Account";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			String username = rs.getString("username");
+			accounts.add(DBUtils.findAccount(conn, username));
+		}
+
+		return accounts;
+	}
+	
 	public static ArrayList<Employee> getEmployees(Connection conn) throws SQLException {
 		ArrayList<Employee> employees = new ArrayList<Employee>();
 
