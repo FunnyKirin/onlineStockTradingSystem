@@ -313,6 +313,32 @@ public class DBUtils {
 		return null;
 	}
 
+	public static Order findOrder(Connection conn, int orderId) throws SQLException {
+		String sql = "Select * from StockOrder where ID = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, orderId);
+		ResultSet rs = pstm.executeQuery();
+
+		Order order = null;
+		if (rs.next()) {
+			int id = rs.getInt("ID");
+			int numShares = rs.getInt("NumShares");
+			Date date = rs.getDate("DateTime");
+			double percent = rs.getDouble("Percentage");
+			double pps = rs.getDouble("PricePerShare");
+			String priceType = rs.getString("PriceType");
+			String orderType = rs.getString("OrderType");
+
+			order = new Order(id, date, numShares, pps, priceType);
+			order.setOrderType(orderType);
+			order.setPercent(percent);
+			order.setPps(pps);
+			return order;
+		}
+
+		return null;
+	}
+	
 	public static Employee findEmployee(Connection conn, int SSN) throws SQLException {
 		String sql = "Select * from Employee where SSN = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -536,7 +562,7 @@ public class DBUtils {
 		pstm.setInt(2, account.getClientId());
 		pstm.executeUpdate();
 	}
-
+/*
 	public static Order insertOrder(Connection conn, Order order) throws SQLException {
 		String sql = "Insert ignore into StockOrder(NumShares, DateTime, Percentage, PriceType, OrderType, PricePerShare) "
 				+ "values(?, NOW(), ?, ?, ?, ?)";
@@ -560,7 +586,7 @@ public class DBUtils {
 		
 		throw new SQLException("Something wrong with inserting Order");
 	}
-	
+*/
 	public static Transaction insertTransaction(Connection conn, Transaction transaction) throws SQLException {
 		String sql = "Insert ignore into Transaction(PricePerShare, DateTime, Fee) "
 				+ "values(?, NOW(), ?)";
@@ -581,7 +607,7 @@ public class DBUtils {
 		throw new SQLException("Something wrong with inserting Transaction");
 	}
 
-	public static void insertTrade(Connection conn, Trade trade) throws SQLException {
+	public static void insertTrade(Connection conn, Trade trade, boolean buying) throws SQLException {
 		String sql = "Insert ignore into Trade(AccountId, StockId, TransactionId, OrderId, BrokerId)"
 				+ "values(?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -591,6 +617,24 @@ public class DBUtils {
 		pstm.setInt(4, trade.getOrder().getId());
 		pstm.setInt(5, trade.getEmployee().getId());
 		pstm.executeUpdate();
+		
+		sql = "Select * from hasStock where AccountId = ? AND StockSymbol = ?";
+		pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, trade.getAccount().getId());
+		pstm.setString(2, trade.getStock().getSymbol());
+		ResultSet rs = pstm.executeQuery();
+		
+		if (rs.next()) {
+			int numShares = rs.getInt("numShares");
+			sql = "Update hasStock SET NumShares = ? where AccountId = ? AND StockSymbol = ?";
+			if (buying)
+				pstm.setInt(1, trade.getOrder().getNumShares() + numShares);
+			else
+				pstm.setInt(1, trade.getOrder().getNumShares() - numShares);
+			pstm.setInt(2, trade.getAccount().getId());
+			pstm.setString(3, trade.getStock().getSymbol());
+			pstm.executeUpdate();
+		}
 	}
 
 	public static void insertStock(Connection conn, Stock stock) throws SQLException {
