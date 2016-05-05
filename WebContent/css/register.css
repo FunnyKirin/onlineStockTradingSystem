@@ -81,7 +81,7 @@ input, button {
 .login__row.firstname, .login__row.pass, .login__row.ssn {
 	margin-right: 4rem;
 }
-.login__row.city, .login__row.state, .login__row.card {
+.login__row.city, .login__row.state, .login__row.card .login__row.ismanager {
 	margin-right: 3rem;
 }
 .login__input {

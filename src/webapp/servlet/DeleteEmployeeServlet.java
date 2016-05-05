@@ -17,30 +17,28 @@ import webapp.utils.DBUtils;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/deleteCustomer" })
-public class DeleteCustomerServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/deleteEmployee" })
+public class DeleteEmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public DeleteCustomerServlet() {
+    public DeleteEmployeeServlet() {
         super();
     }
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
         Connection conn = MyUtils.getStoredConnection(request);
+ 
+        int ssn = Integer.parseInt(request.getParameter("SSN"));
+ 
         String errorString = null;
  
         try {
-        	int id = Integer.parseInt(request.getParameter("id"));
-            DBUtils.deletePerson(conn, id, true);
+            DBUtils.deletePerson(conn, ssn, false);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
-        } catch (NumberFormatException e2) {
-        	e2.printStackTrace();
-            errorString = e2.getMessage();
         }
          
  
@@ -51,14 +49,14 @@ public class DeleteCustomerServlet extends HttpServlet {
             request.setAttribute("errorString", errorString);
             //
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/DeleteCustomerErrorView.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/DeleteEmployeeErrorView.jsp");
             dispatcher.forward(request, response);
         }
  
         // If everything nice.
         // Redirect to the product listing page.        
         else {
-            response.sendRedirect(request.getContextPath() + "/customerList");
+            response.sendRedirect(request.getContextPath() + "/employeeList");
         }
  
     }

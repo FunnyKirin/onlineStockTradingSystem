@@ -18,7 +18,8 @@ public class Employee extends Person {
 
 	}
 
-	public Employee(String firstname, String lastname, String address, int SSN, String telephone, Location location,
+	public Employee(String firstname, String lastname, String address, int SSN, 
+			String telephone, Location location,
 			Date dateStarted, double hourlyRate, boolean isManager) {
 		super(firstname, lastname, address, SSN, telephone, location);
 		this.dateStarted = dateStarted;
@@ -74,9 +75,11 @@ public class Employee extends Person {
 		this.password = password;
 	}
 
-	public boolean isManager() {
+	public boolean getIsManager() {
 		return isManager;
 	}
 
-
+	public void setIsManager(boolean isManager) {
+		this.isManager = isManager;
+	}
 }

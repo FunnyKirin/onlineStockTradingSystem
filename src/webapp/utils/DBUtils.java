@@ -48,8 +48,8 @@ public class DBUtils {
 				int ssn = person.getSSN();
 				Location location = person.getLocation();
 
-				Employee e = new Employee(firstname, lastname, address, ssn, telephone, 
-						location, dateStarted, hourlyRate, isManager);
+				Employee e = new Employee(firstname, lastname, address, ssn, telephone, location, dateStarted,
+						hourlyRate, isManager);
 				e.setId(id);
 				return e;
 			}
@@ -104,31 +104,39 @@ public class DBUtils {
 		String sql = "Delete from Account where id = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
-		pstm.executeQuery();
+		pstm.executeUpdate();
 	}
 
 	public static void deleteClient(Connection conn, int id) throws SQLException {
-		String sql = "Delete from Account where cilentId = ?";
+		String sql = "Delete from Account where ClientID = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
-		pstm.executeQuery();
+		pstm.executeUpdate();
 
 		sql = "Delete from Client where id = ?";
 		pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
-		pstm.executeQuery();
-
-		sql = "Delete from Person where id = ?";
-		pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, id);
-		pstm.executeQuery();
+		pstm.executeUpdate();
 	}
 
-	public static void deletePerson(Connection conn, int id) throws SQLException {
+	public static void deletePerson(Connection conn, int id, boolean isClient) throws SQLException {
+		if (isClient)
+			deleteClient(conn, id);
+		else
+			deleteEmployee(conn, id);
+
 		String sql = "Delete from Person where SSN = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
-		pstm.executeQuery();
+		pstm.executeUpdate();
+	}
+
+	public static void deleteEmployee(Connection conn, int ssn) throws SQLException {
+		String sql = "Delete from Employee where SSN = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, ssn);
+		pstm.executeUpdate();
+		System.out.println("Employee deletion");
 	}
 
 	public static Account findAccount(Connection conn, int clientId) throws SQLException {
@@ -259,7 +267,9 @@ public class DBUtils {
 			Date dateStarted = rs.getDate("StartDate");
 			double hourlyRate = rs.getDouble("hourlyRate");
 			boolean isManager = "Y".equals(rs.getString("IsManager"));
-			
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+
 			Person person = findPerson(conn, id);
 			// Account account = findAccount(conn, id);
 			if (person == null)
@@ -271,15 +281,73 @@ public class DBUtils {
 			String telephone = person.getTelephone();
 			Location location = person.getLocation();
 
-			employee = new Employee(firstname, lastname, address, SSN, telephone, location,
-					dateStarted, hourlyRate, isManager);
+			employee = new Employee(firstname, lastname, address, SSN, telephone, location, dateStarted, hourlyRate,
+					isManager);
+			employee.setUsername(username);
+			employee.setPassword(password);
 
 			return employee;
 		}
 
 		return null;
 	}
-	
+
+	public static void updateAccount(Connection conn, Account account) throws SQLException {
+		// Account
+		String sql = "Update Account Set Username = ?, Password = ? Where ClientID = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, account.getUsername());
+		pstm.setString(2, account.getPassword());
+		pstm.setInt(3, account.getClientId());
+		pstm.executeUpdate();
+	}
+
+	public static void updateClient(Connection conn, Client client) throws SQLException {
+		// Client
+		String sql = "Update Client Set email = ?, rating = ?, CreditCardNumber = ? Where ID = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.executeUpdate();
+	}
+
+	public static void updateLocation(Connection conn, Location location) throws SQLException {
+		// Person
+		String sql = "Insert ignore into Location(Zipcode, City, State) values(?, ?, ?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, location.getZipcode());
+		pstm.setString(2, location.getCity());
+		pstm.setString(3, location.getState());
+		pstm.executeUpdate();
+	}
+
+	public static void updatePerson(Connection conn, Person person) throws SQLException {
+		// Person
+		String sql = "Update Person Set Firstname = ?, Lastname = ?, Telephone = ?, Address = ?, "
+				+ "Zipcode = ? Where SSN = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, person.getFirstname());
+		pstm.setString(2, person.getLastname());
+		pstm.setString(3, person.getTelephone());
+		pstm.setString(4, person.getAddress());
+		pstm.setInt(5, person.getLocation().getZipcode());
+		pstm.setInt(6, person.getSSN());
+		pstm.executeUpdate();
+	}
+
+	public static void updateEmployee(Connection conn, Employee employee) throws SQLException {
+		// Employee
+		String sql = "Update Employee Set HourlyRate = ?, Username = ?, Password = ? Where SSN = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setDouble(1, employee.getHourlyRate());
+		pstm.setString(2, employee.getUsername());
+		pstm.setString(3, employee.getPassword());
+		pstm.setInt(4, employee.getSSN());
+		pstm.executeUpdate();
+	}
+
+	public static void updateClient(Connection conn, int SSN) throws SQLException {
+
+	}
+
 	public static void insertClient(Connection conn, Account account) throws SQLException {
 		// Location
 		insertLocation(conn, account.getLocation());
@@ -337,8 +405,8 @@ public class DBUtils {
 		pstm.executeUpdate();
 
 		// Employee
-		sql = "Insert ignore into Employee(SSN, Id, StartDate, Username, Password, HourlyRate)"
-				+ "values (?, ?, ?, ?, ?, ?)";
+		sql = "Insert ignore into Employee(SSN, Id, StartDate, Username, Password, HourlyRate, IsManager)"
+				+ "values (?, ?, ?, ?, ?, ?, ?)";
 		pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, employee.getSSN());
@@ -347,6 +415,7 @@ public class DBUtils {
 		pstm.setString(4, employee.getUsername());
 		pstm.setString(5, employee.getPassword());
 		pstm.setDouble(6, employee.getHourlyRate());
+		pstm.setString(7, employee.getIsManager() ? "Y" : "N");
 		pstm.executeUpdate();
 	}
 

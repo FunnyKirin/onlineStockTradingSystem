@@ -84,27 +84,6 @@ public class ManagerUtils {
 		return employees;
 	}
 
-	public static ArrayList<History> getOrderHistory(Connection conn, int accountId) throws SQLException {
-		ArrayList<History> history_list = new ArrayList<History>();
-		String sql = "call orderHistory(?)";
-
-		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, accountId);
-		ResultSet rs = pstm.executeQuery();
-
-		while (rs.next()) {
-			String id = rs.getString("ID");
-			String symbol = rs.getString("StockSymbol");
-			String numShares = rs.getString("numShares");
-			String priceType = rs.getString("priceType");
-			String orderType = rs.getString("orderType");
-
-			history_list.add(new History(id, symbol, numShares, priceType, orderType));
-		}
-
-		return history_list;
-	}
-
 	public static ArrayList<String> getBestSellers(Connection conn) throws SQLException {
 		ArrayList<String> best = new ArrayList<String>();
 		String sql = "call bestSellerStocks()";
@@ -121,7 +100,4 @@ public class ManagerUtils {
 		return best;
 	}
 
-	public static void setStockSharePrice(Stock stock, double pps) {
-		stock.setPPS(pps);
-	}
 }
