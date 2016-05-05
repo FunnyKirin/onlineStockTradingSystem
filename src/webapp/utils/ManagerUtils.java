@@ -21,6 +21,11 @@ import webapp.beans.Person;
 import webapp.beans.ClientWithRevenue;
 
 public class ManagerUtils {
+	
+	public static void backup() throws SQLException {
+		
+	}
+	
 	public static ArrayList<Trade> getSalesReportByMonth(Connection conn, int month) throws SQLException {
 		ArrayList<Trade> trades = new ArrayList<Trade>();
 		

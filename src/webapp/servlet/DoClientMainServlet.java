@@ -256,7 +256,7 @@ public class DoClientMainServlet extends HttpServlet {
 		pstm.setInt(3, num);
 		pstm.setString(4, type);
 		pstm.setString(5, "buy");
-		pstm.setInt(6, value);
+		pstm.setDouble(6, value);
 		pstm.setDouble(7,pricePerShares);
 		rs = pstm.executeQuery();
 		
