@@ -6,8 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Customer Info</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="css/mainClient.css" rel="stylesheet">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 	<h3>Edit Customer</h3>
 	<c:if test="${not empty cust}">
 		<form method="POST" action="doEditCustomer">
@@ -86,5 +89,7 @@
 			</table>
 		</form>
 	</c:if>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>
