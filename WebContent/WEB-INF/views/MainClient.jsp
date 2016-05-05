@@ -55,13 +55,14 @@
 			<form role="search" class="search" action="">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search Stocks">
-					<input type="submit" class="form-control" placeholder="Search">
+					<input type="submit" class="form-control" value="Search by Name" id="searchButton">
+					<input type="submit" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
 			<table class = "orderHistories">
 				<tr><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">
-        			<tr>
+        			<tr onclick="getStopHis(${order})">
             			<td>${order.symbol}</td>
             			<td>${order.numShares}</td>
             			<td>${order.priceType}</td>

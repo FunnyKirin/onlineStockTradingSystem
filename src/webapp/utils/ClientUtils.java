@@ -32,7 +32,9 @@ public class ClientUtils {
 		}
 		return currentStocks;
 	}
-	
+	public static ArrayList<> getTrailingHis(Connection conn) throws SQLException {
+		
+	}
 	public static ArrayList<History> getOrderHistory(Connection conn, int AccountID)throws SQLException {
 		ArrayList<History> orderHistory = new ArrayList<History>();
 		String sql = "call orderHistory(?)";

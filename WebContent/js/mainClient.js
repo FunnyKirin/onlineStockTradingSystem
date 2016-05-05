@@ -29,6 +29,10 @@ $('#currentStocks').on('click', function (e) {
 	$('#dynamic').append($currentStocksHeader);
 	$('#dynamic').append($currentStocks);
 });
+function getStopHis(order) {
+	$('#dynamic').empty();
+	return order;
+}
 $('#trailingHistory').on('click', function (e) {
 	$('#dynamic').empty();
 	$('#dynamic').append($datePicker);

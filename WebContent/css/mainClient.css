@@ -541,6 +541,14 @@ a.bg-danger:hover {
 	font-size: 12px;
 }
 
+/* Search Stock */
+#searchButton{
+	float:left;
+	width:auto;
+}
+#searchButton1 {
+	width:auto;
+}
 
 
 
