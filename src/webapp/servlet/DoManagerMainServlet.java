@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webapp.beans.Employee;
 import webapp.beans.Stock;
 import webapp.beans.Trade;
 import webapp.utils.ClientUtils;
@@ -31,12 +32,27 @@ public class DoManagerMainServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		Connection conn = MyUtils.getStoredConnection(request);
-    	ArrayList<Trade> trades = null;
-    	ArrayList<Stock> stocks = null;
-    			
+		ArrayList<Trade> trades = null;
+		ArrayList<Stock> stocks = null;
+		Employee employee = null;
+
 		String handle = request.getParameter("handle");
 		String content = "";
 		switch (handle) {
+		case "best_employee":
+			try {
+				employee = ManagerUtils.getCoolestEmployee(conn);
+				if (employee != null) {
+					content = "<h3>Employee who Makes the Most: ";
+					content += employee.getFirstname() + " "
+							+ employee.getLastname() + "</h3>";
+				} else {
+					content = "Something's weird";
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
 		case "list_stocks":
 			try {
 				stocks = ManagerUtils.getStocks(conn);
@@ -44,15 +60,11 @@ public class DoManagerMainServlet extends HttpServlet {
 				} else if (stocks.isEmpty()) {
 					content = "<h3>You don't got no stock babe</h3>";
 				} else {
-					content = "<table><tr><th>Symbol</th>"
-							+ "<th>Company Name</th>"
-							+ "<th>Type</th>"
+					content = "<table><tr><th>Symbol</th>" + "<th>Company Name</th>" + "<th>Type</th>"
 							+ "<th>Price per Share</th>";
 					for (Stock s : stocks) {
-						content += "<tr><td>" + s.getSymbol()
-							+ "</td><td>" + s.getCompany()
-							+ "</td><td>" + s.getType()
-							+ "</td><td>" + s.getPPS() + "</td></tr>";
+						content += "<tr><td>" + s.getSymbol() + "</td><td>" + s.getCompany() + "</td><td>" + s.getType()
+								+ "</td><td>" + s.getPps() + "</td></tr>";
 					}
 					content += "</table>";
 				}
@@ -67,17 +79,12 @@ public class DoManagerMainServlet extends HttpServlet {
 				} else if (trades.isEmpty()) {
 					content = "<h3>You don't got no stock babe</h3>";
 				} else {
-					content = "<table><tr><th>Symbol</th>"
-							+ "<th>Order ID</th>"
-							+ "<th>Price per Share</th>"
-							+ "<th>Order Type</th>"
-							+ "<th># of Shares" + "</th></tr>";
+					content = "<table><tr><th>Symbol</th>" + "<th>Order ID</th>" + "<th>Price per Share</th>"
+							+ "<th>Order Type</th>" + "<th># of Shares" + "</th></tr>";
 					for (Trade t : trades) {
-						content += "<tr><td>" + t.getStock().getSymbol()
-							+ "</td><td>" + t.getOrder().getId()
-							+ "</td><td>" + t.getOrder().getPps()
-							+ "</td><td>" + t.getOrder().getType()
-							+ "</td><td>" + t.getOrder().getNumShares() + "</td></tr>";
+						content += "<tr><td>" + t.getStock().getSymbol() + "</td><td>" + t.getOrder().getId()
+								+ "</td><td>" + t.getOrder().getPps() + "</td><td>" + t.getOrder().getType()
+								+ "</td><td>" + t.getOrder().getNumShares() + "</td></tr>";
 					}
 					content += "</table>";
 				}
@@ -92,19 +99,13 @@ public class DoManagerMainServlet extends HttpServlet {
 				} else if (trades.isEmpty()) {
 					content = "<h3>You don't got no stock babe</h3>";
 				} else {
-					content = "<table><tr><th>Last Name</th>"
-							+ "<th>First Name</th>"
-							+ "<th>Order ID</th>"
-							+ "<th>Price per Share</th>"
-							+ "<th>Order Type</th>"
-							+ "<th># of Shares" + "</th></tr>";
+					content = "<table><tr><th>Last Name</th>" + "<th>First Name</th>" + "<th>Order ID</th>"
+							+ "<th>Price per Share</th>" + "<th>Order Type</th>" + "<th># of Shares" + "</th></tr>";
 					for (Trade t : trades) {
-						content += "<tr><td>" + t.getAccount().getLastname()
-							+ "</td><td>" + t.getAccount().getFirstname()
-							+ "</td><td>" + t.getOrder().getId()
-							+ "</td><td>" + t.getOrder().getPps()
-							+ "</td><td>" + t.getOrder().getType()
-							+ "</td><td>" + t.getOrder().getNumShares() + "</td></tr>";
+						content += "<tr><td>" + t.getAccount().getLastname() + "</td><td>"
+								+ t.getAccount().getFirstname() + "</td><td>" + t.getOrder().getId() + "</td><td>"
+								+ t.getOrder().getPps() + "</td><td>" + t.getOrder().getType() + "</td><td>"
+								+ t.getOrder().getNumShares() + "</td></tr>";
 					}
 					content += "</table>";
 				}
@@ -113,7 +114,6 @@ public class DoManagerMainServlet extends HttpServlet {
 			}
 			break;
 		}
-		
 
 		request.setAttribute("mainPanel", content);
 		// forward

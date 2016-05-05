@@ -145,7 +145,7 @@ CREATE PROCEDURE revenueByCustomerID(IN CID INTEGER)
 DELIMITER //
 CREATE PROCEDURE mostRevenue_CustomerRepresentative()
 BEGIN
-	SELECT E.ID AS 'Employee ID', (R.PricePerShare - S.PricePerShare) * O.NumShares AS MaxRevenue
+	SELECT E.SSN AS 'Employee SSN', E.ID AS 'Employee ID', (R.PricePerShare - S.PricePerShare) * O.NumShares AS MaxRevenue
 	FROM Employee E, Transaction R, StockOrder O, Stock S, Trade T
     WHERE T.StockId = S.StockSymbol
         AND T.TransactionId = R.ID

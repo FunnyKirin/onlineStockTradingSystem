@@ -62,6 +62,9 @@
 				<li><input onclick="setHandle('stocks_by_symbol');"
 					type="submit" class="submit" id="stocks_by_symbol"
 					value="Stocks by Stock Symbol" /></li>
+				<li><input onclick="setHandle('best_employee');"
+					type="submit" class="submit" id="best_employee"
+					value="Best Employee" /></li>
 				<li><a href="employeeList">Employee Info</a></li>
 
 				<li><input type="hidden" id="handle" name="handle"
