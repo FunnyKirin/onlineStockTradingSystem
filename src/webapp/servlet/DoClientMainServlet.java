@@ -221,12 +221,6 @@ public class DoClientMainServlet extends HttpServlet {
 			pricePerShares = rs.getDouble("PricePerShare");
 		}
     	
-		Calendar cal = Calendar.getInstance();
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		int month = cal.get(Calendar.MONTH);
-		int year = cal.get(Calendar.YEAR);
-		String sqlDate = 
-		
     	sql = "call recordOrder(?,?,?,?,?,?,?)";
 		pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
@@ -235,6 +229,34 @@ public class DoClientMainServlet extends HttpServlet {
 		pstm.setString(4, "Market");
 		pstm.setString(5, "sell");
 		pstm.setInt(6, 0);
+		pstm.setDouble(7,pricePerShares);
+		rs = pstm.executeQuery();
+		
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+    
+    public void buy(String symbol, int num, int id, String type, double value,HttpServletRequest request, HttpServletResponse response)
+        	throws ServletException, IOException, SQLException {
+    	Connection conn = MyUtils.getStoredConnection(request);
+
+    	String sql = "Select * from Stock S WHERE S.StockSymbol = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, symbol);
+		ResultSet rs = pstm.executeQuery();
+		double pricePerShares=0;
+		while (rs.next()) {
+			pricePerShares = rs.getDouble("PricePerShare");
+		}
+		
+		sql = "call recordOrder(?,?,?,?,?,?,?)";
+		pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.setString(2, symbol);
+		pstm.setInt(3, num);
+		pstm.setString(4, type);
+		pstm.setString(5, "buy");
+		pstm.setInt(6, value);
 		pstm.setDouble(7,pricePerShares);
 		rs = pstm.executeQuery();
 		
