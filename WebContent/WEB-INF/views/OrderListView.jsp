@@ -6,8 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Orders</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="css/mainClient.css" rel="stylesheet">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 	<h3>Order Review</h3>
 	<p style="color: red;">${errorString}</p>
 
