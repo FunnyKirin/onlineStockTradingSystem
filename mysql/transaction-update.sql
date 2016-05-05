@@ -38,9 +38,9 @@ VALUES(1, 'GM', 250),
 	(1, 'F', 150),
     (2, 'IBM', 50);
 
-INSERT INTO StockOrder(NumShares, DateTime, PriceType, OrderType, Percentage, PriceperShare)
-VALUES(75, '2014-02-1', 'Market', 'buy', 0,0), 
-	(10,'2014-02-1','TrailingStop', 'sell', 0.1,0);
+INSERT INTO StockOrder(AccountID, StockSymbol,NumShares, DateTime, PriceType, OrderType, Percentage, PriceperShare)
+VALUES(1, 'GM', 75, '2014-02-1', 'Market', 'buy', 0,0), 
+	(2, 'IBM', 10,'2014-02-1','TrailingStop', 'sell', 0.1,0);
     
 INSERT INTO Transaction(Fee, DateTime, PricePerShare)
 VALUES(50, '2015-01-01', 100),
@@ -74,4 +74,5 @@ VALUES	('F', 1, '2015-05-01'),
         ('F', 1.2, '2015-05-03'),
         ('F', 2, '2015-05-04');
         
+
 commit;
