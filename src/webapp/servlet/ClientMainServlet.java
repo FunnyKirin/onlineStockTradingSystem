@@ -49,7 +49,7 @@ public class ClientMainServlet extends HttpServlet {
 			request.setAttribute("bestSellers", bestSeller);
 			//suggestion
 			suggestion = ClientUtils.getStockSuggestions(conn, Id);
-			request.setAttribute("suggestions", suggestion);
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

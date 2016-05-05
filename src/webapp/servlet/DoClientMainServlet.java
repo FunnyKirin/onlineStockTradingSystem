@@ -32,7 +32,7 @@ public class DoClientMainServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+/**
 		Connection conn = MyUtils.getStoredConnection(request);
 
 		String handle = request.getParameter("handle");
@@ -75,11 +75,57 @@ public class DoClientMainServlet extends HttpServlet{
 		// forward
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
+		**/
 	}
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        if (request.getParameter("searchButton") != null) {
+        	String searchText = request.getParameter("searchText");
+        	try {
+				searchByName(searchText,request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else{
+            doGet(request, response);
+
+        }
+    }
+    
+    public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+    	ArrayList<Stock> result = new ArrayList<Stock>();
+		Connection conn = MyUtils.getStoredConnection(request);
+
+    	try {
+			result=ClientUtils.getStocksByName(conn, input);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		request.setAttribute("searchResult", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+    
+    public void searchByType(String input, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+    	ArrayList<Stock> result = new ArrayList<Stock>();
+		Connection conn = MyUtils.getStoredConnection(request);
+
+    	try {
+			result=ClientUtils.searchStocksByName(conn, input);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		request.setAttribute("searchResult", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
     }
 }
