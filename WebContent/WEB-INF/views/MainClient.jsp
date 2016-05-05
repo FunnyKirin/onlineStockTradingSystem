@@ -55,14 +55,10 @@
 		
 			<form role="search" class="search" action="doClientMain" method="post">
 				<div class="form-group">
-<<<<<<< HEAD
-					<input type="text" class="form-control" placeholder="Search Stocks">
-					<input type="submit" class="form-control" value="Search by Name" id="searchButton">
-					<input type="submit" class="form-control" value="Search by Type" id="searchButton1">
-=======
-					<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks">
-					<input type="submit" name="searchButton" class="form-control" placeholder="Search">
->>>>>>> 6ed5eeef96d671ced3cdb2cc9fe7508d70d829f9
+					
+					<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
+					<input type="submit" name="searchNameButton" class="form-control" placeholder="Search" id="searchButton">
+					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
 			<table class = "searchResult">
