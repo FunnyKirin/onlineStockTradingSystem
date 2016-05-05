@@ -55,6 +55,8 @@
 			</c:forEach>
 		</table>
 	</c:if>
+	<br />
+	<a href="managerMain">Back</a>
 
 </body>
 </html>
