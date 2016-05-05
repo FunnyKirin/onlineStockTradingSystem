@@ -29,7 +29,7 @@ function setHandle(handle) {
 				<a href="#"><img class="navbar-brand" src="img/logo.png"></a>
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#">Profile</a></li>
 							<li><a href="#">Settings</a></li>
