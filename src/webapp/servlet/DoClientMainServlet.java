@@ -82,69 +82,7 @@ public class DoClientMainServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
-//        if (request.getParameter("searchNameButton") != null) {
-//        	String searchText = request.getParameter("searchText");
-//        	try {
-//				searchByName(searchText,request, response);
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//        }else{
-//            doGet(request, response);
-//
-//        }
-//        
-//        if (request.getParameter("searchTypeButton") != null) {
-//        	String searchText = request.getParameter("searchText");
-//        	try {
-//				searchByType(searchText,request, response);
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//        }else{
-            doGet(request, response);
 
-        }
-    }
-//    
-//    public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException, SQLException {
-//    	ArrayList<Stock> result = new ArrayList<Stock>();
-//		Connection conn = MyUtils.getStoredConnection(request);
-//
-//    	try {
-//			result=ClientUtils.searchStocksByName(conn, input);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	
-//		request.setAttribute("searchResult", result);
-//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
-//		dispatcher.forward(request, response);
-//    }
-//    
-//    public void searchByType(String input, HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException, SQLException {
-//    	ArrayList<Stock> result = new ArrayList<Stock>();
-//		Connection conn = MyUtils.getStoredConnection(request);
-//
-//    	try {
-//			result=ClientUtils.searchStocksByType(conn, input);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	
-//		request.setAttribute("searchResult", result);
-//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
-//		dispatcher.forward(request, response);
-//    }
-//}
-=======
         if (request.getParameter("searchNameButton") != null) {
         	String searchText = request.getParameter("searchText");
         	try {
@@ -226,4 +164,3 @@ public class DoClientMainServlet extends HttpServlet{
 		dispatcher.forward(request, response);
     }
 }
->>>>>>> b320c23a8f19abba1049288ddefb44f315e9eeca
