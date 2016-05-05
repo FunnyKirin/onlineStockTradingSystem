@@ -13,23 +13,37 @@ public class ClientUtils {
 	//@todo
 	public static ArrayList<hasStock> getCurrentStocks(Connection conn, int AccountID) throws SQLException {
 		ArrayList<hasStock> currentStocks = new ArrayList<hasStock>();
-		String sql = "SELECT * from hasStock where AccountId = ?;";
+		String sql = "SELECT * from hasStock H, Stock S where H.AccountId = ? AND H.StockSymbol = S.StockSymbol";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, AccountID);
 		ResultSet rs = pstm.executeQuery();
 		while (rs.next()) {
 
-			hasStock thisStock = new hasStock();
 			String StockSymbol = rs.getString("StockSymbol");
+			String StockName = rs.getString("CompanyName");
 			int numOfShares = rs.getInt("NumShares");
-			thisStock.setNumOfShares(numOfShares);
-			thisStock.setStockSymbol(StockSymbol);
-			System.out.println(thisStock.getStockSymbol()+" "+thisStock.getNumOfShares());
+			String type = rs.getString("Type");
+			double pricePerShare = rs.getDouble("PricePerShare");
+
+			hasStock thisStock = new hasStock(numOfShares, StockSymbol, StockName, type, pricePerShare);
+			System.out.println(numOfShares+ StockSymbol+ StockName+ type+ pricePerShare);
+
 			currentStocks.add(thisStock);
 		}
 		return currentStocks;
 	}
-	
+	public static ArrayList<TrailingStopHistory> getTrailingHis(Connection conn, int orderID) throws SQLException {
+		ArrayList<TrailingStopHistory> trailingHisList = new ArrayList<TrailingStopHistory>();
+		String sql = "call trailingHistory(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, orderID);
+
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()){
+			
+		}
+		return trailingHisList;
+	}
 	public static ArrayList<History> getOrderHistory(Connection conn, int AccountID)throws SQLException {
 		ArrayList<History> orderHistory = new ArrayList<History>();
 		String sql = "call orderHistory(?)";
@@ -37,7 +51,6 @@ public class ClientUtils {
 		pstm.setInt(1, AccountID);
 
 		ResultSet rs = pstm.executeQuery();
-		System.out.println("history!");
 		while(rs.next()){
 			String id = rs.getString("ID");
 			String symbol = rs.getString("StockSymbol");
@@ -45,7 +58,7 @@ public class ClientUtils {
 			String priceType = rs.getString("priceType");
 			String orderType = rs.getString("orderType");
 			Date date = rs.getDate("DateTime");
-			System.out.println("history:"+id+symbol+numShares+priceType+orderType);
+			//System.out.println("history:"+id+symbol+numShares+priceType+orderType);
 
 			orderHistory.add(new History(id, symbol, numShares, priceType, orderType, date));
 
@@ -55,18 +68,87 @@ public class ClientUtils {
 	
 	public static ArrayList<Stock> getBestSellers(Connection conn) throws SQLException {
 		ArrayList<Stock> bestSellers = new ArrayList<Stock>();
+		
+		String sql = "call bestSellerStocks();";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockId");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			bestSellers.add(new Stock(symbol, company, type, pps));
+		}
+		
 		return bestSellers;
 	}
 	
-	public static ArrayList<Stock> getStockSuggestions(Connection conn) throws SQLException {
+	public static ArrayList<Stock> getStockSuggestions(Connection conn, int AccountID) throws SQLException {
 		ArrayList<Stock> stockSuggestions = new ArrayList<Stock>();
+		String sql = "call giveSuggestion(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, AccountID);
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stockSuggestions.add(new Stock(symbol, company, type, pps));
+		}
 		return stockSuggestions;
 	}
 	
-	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {
+	public static ArrayList<Stock> searchStocksByName(Connection conn, String input) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		
-		String sql = "call stockListingByName();";
+		String sql = "call searchAvailStockByName(?);";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, input);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stocks.add(new Stock(symbol, company, type, pps));
+		}
+		
+		return stocks;
+	}
+	public static ArrayList<Stock> searchStocksByType(Connection conn, String input) throws SQLException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		
+		String sql = "call searchAvailStockByType(?);";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, input);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stocks.add(new Stock(symbol, company, type, pps));
+		}
+		
+		return stocks;
+	}
+	
+	
+	public static ArrayList<Stock> getStocksBySymbol(Connection conn) throws SQLException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		
+		String sql = "call stockListingBySymbol();";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -82,10 +164,10 @@ public class ClientUtils {
 		return stocks;
 	}
 	
-	public static ArrayList<Stock> getStocksBySymbol(Connection conn) throws SQLException {
+	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		
-		String sql = "call stockListingBySymbol();";
+		String sql = "call stockListingByName();";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 		

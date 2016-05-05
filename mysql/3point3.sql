@@ -52,22 +52,22 @@ DELIMITER //
 CREATE PROCEDURE searchAvailStockByName(IN SName CHAR(20))
 BEGIN
 	SELECT DISTINCT *
-    FROM Stock S, StockOrder O
+    FROM Stock S
     WHERE CompanyName LIKE CONCAT('%', CONCAT(SNAME, '%'))
-		AND O.StockSymbol = S.StockSymbol
+	#	AND O.StockSymbol = S.StockSymbol
 	GROUP BY S.StockSymbol;
 END//
-
+drop procedure searchAvailStockByName;
 # Stocks available of a particular type and most-recent order info 
 DELIMITER //
 CREATE PROCEDURE searchAvailStockByType(IN SType CHAR(20))
 BEGIN
 	SELECT *
-    FROM Stock S, StockOrder O
+    FROM Stock S
     WHERE S.Type LIKE CONCAT('%', CONCAT(SType, '%'))
-		AND O.StockSymbol = S.StockSymbol
 	GROUP BY S.StockSymbol;
 END//
+drop procedure searchAvailStockByType;
 
 # Personalized stock suggestion list 
 DELIMITER //
@@ -91,9 +91,10 @@ CREATE PROCEDURE specificStockWithRecentInfo(IN PriceType CHAR(20))
 DELIMITER //
 CREATE PROCEDURE bestSellerStocks()
  BEGIN
-    SELECT Trade.StockId
-	FROM Trade, StockOrder
-	WHERE Trade.OrderId = StockOrder.ID AND StockOrder.OrderType = 'sell'
+    SELECT Trade.StockId, Stock.CompanyName, Stock.PricePerShare, Stock.Type
+	FROM Trade, StockOrder, Stock
+	WHERE Trade.OrderId = StockOrder.ID AND StockOrder.OrderType = 'sell' AND Stock.StockSymbol = Trade.StockId
 	GROUP BY Trade.StockId
 	ORDER BY COUNT(Trade.StockId) DESC;
  END //
+drop procedure if exists bestSellerStocks;

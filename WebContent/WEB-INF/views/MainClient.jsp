@@ -52,50 +52,75 @@
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
-			<form role="search" class="search">
+		<div class = "searchResult">
+			<form role="search" class="search" action="doClientMain" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search Stocks">
+					
+					<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
+					<input type="submit" name="searchNameButton" class="form-control" placeholder="Search" id="searchButton">
+					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
-			<table class = "orderHistories">
-				<tr><td>Stock Symbol</td><td>number of shares</td><td>Date</td></tr>
-    			<c:forEach var="order" items="${orders}">
+			<table>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
+    			<c:forEach var="stock" items="${searchResult}">
         			<tr>
+            			<td>${stock.symbol}</td>
+            			<td>${stock.company}</td>
+            			<td>${stock.type}</td>
+            			<td>${stock.PPS }</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			</div>
+			<table class = "orderHistories">
+				<tr><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
+    			<c:forEach var="order" items="${orders}">
+        			<tr onclick="getStopHis(${order})">
             			<td>${order.symbol}</td>
             			<td>${order.numShares}</td>
+            			<td>${order.priceType}</td>
+            			<td>${order.orderType }</td>
             			<td>${order.date}
         			</tr>
     			</c:forEach>
 			</table>
 			<table class = "bestSellers">
-				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td></tr>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${bestSellers}">
         			<tr>
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
+            			<td>${stock.PPS }</td>
         			</tr>
     			</c:forEach>
 			</table>
 			<table class = "suggestion">
-				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td></tr>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${suggestions}">
         			<tr>
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
+            			<td>${stock.PPS }</td>
         			</tr>
     			</c:forEach>
 			</table>
+			
 			<table class = "currentStocks">
-				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
+				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>price</td><td>number</td></tr>
     			<c:forEach var="stock" items="${stocks}">
         			<tr>
             			<td>${stock.stockSymbol}</td>
+            			<td>${stock.companyName}</td>
+            			<td>${stock.type}</td>
+            			<td>${stock. pricePerShare}</td>
             			<td>${stock.numOfShares}</td>
         			</tr>
     			</c:forEach>
 			</table>
+			
 			<table class = "trailingHistory">
 				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
     			<c:forEach var="trailingHistory" items="${trailingHistorys}">
@@ -105,6 +130,7 @@
         			</tr>
     			</c:forEach>
 			</table>
+			
 			<table class = "hiddenHistory">
 				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
     			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
@@ -114,12 +140,23 @@
         			</tr>
     			</c:forEach>
 			</table>
+			
+			<div class = "stockPriceHis">
 			<form action="" id="datePicker">
 				<input type="date" name="bday" max="1979-12-31">
 				<input type="date" name="bday" min="2000-01-02">
 				<input type="submit"> 
 			</form>
-			
+			<table>
+				<tr><td>Stock Symbol</td><td>number of shares</td></tr>
+    			<c:forEach var="hiddenHistory" items="${hiddenHistorys}">
+        			<tr>
+            			<td>${hiddenHistory.stockSymbol}</td>
+            			<td>${hiddenHistory.numOfShares}</td>
+        			</tr>
+    			</c:forEach>
+			</table>
+			</div>
 		</div><!--/.row -->
 	</div>	<!--/.main-->
 
