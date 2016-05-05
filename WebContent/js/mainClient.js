@@ -12,7 +12,11 @@ var $trailingHeader = '<div class="row"><div class="col-lg-12"><h1 class="page-h
 var $hiddenHeader = '<div class="row"><div class="col-lg-12"><h1 class="page-header">Hidden-stop History</h1></div></div>';
 
 var $help = $("<div class='row'><div class='col-lg-12'><h1 class='page-header'>Help</h1></div></div><div class='ripple'><h2>Problems about the website</h2>" +
-"<p>Please email gofaraway@gmail.com</p><h2>Problems about the transactions</h2><p>Please email liyun@gmail.com</p></div>");
+"<p>Please email gofaraway@gmail.com</p><h2>Problems about the transactions</h2><p>Please email liyun@gmail.com</p>" +
+"<h2>Access your info</h2><p>You can view your current stock holdings, order histories, best-seller list of stocks, and suggestion list by clicking the button in the sidebar</p>" +
+"<h2>Searching Stocks</h2><p>You can search it by name or by type and it will display the stock info</p>" +
+"<h2>Histories</h2><p>You can see the brief histories when you click the button in the sidebar. If you want the hitory in detail, you can search its id to see it.</p>" +
+"</div>");
 
 $(document).ready(function() {
 	currentStocks.remove();

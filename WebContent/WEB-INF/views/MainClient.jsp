@@ -14,36 +14,11 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<ul class="nav menu">
 			<li><input type="submit" class="submit" id="currentStocks" value="Current Stocks" /></li>
-			<li><input type="submit" class="submit" id="trailingHistory" value="Trailing-stop history" /></li>
-			<li><input type="submit" class="submit" id="hiddenHistory" value="Hidden-stop history" /></li>
 			<li><input type="submit" class="submit" id="stockPriceHis" value="Stock Price History" /></li>
 			<li><input type="submit" class="submit" id="orderHistories" value="order histories" /></li>
-			<li><input type="submit" class="submit" id="stockByType" value="Stocks and order Info" /></li>
 			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
 			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
 			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
-			<li class="parent">
-				<a href="">
-					<span data-toggle="collapse" href="#sub-item-1">stocks and order info</span>
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li>
-						<a class="" href="#">
-							Sub Item 1
-						</a>
-					</li>
-					<li>
-						<a class="" href="#">
-							Sub Item 2
-						</a>
-					</li>
-					<li>
-						<a class="" href="#">
-							Sub Item 3
-						</a>
-					</li>
-				</ul>
-			</li>
 			<li role="presentation" class="divider"></li>
 			<li><a href="#" id="help">Help</a></li>
 		</ul>
