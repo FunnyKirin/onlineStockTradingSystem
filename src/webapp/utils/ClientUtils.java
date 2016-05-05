@@ -94,10 +94,52 @@ public class ClientUtils {
 		return stockSuggestions;
 	}
 	
-	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {
+	public static ArrayList<Stock> searchStocksByName(Connection conn, String input) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		
-		String sql = "call stockListingByName();";
+		String sql = "call searchAvailStockByName(?);";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, input);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stocks.add(new Stock(symbol, company, type, pps));
+		}
+		
+		return stocks;
+	}
+	public static ArrayList<Stock> searchStocksByType(Connection conn, String input) throws SQLException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		
+		String sql = "call searchAvailStockByType(?);";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, input);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			
+			stocks.add(new Stock(symbol, company, type, pps));
+		}
+		
+		return stocks;
+	}
+	
+	
+	public static ArrayList<Stock> getStocksBySymbol(Connection conn) throws SQLException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		
+		String sql = "call stockListingBySymbol();";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -113,10 +155,10 @@ public class ClientUtils {
 		return stocks;
 	}
 	
-	public static ArrayList<Stock> getStocksBySymbol(Connection conn) throws SQLException {
+	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		
-		String sql = "call stockListingBySymbol();";
+		String sql = "call stockListingByName();";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 		
