@@ -31,16 +31,7 @@
 				</th>
 			</tr>
 			<tr>
-				<th>Order Type: <select name="order_type">
-						<option value="Market">Market</option>
-						<option value="MarketOnClose">Market on Close</option>
-						<option value="TrailingStop">Trailing Stop</option>
-						<option value="HiddenStop">Hidden Stop</option>
-				</select>
-				</th>
-			</tr>
-			<tr>
-				<th>Number of Shares: <input type="text" name="num_shares" />
+				<th>Order ID: <input type="text" name="num_shares" />
 				</th>
 			</tr>
 			<tr>
