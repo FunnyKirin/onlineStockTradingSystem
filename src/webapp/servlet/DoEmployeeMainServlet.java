@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webapp.beans.Stock;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
-
 
 @WebServlet(urlPatterns = { "/doEmployeeMain" })
 public class DoEmployeeMainServlet extends HttpServlet {
@@ -23,15 +23,16 @@ public class DoEmployeeMainServlet extends HttpServlet {
 	public DoEmployeeMainServlet() {
 		super();
 	}
-	
+
 	@Override
-	protected void  doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		Connection conn = MyUtils.getStoredConnection(request);
 
 		String handle = request.getParameter("handle");
-		
+		ArrayList<Stock> stocks = null;
+
 		String content = "";
 		switch (handle) {
 		case "mailing_list":
@@ -51,6 +52,42 @@ public class DoEmployeeMainServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+/*
+		case "give_suggestion":
+			content = "<form action=\"doEmployeeMain\">";
+			content += "<input name=\"id\" type=\"text\" />";
+			content += "<input onclick=\"setHandle(\"do_give_suggestion\")\" type=\"submit\" value=\"Submit\" />";
+			content += "<input type=\"hidden\" id=\"handle\" name=\"handle\" value=\"mailing_list\" />";
+			content += "</form>";
+		case "do_give_suggestion":
+			try {
+				String str = request.getParameter("id");
+				if (!(str.length() == 9 && str.matches("[0-9]+"))) {
+					int clientId = Integer.parseInt(str);
+					stocks = ManagerUtils.giveSuggestions(conn, clientId);
+					if (stocks == null) {
+					} else if (stocks.isEmpty()) {
+						content = "<h3>You don't got no stock babe</h3>";
+					} else {
+						content = "<table><tr><th>Symbol</th>" + "<th>Company Name</th>" + "<th>Type</th>"
+								+ "<th>Price per Share</th>";
+						for (Stock s : stocks) {
+							content += "<tr><td>" + s.getSymbol() + "</td><td>" + s.getCompany() + "</td><td>"
+									+ s.getType() + "</td><td>" + s.getPPS() + "</td></tr>";
+						}
+						content += "</table>";
+					}
+				} else {
+					content = "<h3>No such ID</h3>";
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				System.out.println("Damn it");
+			}
+			break;
+*/
 		default:
 			content += "Invalid Operation";
 		}

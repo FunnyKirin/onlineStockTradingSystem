@@ -73,17 +73,20 @@
     			</c:forEach>
 			</table>
 			</div>
+
+<!-- 			<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
+			<input type="submit" name="searchNameButton" class="form-control" placeholder="Search"> -->
 			<div class = "orderHistories">
 			<table>
 				<tr><td>ID</td><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">
         			<tr onclick="getStopHis(${order})">
-        			<td>${order.id }</td>
+        			<td>${order.id}</td>
             			<td>${order.symbol}</td>
             			<td>${order.numShares}</td>
             			<td>${order.priceType}</td>
-            			<td>${order.orderType }</td>
-            			<td>${order.date}
+            			<td>${order.orderType}</td>
+            			<td>${order.date}</td>
         			</tr>
     			</c:forEach>
 			</table>
@@ -101,9 +104,9 @@
             			<td>${OrderHistory.price}</td>
             			<td>${OrderHistory.type}</td>
             			<td>${OrderHistory.value}</td>
-            			<td>${OrderHistory.sellPrice}</td>
-            			<td>${OrderHistory.numShares}</td>
-            			<td>${OrderHistory.date}
+            			<td>${OrderHistory.sellPrice }</td>
+            			<td>${OrderHistory.numShares }</td>
+            			<td>${OrderHistory.date}</td>
 			
         			</tr>
     			</c:forEach>
