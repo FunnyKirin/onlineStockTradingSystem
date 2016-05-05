@@ -76,7 +76,7 @@ CREATE PROCEDURE monthlySalesReport(IN month INTEGER)
 	BEGIN
 		SELECT T.*
 		FROM Trade T, StockOrder O
-		WHERE MONTH(StockOrder.DateTime) = month
+		WHERE MONTH(O.DateTime) = month
 			AND T.OrderId = O.Id;
 	END//
 drop procedure monthlySalesReport;
