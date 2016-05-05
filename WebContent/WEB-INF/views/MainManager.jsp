@@ -65,6 +65,9 @@
 				<li><input onclick="setHandle('best_employee');"
 					type="submit" class="submit" id="best_employee"
 					value="Best Employee" /></li>
+				<li><input onclick="setHandle('best_client');"
+					type="submit" class="submit" id="best_client"
+					value="Best Client" /></li>
 				<li><a href="employeeList">Employee Info</a></li>
 
 				<li><input type="hidden" id="handle" name="handle"

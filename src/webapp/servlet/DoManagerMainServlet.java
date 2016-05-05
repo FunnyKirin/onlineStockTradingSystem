@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webapp.beans.Client;
 import webapp.beans.Employee;
 import webapp.beans.Stock;
 import webapp.beans.Trade;
@@ -35,17 +36,34 @@ public class DoManagerMainServlet extends HttpServlet {
 		ArrayList<Trade> trades = null;
 		ArrayList<Stock> stocks = null;
 		Employee employee = null;
+		Client client = null;
 
 		String handle = request.getParameter("handle");
 		String content = "";
 		switch (handle) {
+		case "best_client":
+			try {
+				client = ManagerUtils.getCoolestClient(conn);
+				if (client != null) {
+					content = "<h3>Client who Makes the Most: ";
+					content += client.getFirstname() + " "
+							+ client.getLastname() + " (Telephone: "
+							+ client.getTelephone() + ")</h3>";
+				} else {
+					content = "Something's weird (client)";
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
 		case "best_employee":
 			try {
 				employee = ManagerUtils.getCoolestEmployee(conn);
 				if (employee != null) {
 					content = "<h3>Employee who Makes the Most: ";
 					content += employee.getFirstname() + " "
-							+ employee.getLastname() + "</h3>";
+							+ employee.getLastname() + " (ID: "
+							+ employee.getId() + ")</h3>";
 				} else {
 					content = "Something's weird";
 				}

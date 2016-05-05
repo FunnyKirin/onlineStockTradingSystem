@@ -31,7 +31,6 @@ public class DoEmployeeMainServlet extends HttpServlet {
 		Connection conn = MyUtils.getStoredConnection(request);
 
 		String handle = request.getParameter("handle");
-		ArrayList<Stock> stocks = null;
 
 		String content = "";
 		switch (handle) {
