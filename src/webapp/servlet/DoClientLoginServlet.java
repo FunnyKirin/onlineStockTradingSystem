@@ -30,8 +30,6 @@ public class DoClientLoginServlet extends HttpServlet {
  
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String rememberMeStr = request.getParameter("rememberMe");
-        boolean remember= "Y".equals(rememberMeStr);
          
         //System.out.println("username: "+ username);
         Account user = null;
@@ -79,22 +77,10 @@ public class DoClientLoginServlet extends HttpServlet {
         // Store user information in Session
         // And redirect to userInfo page.
         else {
-        	errorString = "Success";
-        	request.setAttribute("errorString", errorString);
         	
             HttpSession session = request.getSession();
             MyUtils.storeLoginedUser(session, user);
-             
-             // If user checked "Remember me".
-            if(remember)  {
-                MyUtils.storeUserCookie(response, user);
-            }
-    
-            // Else delete cookie.
-            else  {
-                MyUtils.deleteUserCookie(response);
-            }                       
-      
+
             // Redirect to mainClient page.
             response.sendRedirect(request.getContextPath() + "/clientMain");
         }

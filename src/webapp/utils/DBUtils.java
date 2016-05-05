@@ -328,8 +328,10 @@ public class DBUtils {
 			double pps = rs.getDouble("PricePerShare");
 			String priceType = rs.getString("PriceType");
 			String orderType = rs.getString("OrderType");
+			int accId = rs.getInt("AccountId");
+			String symbol = rs.getString("StockOrder");
 
-			order = new Order(id, date, numShares, pps, priceType);
+			order = new Order(id, date, numShares, pps, priceType, accId, symbol);
 			order.setOrderType(orderType);
 			order.setPercent(percent);
 			order.setPps(pps);

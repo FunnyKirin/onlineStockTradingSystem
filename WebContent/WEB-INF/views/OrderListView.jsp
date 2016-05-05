@@ -21,6 +21,8 @@
 			<th>Number of Shares</th>
 			<th>Price Type</th>
 			<th>Order Type</th>
+			<th>Account ID</th>
+			<th>Symbol</th>
 		</tr>
 
 		<c:forEach items="${oList}" var="cust">
@@ -30,6 +32,8 @@
 				<td>${cust.numShares}</td>
 				<td>${cust.type}</td>
 				<td>${cust.orderType}</td>
+				<td>${cust.accId}</td>
+				<td>${cust.symbol}</td>
 			</tr>
 		</c:forEach>
 	</table>

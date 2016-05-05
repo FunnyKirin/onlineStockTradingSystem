@@ -12,17 +12,22 @@ public class Order {
 	private String orderType;
 	private double pps;
 	private double percent;
+	
+	private String symbol;
+	private int accId;
 
 	public Order() {
 	}
 
-	public Order(int id, Date date, int numShares, double pps, String type) {
+	public Order(int id, Date date, int numShares, double pps, String type, int accId, String symbol) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.numShares = numShares;
 		this.pps = pps;
 		this.type = type;
+		this.accId = accId;
+		this.symbol = symbol;
 	}
 
 	public int getId() {
@@ -79,5 +84,21 @@ public class Order {
 
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
+	}
+	
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+
+	public int getAccId() {
+		return accId;
+	}
+
+	public void setAccId(int accId) {
+		this.accId = accId;
 	}
 }
