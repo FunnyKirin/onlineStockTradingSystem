@@ -69,6 +69,9 @@
 				<li><a href="stockList">List Stocks</a></li>
 				<li><a href="activeStocks">Actively Traded Stocks</a></li>
 				<li><a href="reportByMonth">Sales by Month</a></li>
+				<li><a href="revenueByStockType">Get Max Revenue by Stock Type</a></li>
+				<li><a href="revenueByStockSymbol">Get Max Revenue by Stock Symbol</a></li>
+				<li><a href="revenueByCustID">Get Max Revenue by Customer ID</a></li>
 
 				<li><input type="hidden" id="handle" name="handle"
 					value="list_stocks" /></li>

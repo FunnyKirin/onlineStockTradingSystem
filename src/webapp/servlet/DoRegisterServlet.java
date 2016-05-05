@@ -103,8 +103,6 @@ public class DoRegisterServlet extends HttpServlet {
 					throw new NumberFormatException("Invalid zip");
 				}
 				
-				System.out.println(creditCardNum);
-				
 				location = new Location(zipcode, city, state);
 				account = new Account(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum, date, SSN);
 				//client = new Client(firstname, lastname, address, SSN, telephone, location, email, 0, creditCardNum);

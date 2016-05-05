@@ -3,7 +3,7 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,23 +12,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import webapp.beans.Account;
+import webapp.beans.ClientWithRevenue;
 import webapp.beans.Employee;
 import webapp.beans.Stock;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
- 
-@WebServlet(urlPatterns = { "/stockList"})
-public class StockListServlet extends HttpServlet {
+
+@WebServlet(urlPatterns = { "/doRevenueByCustID" })
+public class DoRevenueByCustIDServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public StockListServlet() {
+    public DoRevenueByCustIDServlet() {
         super();
     }
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
     	// Check User has logged on
         Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
   
@@ -38,27 +39,39 @@ public class StockListServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/employeeLogin");
             return;
         }
-    	
-    	Connection conn = MyUtils.getStoredConnection(request);
-    	 
+        
+        Connection conn = MyUtils.getStoredConnection(request);
+       
+        ClientWithRevenue c = null;
+        int id = Integer.parseInt(request.getParameter("cust_id"));
         String errorString = null;
-        List<Stock> list = null;
+ 
         try {
-            list = ManagerUtils.getStocks(conn);
+            c = ManagerUtils.getRevenueByCustID(conn, id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
+        } catch(NumberFormatException ee) {
+        	errorString = "Invalid input";
         }
-   
-        // Store info in request attribute, before forward to views
+ 
+         
+        // If no error.
+        // The product does not exist to edit.
+        // Redirect to productList page.
+        if (errorString != null && c == null) {
+            response.sendRedirect("revenueByCustName");
+            return;
+        }
+ 
+        // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("stocks", list);
-
-        // Forward to /WEB-INF/views/loginView.jsp
-        // (Users can not access directly into JSP pages placed in WEB-INF)        
-        RequestDispatcher dispatcher = this.getServletContext()
-        		.getRequestDispatcher("/WEB-INF/views/StockListView.jsp");
+        request.setAttribute("cust", c);
+ 
+        RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/views/RevenueViewByCustName.jsp");
         dispatcher.forward(request, response);
+ 
     }
  
     @Override
@@ -66,5 +79,5 @@ public class StockListServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
- 
+
 }

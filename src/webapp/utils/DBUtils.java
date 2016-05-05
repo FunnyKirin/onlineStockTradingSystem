@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import webapp.beans.Stock;
+import webapp.beans.Trade;
+import webapp.beans.Transaction;
 import webapp.beans.Account;
 import webapp.beans.Client;
 import webapp.beans.Employee;
 import webapp.beans.Location;
+import webapp.beans.Order;
 import webapp.beans.Person;
 
 public class DBUtils {
@@ -146,7 +149,7 @@ public class DBUtils {
 		pstm.setString(2, symbol);
 		pstm.executeUpdate();
 	}
-	
+
 	public static Account findAccount(Connection conn, String username) throws SQLException {
 		String sql = "Select * from Account where Username = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -155,8 +158,7 @@ public class DBUtils {
 
 		if (rs.next()) {
 			int clientId = rs.getInt("ClientID");
-			
-			
+
 			Client client = findClient(conn, clientId);
 			if (client == null)
 				return null;
@@ -164,23 +166,23 @@ public class DBUtils {
 			String email = client.getEmail();
 			double rating = client.getRating();
 			String creditCardNum = client.getCreditCardNum();
-			
+
 			String firstname = client.getFirstname();
 			String lastname = client.getLastname();
 			String address = client.getAddress();
 			String telephone = client.getTelephone();
 			Location location = client.getLocation();
-			
+
 			Date dateOpened = rs.getDate("DateOpened");
 			int accountId = rs.getInt("ID");
 			String password = rs.getString("password");
 
-			Account a = new Account(firstname, lastname, address, clientId, telephone, location, email, 
-					rating, creditCardNum, dateOpened, clientId);
+			Account a = new Account(firstname, lastname, address, clientId, telephone, location, email, rating,
+					creditCardNum, dateOpened, clientId);
 			a.setUsername(username);
 			a.setPassword(password);
 			a.setId(accountId);
-			
+
 			return a;
 		}
 
@@ -195,7 +197,7 @@ public class DBUtils {
 
 		if (rs.next()) {
 			int uid = rs.getInt("ClientID");
-			
+
 			Client client = findClient(conn, uid);
 			if (client == null)
 				return null;
@@ -203,29 +205,29 @@ public class DBUtils {
 			String email = client.getEmail();
 			double rating = client.getRating();
 			String creditCardNum = client.getCreditCardNum();
-			
+
 			String firstname = client.getFirstname();
 			String lastname = client.getLastname();
 			String address = client.getAddress();
 			String telephone = client.getTelephone();
 			Location location = client.getLocation();
-			
+
 			Date dateOpened = rs.getDate("DateOpened");
 			String username = rs.getString("username");
 			String password = rs.getString("password");
 
-			Account a = new Account(firstname, lastname, address, uid, telephone, location, email, 
-					rating, creditCardNum, dateOpened, uid);
+			Account a = new Account(firstname, lastname, address, uid, telephone, location, email, rating,
+					creditCardNum, dateOpened, uid);
 			a.setUsername(username);
 			a.setPassword(password);
 			a.setId(id);
-			
+
 			return a;
 		}
 
 		return null;
 	}
-	
+
 	public static Stock findStock(Connection conn, String symbol) throws SQLException {
 		String sql = "Select * from Stock where StockSymbol = ?";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -365,8 +367,7 @@ public class DBUtils {
 			String password = rs.getString("password");
 			int SSN = rs.getInt("SSN");
 
-			Person person = findPerson(conn, id);
-			// Account account = findAccount(conn, id);
+			Person person = findPerson(conn, SSN);
 			if (person == null)
 				return null;
 
@@ -387,7 +388,7 @@ public class DBUtils {
 
 		return null;
 	}
-	
+
 	public static void updateAccount(Connection conn, Account account) throws SQLException {
 		// Account
 		String sql = "Update Account Set Username = ?, Password = ? Where ClientID = ?";
@@ -533,6 +534,62 @@ public class DBUtils {
 
 		pstm.setDate(1, account.getDateOpened());
 		pstm.setInt(2, account.getClientId());
+		pstm.executeUpdate();
+	}
+
+	public static Order insertOrder(Connection conn, Order order) throws SQLException {
+		String sql = "Insert ignore into StockOrder(NumShares, DateTime, Percentage, PriceType, OrderType, PricePerShare) "
+				+ "values(?, NOW(), ?, ?, ?, ?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, order.getNumShares());
+		pstm.setDouble(2, order.getPercent());
+		pstm.setString(3, order.getType());
+		pstm.setString(4, order.getOrderType());
+		pstm.setDouble(5, order.getPps());
+		
+		pstm.executeUpdate();
+		
+		sql = "Select LAST_INSERT_ID() AS 'ID'";
+		pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		if (rs.next()) {
+			order.setId(rs.getInt("ID"));
+			return order;
+		}
+		
+		throw new SQLException("Something wrong with inserting Order");
+	}
+	
+	public static Transaction insertTransaction(Connection conn, Transaction transaction) throws SQLException {
+		String sql = "Insert ignore into Transaction(PricePerShare, DateTime, Fee) "
+				+ "values(?, NOW(), ?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setDouble(1, transaction.getPps());
+		pstm.setDouble(2, transaction.getFee());
+		pstm.executeUpdate();
+		
+		sql = "Select LAST_INSERT_ID() AS 'ID'";
+		pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		if (rs.next()) {
+			transaction.setId(rs.getInt("ID"));
+			return transaction;
+		}
+		
+		throw new SQLException("Something wrong with inserting Transaction");
+	}
+
+	public static void insertTrade(Connection conn, Trade trade) throws SQLException {
+		String sql = "Insert ignore into Trade(AccountId, StockId, TransactionId, OrderId, BrokerId)"
+				+ "values(?, ?, ?, ?, ?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, trade.getAccount().getId());
+		pstm.setString(2, trade.getStock().getSymbol());
+		pstm.setInt(3, trade.getTransaction().getId());
+		pstm.setInt(4, trade.getOrder().getId());
+		pstm.setInt(5, trade.getEmployee().getId());
 		pstm.executeUpdate();
 	}
 

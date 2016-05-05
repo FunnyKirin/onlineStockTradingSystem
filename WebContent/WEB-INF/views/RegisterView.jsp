@@ -14,7 +14,7 @@
   <div class="demo">
     <div class="register">
       <div class="register__form">
-      <h3 style="color:red;">${errorString}</h3>
+      <h2 style="color:red;">${errorString}</h2>
       <form action="${pageContext.request.contextPath}/doRegister">
         <div class="login__row firstname">
           <input type="text" name="firstname" class="login__input firstname" placeholder="First Name"/>

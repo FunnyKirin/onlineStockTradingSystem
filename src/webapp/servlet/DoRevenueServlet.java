@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import webapp.beans.Employee;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/giveSuggestion" })
-public class GiveSuggestionViewServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/doRevenue" })
+public class DoRevenueServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public GiveSuggestionViewServlet() {
+    public DoRevenueServlet() {
         super();
     }
  
@@ -34,7 +34,7 @@ public class GiveSuggestionViewServlet extends HttpServlet {
         }
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/GiveSuggestionView.jsp");
+                .getRequestDispatcher("/WEB-INF/views/RevenueView.jsp");
         dispatcher.forward(request, response);
  
     }

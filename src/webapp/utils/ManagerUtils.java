@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import webapp.beans.Stock;
+import webapp.beans.StockWithRevenue;
 import webapp.beans.Trade;
 import webapp.beans.Transaction;
 import webapp.beans.Account;
@@ -17,6 +18,7 @@ import webapp.beans.History;
 import webapp.beans.Location;
 import webapp.beans.Order;
 import webapp.beans.Person;
+import webapp.beans.ClientWithRevenue;
 
 public class ManagerUtils {
 	public static ArrayList<Trade> getSalesReportByMonth(Connection conn, int month) throws SQLException {
@@ -92,6 +94,69 @@ public class ManagerUtils {
 		return emails;
 	}
 
+	public static ClientWithRevenue getRevenueByCustID(Connection conn, int id) throws SQLException {
+		String sql = "call revenueByCustomerID(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			String email = rs.getString("Email");
+			double rating = rs.getDouble("Rating");
+			String credit = rs.getString("CreditCardNumber");
+			
+			double revenue = rs.getDouble("Revenue");
+			
+			ClientWithRevenue c = new ClientWithRevenue();
+			c.setEmail(email);
+			c.setRating(rating);
+			c.setCreditCardNum(credit);
+			c.setRevenue(revenue);
+			
+			return c;
+		}
+
+		return null;
+	}
+	
+	public static StockWithRevenue getRevenueByStockType(Connection conn, String str) throws SQLException {
+		String sql = "call revenueByStockType(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, str);
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			double revenue = rs.getDouble("Revenue");
+			
+			return new StockWithRevenue(symbol, company, type, pps, revenue);
+		}
+
+		return null;
+	}
+	
+	public static StockWithRevenue getRevenueByStockSymbol(Connection conn, String str) throws SQLException {
+		String sql = "call revenueByStockSymbol(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, str);
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			String company = rs.getString("CompanyName");
+			String type = rs.getString("Type");
+			double pps = rs.getDouble("PricePerShare");
+			double revenue = rs.getDouble("Revenue");
+			
+			return new StockWithRevenue(symbol, company, type, pps, revenue);
+		}
+
+		return null;
+	}
+	
 	public static ArrayList<Stock> getStocks(Connection conn) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		String sql = "select * from Stock";

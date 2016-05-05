@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webapp.beans.Employee;
 import webapp.beans.Trade;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
@@ -27,6 +28,16 @@ public class DoReportByMonthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	// Check User has logged on
+        Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
+  
+        // Not logged in
+        if (loginedUser == null) {
+            // Redirect to login page.
+            response.sendRedirect(request.getContextPath() + "/employeeLogin");
+            return;
+        }
+    	
         Connection conn = MyUtils.getStoredConnection(request);
         
         String monthStr = request.getParameter("month");

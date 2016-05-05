@@ -1,6 +1,9 @@
 package webapp.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,19 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import webapp.beans.Employee;
+import webapp.beans.Stock;
+import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/giveSuggestion" })
-public class GiveSuggestionViewServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/revenueByStockSymbol" })
+public class RevenueByStockSymbolServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public GiveSuggestionViewServlet() {
+    public RevenueByStockSymbolServlet() {
         super();
     }
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
     	// Check User has logged on
         Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
   
@@ -32,9 +38,20 @@ public class GiveSuggestionViewServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/employeeLogin");
             return;
         }
+        
+        Connection conn = MyUtils.getStoredConnection(request);
+        
+        List<Stock>stocks = null;
+        try {
+			stocks = ManagerUtils.getStocks(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        request.setAttribute("stocks", stocks);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/GiveSuggestionView.jsp");
+                .getRequestDispatcher("/WEB-INF/views/RevenueViewByStockSymbol.jsp");
         dispatcher.forward(request, response);
  
     }

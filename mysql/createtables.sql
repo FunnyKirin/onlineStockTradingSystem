@@ -90,7 +90,7 @@ create TABLE hasStock(
 
 CREATE TABLE Transaction (
 	Id INTEGER AUTO_INCREMENT,
-	Fee INTEGER,
+	Fee DECIMAL(10, 2),
 	DateTime DATETIME,
 	PricePerShare INTEGER,
 	PRIMARY KEY (Id) 
