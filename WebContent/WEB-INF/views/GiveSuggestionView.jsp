@@ -37,6 +37,8 @@
 			</c:forEach>
 		</table>
 	</c:if>
+	<br />
+	<a href="employeeMain">Back</a>
 
 </body>
 </html>

@@ -8,7 +8,7 @@
 <title>Revenue by Stock Symbol</title>
 </head>
 <body>
-	<h3>Revenue by Stock</h3>
+	<h3>Revenue by Stock Symbol</h3>
 	<form action="doRevenueByStockSymbol">
 		Input: <select name="symbol">
 			<c:forEach items="${stocks}" var="s">

@@ -95,7 +95,7 @@ public class ManagerUtils {
 	}
 
 	public static ClientWithRevenue getRevenueByCustID(Connection conn, int id) throws SQLException {
-		String sql = "call revenueByCustomerID(?)";
+		String sql = "call revenueByCustID(?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
 		ResultSet rs = pstm.executeQuery();
@@ -108,6 +108,7 @@ public class ManagerUtils {
 			double revenue = rs.getDouble("Revenue");
 			
 			ClientWithRevenue c = new ClientWithRevenue();
+			c.setSSN(id);
 			c.setEmail(email);
 			c.setRating(rating);
 			c.setCreditCardNum(credit);

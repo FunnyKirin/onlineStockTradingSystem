@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webapp.beans.Client;
 import webapp.beans.ClientWithRevenue;
 import webapp.beans.Employee;
 import webapp.beans.Stock;
@@ -43,11 +45,14 @@ public class DoRevenueByCustIDServlet extends HttpServlet {
         Connection conn = MyUtils.getStoredConnection(request);
        
         ClientWithRevenue c = null;
-        int id = Integer.parseInt(request.getParameter("cust_id"));
+        List<Client> clients = null;
         String errorString = null;
  
         try {
+        	int id = Integer.parseInt(request.getParameter("cust_id"));
+        	System.out.println(id);
             c = ManagerUtils.getRevenueByCustID(conn, id);
+			clients = ManagerUtils.getClients(conn);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -60,16 +65,17 @@ public class DoRevenueByCustIDServlet extends HttpServlet {
         // The product does not exist to edit.
         // Redirect to productList page.
         if (errorString != null && c == null) {
-            response.sendRedirect("revenueByCustName");
+            response.sendRedirect("revenueByCustID");
             return;
         }
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
+        request.setAttribute("acc", clients);
         request.setAttribute("cust", c);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/RevenueViewByCustName.jsp");
+                .getRequestDispatcher("/WEB-INF/views/RevenueViewByCustID.jsp");
         dispatcher.forward(request, response);
  
     }

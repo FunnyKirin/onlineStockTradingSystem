@@ -3,6 +3,7 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import webapp.beans.ClientWithRevenue;
 import webapp.beans.Employee;
+import webapp.beans.Stock;
 import webapp.beans.StockWithRevenue;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
@@ -44,8 +46,11 @@ public class DoRevenueByStockSymbolServlet extends HttpServlet {
         StockWithRevenue swr = null;
         String symbol = request.getParameter("symbol");
         String errorString = null;
+        
+        List<Stock> stocks = null;
  
         try {
+        	stocks = ManagerUtils.getStocks(conn);
             swr = ManagerUtils.getRevenueByStockSymbol(conn, symbol);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +58,6 @@ public class DoRevenueByStockSymbolServlet extends HttpServlet {
         } catch(NumberFormatException ee) {
         	errorString = "Invalid input";
         }
- 
          
         // If no error.
         // The product does not exist to edit.
@@ -65,6 +69,7 @@ public class DoRevenueByStockSymbolServlet extends HttpServlet {
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
+        request.setAttribute("stocks", stocks);
         request.setAttribute("cust", swr);
         
  
