@@ -41,11 +41,11 @@ public class Stock {
 		this.type = type;
 	}
 
-	public double getPPS() {
+	public double getPps() {
 		return pps;
 	}
 
-	public void setPPS(double pps) {
+	public void setPps(double pps) {
 		this.pps = pps;
 	}
 

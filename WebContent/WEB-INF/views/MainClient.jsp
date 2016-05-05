@@ -22,7 +22,7 @@
 			<li><input type="submit" class="submit" id="searchStock" value="Search Stock" /></li>
 			<li><input type="submit" class="submit" id="Best-sellers" value="Best-sellers" /></li>
 			<li><input type="submit" class="submit" id="Suggestions" value="Suggestions" /></li>
-<!-- 			<li class="parent">
+			<li class="parent">
 				<a href="">
 					<span data-toggle="collapse" href="#sub-item-1">stocks and order info</span>
 				</a>
@@ -43,7 +43,7 @@
 						</a>
 					</li>
 				</ul>
-			</li> -->
+			</li>
 			<li role="presentation" class="divider"></li>
 			<li><a href="#" id="help">Help</a></li>
 		</ul>
@@ -53,11 +53,11 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
 		<div class = "searchResult">
-			<form role="search" class="search" action="clientMain" method="post">
+			<form role="search" class="search" action="doClientMain" method="post">
 				<div class="form-group">
 					
 					<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
-					<input type="submit" name="searchNameButton" class="form-control" value="Search by Name" placeholder="Search" id="searchButton">
+					<input type="submit" name="searchNameButton" class="form-control" placeholder="Search" id="searchButton">
 					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
@@ -68,12 +68,15 @@
             			<td>${stock.symbol}</td>
             			<td>${stock.company}</td>
             			<td>${stock.type}</td>
-            			<td>${stock.PPS}</td>
+            			<td>${stock.PPS }</td>
         			</tr>
     			</c:forEach>
 			</table>
 			</div>
-			
+
+<!-- 			<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
+			<input type="submit" name="searchNameButton" class="form-control" placeholder="Search"> -->
+
 			<div class = "orderHistories">
 			<table>
 				<tr><td>ID</td><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
@@ -95,7 +98,7 @@
 			</form>
 			
 			<table>
-				<tr><td>ID</td><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
+				<tr><td>Stock Symbol</td><td>price</td><td>Order Type</td><td>Type value</td><td>sellPrice</td><td>number of Shares</td><td>Date</td></tr>
     			<c:forEach var="OrderHistory" items="${OrderHistorys}">
         			<tr onclick="getStopHis(${OrderHistory})">
 			        	<td>${OrderHistory.stockSymbol}</td>
@@ -105,9 +108,13 @@
             			<td>${OrderHistory.sellPrice}</td>
             			<td>${OrderHistory.numShares}</td>
             			<td>${OrderHistory.date}</td>
+<<<<<<< HEAD
+			
+=======
             			<td>${OrderHistory.sellPrice}</td>
             			<td>${OrderHistory.numShares}</td>
             			<td>${OrderHistory.date}
+>>>>>>> e42e79fc9b55b560a84337c951435b04b2fb1350
         			</tr>
     			</c:forEach>
 			</table>

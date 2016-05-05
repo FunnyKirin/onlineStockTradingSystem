@@ -16,6 +16,33 @@ import webapp.beans.Location;
 import webapp.beans.Person;
 
 public class ManagerUtils {
+	public static Client getCoolestClient(Connection conn) throws SQLException {
+		String sql = "call customer_mostRevenue()";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		if (rs.next()) {
+			int id = rs.getInt("Client ID");
+			Client client = DBUtils.findClient(conn, id);
+			return client;
+		}
+		
+		return null;
+	}
+	
+	public static Employee getCoolestEmployee(Connection conn) throws SQLException {
+		String sql = "call mostRevenue_CustomerRepresentative()";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		if (rs.next()) {
+			int id = rs.getInt("Employee SSN");
+			Employee employee = DBUtils.findEmployee(conn, id);
+			return employee;
+		}
+		
+		return null;
+	}
 
 	public static ArrayList<String> getMailingList(Connection conn) throws SQLException {
 		ArrayList<String> emails = new ArrayList<String>();
@@ -83,7 +110,7 @@ public class ManagerUtils {
 
 		return accounts;
 	}
-	
+
 	public static ArrayList<Employee> getEmployees(Connection conn) throws SQLException {
 		ArrayList<Employee> employees = new ArrayList<Employee>();
 
@@ -115,10 +142,13 @@ public class ManagerUtils {
 
 		return best;
 	}
-
+	
 	public static ArrayList<Stock> giveSuggestions(Connection conn, int clientId) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
-		String sql = "call giveSuggestion(?)";
+		String sql = "SELECT S.StockSymbol, S.CompanyName, S.PricePerShare, S.Type "
+				+ "FROM Account A, Stock S, StockOrder O, Trade T "
+				+ "WHERE A.ClientID = ? AND S.StockSymbol = T.StockId AND "
+				+ "T.AccountId = A.ID AND T.OrderId= O.ID";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, clientId);
@@ -129,6 +159,8 @@ public class ManagerUtils {
 			String company = rs.getString("CompanyName");
 			String type = rs.getString("Type");
 			double pps = rs.getDouble("PricePerShare");
+
+			System.out.println(symbol);
 
 			stocks.add(new Stock(symbol, company, type, pps));
 		}

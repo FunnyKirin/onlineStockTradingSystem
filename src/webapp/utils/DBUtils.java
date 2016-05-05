@@ -458,7 +458,7 @@ public class DBUtils {
 		pstm.setString(1, stock.getSymbol());
 		pstm.setString(2, stock.getCompany());
 		pstm.setString(3, stock.getType());
-		pstm.setDouble(4, stock.getPPS());
+		pstm.setDouble(4, stock.getPps());
 		pstm.executeUpdate();
 	}
 }
