@@ -129,6 +129,8 @@ public class ManagerUtils {
 			String company = rs.getString("CompanyName");
 			String type = rs.getString("Type");
 			double pps = rs.getDouble("PricePerShare");
+			
+			System.out.println(symbol);
 
 			stocks.add(new Stock(symbol, company, type, pps));
 		}

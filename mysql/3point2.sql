@@ -20,7 +20,7 @@ CREATE PROCEDURE giveSuggestion(IN CustID INTEGER)
 BEGIN
 	SELECT S.StockSymbol, S.CompanyName, S.PricePerShare, S.Type
 	FROM Account A, Stock S, StockOrder O, Trade T
-	WHERE A.ID = CustID AND S.StockSymbol = T.StockId AND T.AccountId = A.ID AND T.OrderId= O.ID;
+	WHERE A.ClientID = CustID AND S.StockSymbol = T.StockId AND T.AccountId = A.ID AND T.OrderId= O.ID;
 END//
 	
 drop procedure if exists giveSuggestion;
