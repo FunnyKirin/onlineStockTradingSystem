@@ -52,7 +52,7 @@
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
-		
+		<div class = "searchResult">
 			<form role="search" class="search" action="doClientMain" method="post">
 				<div class="form-group">
 					
@@ -61,7 +61,7 @@
 					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
-			<table class = "searchResult">
+			<table>
 				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${searchResult}">
         			<tr>
@@ -71,8 +71,8 @@
             			<td>${stock.PPS }</td>
         			</tr>
     			</c:forEach>
-			
 			</table>
+			</div>
 			<table class = "orderHistories">
 				<tr><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">

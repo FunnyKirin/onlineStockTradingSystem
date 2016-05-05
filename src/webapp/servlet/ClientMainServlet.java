@@ -42,6 +42,7 @@ public class ClientMainServlet extends HttpServlet {
 		try {
 			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
 			request.setAttribute("stocks", currentStocks);
+			//order history
 			orderHistory = ClientUtils.getOrderHistory(conn, Id);
 			request.setAttribute("orders", orderHistory);
 			//bestSeller
