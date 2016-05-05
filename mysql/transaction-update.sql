@@ -30,8 +30,9 @@ VALUES('GM', 'General Motors', 'automotive', 34.23),
     
 INSERT INTO Account(DateOpened, ClientID, Username, Password)
 VALUES('2006-10-01', 444444444, 'a1', 'p1'), 
-	('2006-10-15', 222222222, 'a2', 'p2');
-
+	('2016-10-15', 222222222, 'a2', 'p2'),
+    ('2016-5-21', 111111111, 'a3', 'p3'),
+	('2016-5-4', 333333333, 'a4', 'p4');
 INSERT INTO hasStock(AccountId,	StockSymbol, NumShares)
 VALUES(1, 'GM', 250),
 	(1, 'F', 150),

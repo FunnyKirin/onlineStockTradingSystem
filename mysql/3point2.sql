@@ -24,6 +24,7 @@ BEGIN
 	WHERE A.ID = CustID AND S.StockSymbol = T.StockId AND T.AccountId = A.ID AND T.OrderId= O.ID;
 END//
 drop procedure if exists giveSuggestion;
+
 # Successfully hook people up in the business
 DELIMITER //
 CREATE PROCEDURE addCustomer(IN FirstName CHAR(20), IN LastName CHAR(20), IN Address CHAR(20),

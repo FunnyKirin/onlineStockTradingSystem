@@ -1,7 +1,6 @@
 package webapp.beans;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
 public class Account extends Client{
 	private int Id;

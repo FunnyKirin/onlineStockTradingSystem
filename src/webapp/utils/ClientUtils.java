@@ -182,4 +182,34 @@ public class ClientUtils {
 		
 		return stocks;
 	}
+	
+	public static ArrayList<OrderHistory> searchOrderHistory(int input, Connection conn) throws SQLException{
+		ArrayList<OrderHistory> result = new ArrayList<OrderHistory>();
+		String sql = "call hiddenstopHistory(?);";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, input);
+		ResultSet rs = pstm.executeQuery();
+		double sellPrice=0;
+		while (rs.next()) {
+			String symbol = rs.getString("StockSymbol");
+			double price = rs.getDouble("PricePerShare");
+			String type = rs.getString("PriceType");
+			double value = rs.getDouble("Percentage");
+			double currentPrice=0;
+			if(type.equals("TrailingStop")){
+				currentPrice = price - price * value;
+			}else if(type.equals("HiddenStop")){
+				currentPrice = price - value;
+			}
+			if(currentPrice > sellPrice){
+				sellPrice=currentPrice;
+				}
+			int numShares = rs.getInt("NumShares");
+			Date date = rs.getDate("stockDate");
+			result.add(new OrderHistory(symbol, price, type, value, sellPrice, numShares, date));
+		}
+		
+		
+		return result;
+	}
 }

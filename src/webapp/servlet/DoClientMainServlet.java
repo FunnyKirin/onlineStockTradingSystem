@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import webapp.beans.Client;
 import webapp.beans.History;
+import webapp.beans.OrderHistory;
 import webapp.beans.Stock;
 import webapp.utils.ClientUtils;
 import webapp.utils.DBUtils;
@@ -81,6 +82,7 @@ public class DoClientMainServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
 //        if (request.getParameter("searchNameButton") != null) {
 //        	String searchText = request.getParameter("searchText");
 //        	try {
@@ -142,3 +144,86 @@ public class DoClientMainServlet extends HttpServlet{
 //		dispatcher.forward(request, response);
 //    }
 //}
+=======
+        if (request.getParameter("searchNameButton") != null) {
+        	String searchText = request.getParameter("searchText");
+        	try {
+				searchByName(searchText,request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        
+        if (request.getParameter("searchTypeButton") != null) {
+        	String searchText = request.getParameter("searchText");
+        	try {
+				searchByType(searchText,request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        
+        if (request.getParameter("searchNameButton") != null) {
+        	String searchText = request.getParameter("searchHistoryText");
+        	try {
+        		searchHistory(Integer.parseInt(searchText),request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+    }
+    
+    public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+    	ArrayList<Stock> result = new ArrayList<Stock>();
+		Connection conn = MyUtils.getStoredConnection(request);
+
+    	try {
+			result=ClientUtils.searchStocksByName(conn, input);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		request.setAttribute("searchResult", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+    
+    public void searchByType(String input, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+    	ArrayList<Stock> result = new ArrayList<Stock>();
+		Connection conn = MyUtils.getStoredConnection(request);
+
+    	try {
+			result=ClientUtils.searchStocksByType(conn, input);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		request.setAttribute("searchResult", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+    
+    public void searchHistory(int input, HttpServletRequest request, HttpServletResponse response)
+    	throws ServletException, IOException, SQLException {
+    	ArrayList<OrderHistory> result = new ArrayList<OrderHistory>();
+		Connection conn = MyUtils.getStoredConnection(request);
+    	try {
+			result=ClientUtils.searchOrderHistory(input, conn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	System.out.println("out:"+result.get(0).getDate());
+		request.setAttribute("OrderHistorys", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+}
+>>>>>>> b320c23a8f19abba1049288ddefb44f315e9eeca

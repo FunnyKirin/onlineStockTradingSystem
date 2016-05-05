@@ -58,7 +58,8 @@ CREATE TABLE Account (
     
 	Username CHAR(32),
 	Password CHAR(32),
-    PRIMARY KEY (ID),
+    PRIMARY KEY (Username), 
+    UNIQUE (ID),
     FOREIGN KEY (ClientID)
         REFERENCES Client (ID)
         ON DELETE NO ACTION ON UPDATE CASCADE
@@ -141,5 +142,7 @@ CREATE TABLE Trade (
 CREATE TABLE stockHistory(
 	 StockSymbol CHAR(20),
      PricePerShare DECIMAL(10, 2),
-     Primary key (StockSymbol)
+     stockDate DATE,
+     Primary key (StockSymbol, stockDate)
+     
 )
