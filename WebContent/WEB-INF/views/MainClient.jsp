@@ -47,6 +47,12 @@
         			</tr>
     			</c:forEach>
 			</table>
+			<br><br><br>
+				<input type="text" name="symbol" value=""  class="buyText" placeholder="Symbol" >
+				<input type="text" name="number" value=""  class="buyText" placeholder="number" >
+				<input type="text" name="type" value=""  class="buyText" placeholder="Type" >
+				<input type="text" name="value" value=""  class="buyText" placeholder="Value" >
+				<input type="submit" name="searchTypeButton" class="form-control" value="Buy">
 			</div>
 
 <!-- 			<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
