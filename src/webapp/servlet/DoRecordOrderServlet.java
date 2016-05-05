@@ -73,7 +73,7 @@ public class DoRecordOrderServlet extends HttpServlet {
 		Order order = null;
 
 		try {
-			int numShares = Integer.parseInt(numSharesStr);
+			//int numShares = Integer.parseInt(numSharesStr);
 			int accountId = Integer.parseInt(accountIdStr);
 			int orderId = Integer.parseInt(orderIdStr);
 			int eid = MyUtils.getLoginedEmployee(request.getSession()).getId();

@@ -190,8 +190,10 @@ public class ManagerUtils {
 			String orderType = rs.getString("OrderType");
 			double pps = rs.getDouble("PricePerShare");
 			Date date = rs.getDate("DateTime");
+			int a_id = rs.getInt("AccountId");
+			String symbol = rs.getString("StockSymbol");
 
-			Order o = new Order(id, date, numShares, pps, priceType);
+			Order o = new Order(id, date, numShares, pps, priceType, a_id, symbol);
 			o.setOrderType(orderType);
 			orders.add(o);
 		}

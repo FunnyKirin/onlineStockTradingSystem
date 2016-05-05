@@ -99,3 +99,13 @@ CREATE PROCEDURE bestSellerStocks()
 	ORDER BY COUNT(Trade.StockId) DESC;
  END //
 #drop procedure if exists bestSellerStocks;
+
+DELIMITER //
+CREATE PROCEDURE sell(IN symbol CHAR(20), num INTEGER, )
+ BEGIN
+    SELECT Trade.StockId, Stock.CompanyName, Stock.PricePerShare, Stock.Type
+	FROM Trade, StockOrder, Stock
+	WHERE Trade.OrderId = StockOrder.ID AND StockOrder.OrderType = 'sell' AND Stock.StockSymbol = Trade.StockId
+	GROUP BY Trade.StockId
+	ORDER BY COUNT(Trade.StockId) DESC;
+ END //

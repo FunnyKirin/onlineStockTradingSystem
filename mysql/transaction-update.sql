@@ -38,9 +38,9 @@ VALUES(1, 'GM', 250),
 	(1, 'F', 150),
     (2, 'IBM', 50);
 
-INSERT INTO StockOrder(NumShares, DateTime, PriceType, OrderType, Percentage, PriceperShare)
-VALUES(75, '2014-02-1', 'Market', 'buy', 0,0), 
-	(10,'2014-02-1','TrailingStop', 'sell', 0.1,0);
+INSERT INTO StockOrder(AccountID, StockSymbol,NumShares, DateTime, PriceType, OrderType, Percentage, PriceperShare)
+VALUES(1, 'GM', 75, '2014-02-1', 'Market', 'buy', 0,0), 
+	(2, 'IBM', 10,'2014-02-1','TrailingStop', 'sell', 0.1,0);
     
 INSERT INTO Transaction(Fee, DateTime, PricePerShare)
 VALUES(50, '2015-01-01', 100),
@@ -49,6 +49,30 @@ VALUES(50, '2015-01-01', 100),
 INSERT INTO Trade(AccountId, BrokerId, OrderId, StockId, TransactionId)
 VALUES(1, 1, 1, 'GM', 1),
 		(2, 2, 2, 'IBM', 2);
+        
+INSERT INTO stockHistory(StockSymbol, PricePerShare, stockDate)
+VALUES	('F', 1, '2016-05-01'),
+		('F', 1.5, '2016-05-02'),
+        ('F', 1.2, '2016-05-03'),
+        ('F', 2, '2016-05-04');
+        
+INSERT INTO stockHistory(StockSymbol, PricePerShare, stockDate)
+VALUES	('GM', 1, '2016-05-01'),
+		('GM', 1.5, '2016-05-02'),
+        ('GM', 1.2, '2016-05-03'),
+        ('GM', 2, '2016-05-04');
+        
+INSERT INTO stockHistory(StockSymbol, PricePerShare, stockDate)
+VALUES	('IBM', 1, '2016-05-01'),
+		('IBM', 1.5, '2016-05-02'),
+        ('IBM', 1.2, '2016-05-03'),
+        ('IBM', 2, '2016-05-04');
+        
+        INSERT INTO stockHistory(StockSymbol, PricePerShare, stockDate)
+VALUES	('F', 1, '2015-05-01'),
+		('F', 1.5, '2015-05-02'),
+        ('F', 1.2, '2015-05-03'),
+        ('F', 2, '2015-05-04');
         
 
 commit;
