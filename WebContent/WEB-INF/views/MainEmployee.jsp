@@ -52,6 +52,8 @@ function setHandle(handle) {
 			<li><a href="customerList">Customer Info</a></li>
 			<li><a href="recordOrder">Record an Order</a></li>
 			<li><a href="orderList">Review Orders</a></li>
+			<li role="presentation" class="divider"></li>
+			<li><a href="#" id="help">Help</a></li>
 		</ul>
 		</form>
 

@@ -67,7 +67,9 @@
 				<li><a href="revenueByStockType">Get Max Revenue by Stock Type</a></li>
 				<li><a href="revenueByStockSymbol">Get Max Revenue by Stock Symbol</a></li>
 				<li><a href="revenueByCustID">Get Max Revenue by Customer ID</a></li>
-
+				<li role="presentation" class="divider"></li>
+				<li><a href="#" id="backup">Backup database</a></li>
+				<li><a href="#" id="helpMan">Help</a></li>
 				<li><input type="hidden" id="handle" name="handle"
 					value="list_stocks" /></li>
 			</ul>
