@@ -81,10 +81,23 @@ public class DoClientMainServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("searchButton") != null) {
+        if (request.getParameter("searchNameButton") != null) {
         	String searchText = request.getParameter("searchText");
         	try {
 				searchByName(searchText,request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else{
+            doGet(request, response);
+
+        }
+        
+        if (request.getParameter("searchTypeButton") != null) {
+        	String searchText = request.getParameter("searchText");
+        	try {
+				searchByType(searchText,request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,7 +114,7 @@ public class DoClientMainServlet extends HttpServlet{
 		Connection conn = MyUtils.getStoredConnection(request);
 
     	try {
-			result=ClientUtils.getStocksByName(conn, input);
+			result=ClientUtils.searchStocksByName(conn, input);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,7 +131,7 @@ public class DoClientMainServlet extends HttpServlet{
 		Connection conn = MyUtils.getStoredConnection(request);
 
     	try {
-			result=ClientUtils.searchStocksByName(conn, input);
+			result=ClientUtils.searchStocksByType(conn, input);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
