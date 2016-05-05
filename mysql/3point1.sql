@@ -78,7 +78,7 @@ CREATE PROCEDURE monthlySalesReport(IN month INTEGER)
 		WHERE MONTH(O.DateTime) = month
 			AND T.OrderId = O.Id;
 	END//
-
+drop procedure monthlySalesReport;
 #Produce a comprehensive listing of all stocks
 DELIMITER //
 CREATE PROCEDURE stockListing()

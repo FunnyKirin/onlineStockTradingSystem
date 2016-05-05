@@ -97,11 +97,13 @@ CREATE TABLE Transaction (
 );
 
 CREATE TABLE StockOrder (
+	AccountId INTEGER,
+    StockSymbol CHAR(20),
     NumShares INTEGER,
     ID INTEGER AUTO_INCREMENT,
     DateTime DATETIME,
     Percentage DECIMAL(10, 2),
-    PriceperShare INTEGER,
+    PriceperShare DOUBLE,
     PriceType CHAR(20),
     CHECK (PriceType IN ('Market' , 'MarketOnClose',
         'TrailingStop', 
@@ -145,4 +147,9 @@ CREATE TABLE stockHistory(
      stockDate DATE,
      Primary key (StockSymbol, stockDate)
      
-)
+);
+
+CREATE TABLE orderMessage(
+	AccountId INTEGER,
+    message CHAR(255)
+);

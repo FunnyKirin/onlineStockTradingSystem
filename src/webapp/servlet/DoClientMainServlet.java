@@ -2,8 +2,12 @@ package webapp.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +40,7 @@ public class DoClientMainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	}
+<<<<<<< HEAD
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,6 +50,18 @@ public class DoClientMainServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Account thisClient = (Account) MyUtils.getLoginedUser(session);
 		int Id = thisClient.getId();
+=======
+	
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	
+    	Connection conn = MyUtils.getStoredConnection(request);
+		HttpSession session= request.getSession();
+		Account a = MyUtils.getLoginedUser(request.getSession());
+		//int Id = a.getId();
+		int Id = 1;
+>>>>>>> f1e5cb8556c1ca3d42bfdb36b0dad30300c86544
 		ArrayList<hasStock> currentStocks;
 		ArrayList<History> orders;
 		ArrayList<Stock> bestSellers;
@@ -120,10 +137,28 @@ public class DoClientMainServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+<<<<<<< HEAD
 		}
 	}
 
 	public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
+=======
+        }
+        if (request.getParameter("sellButton") != null) {
+        	String symbol = request.getParameter("sellSymbolText");
+        	String num =  request.getParameter("sellNumberText");
+        	try {
+        		sell(symbol,Integer.parseInt(num),Id,request, response);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+    }
+    
+    public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
+>>>>>>> f1e5cb8556c1ca3d42bfdb36b0dad30300c86544
 			throws ServletException, IOException, SQLException {
 		ArrayList<Stock> result = new ArrayList<Stock>();
 		Connection conn = MyUtils.getStoredConnection(request);
@@ -189,5 +224,43 @@ public class DoClientMainServlet extends HttpServlet {
 		request.setAttribute("StockHistory", result);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
+<<<<<<< HEAD
 	}
+=======
+    }
+    
+    public void sell(String symbol, int numOfShares, int id, HttpServletRequest request, HttpServletResponse response)
+        	throws ServletException, IOException, SQLException {
+    	Connection conn = MyUtils.getStoredConnection(request);
+    	
+    	String sql = "Select * from Stock S WHERE S.StockSymbol = ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, symbol);
+		ResultSet rs = pstm.executeQuery();
+		double pricePerShares=0;
+		while (rs.next()) {
+			pricePerShares = rs.getDouble("PricePerShare");
+		}
+    	
+		Calendar cal = Calendar.getInstance();
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int month = cal.get(Calendar.MONTH);
+		int year = cal.get(Calendar.YEAR);
+		String sqlDate = 
+		
+    	sql = "call recordOrder(?,?,?,?,?,?,?)";
+		pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.setString(2, symbol);
+		pstm.setInt(3, numOfShares);
+		pstm.setString(4, "Market");
+		pstm.setString(5, "sell");
+		pstm.setInt(6, 0);
+		pstm.setDouble(7,pricePerShares);
+		rs = pstm.executeQuery();
+		
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
+    }
+>>>>>>> f1e5cb8556c1ca3d42bfdb36b0dad30300c86544
 }

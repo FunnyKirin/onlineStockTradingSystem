@@ -124,9 +124,12 @@
         			</tr>
     			</c:forEach>
 			</table>
-				<input type="text" name="searchStockHistoryText" value="Stock Symbol"  class="form-control" placeholder="Stock Symbol" >
-				<input type="text" name="searchStockHistoryText" value="number"  class="form-control" placeholder="number" >
-				<input type="submit" name="searchStockHistoryButton" value="Sell"  class="form-control" placeholder="Sell">
+									<form role="search" class="search" action="doClientMain" method="post">
+			
+				<input type="text" name="sellSymbolText" value="Stock Symbol"  class="form-control" placeholder="Stock Symbol" >
+				<input type="text" name="sellNumberText" value="number"  class="form-control" placeholder="number" >
+				<input type="submit" name="sellButton" value="Sell"  class="form-control" placeholder="Sell">
+			</form>
 			</div>
 			
 			<div class = "stockPriceHis">

@@ -1,12 +1,13 @@
 USE netrade;
 -- Record an order
 DELIMITER //
-CREATE PROCEDURE recordOrder(IN NumShares INTEGER, IN DateTime DateTime, IN PriceType CHAR(20), IN OrderType CHAR(4), IN Percentage INTEGER, IN PriceperShare INTEGER)
+CREATE PROCEDURE recordOrder(IN AccountID INTEGER, IN Symbol CHAR(20), IN NumShares INTEGER, IN PriceType CHAR(20), IN OrderType CHAR(4), IN Percentage INTEGER, IN PriceperShare DOUBLE)
 BEGIN
-	INSERT ignore INTO stockorder(NumShares, DateTime, PriceType, OrderType, Percentage, PricePerShare)
-	VALUES(NumShares,DateTime, PriceType, OrderType, Percentage, PricePerShare);
+	INSERT ignore INTO StockOrder(AccountID, StockSymbol, NumShares, DateTime, PriceType, OrderType, Percentage, PriceperShare)
+	VALUES(AccountID, Symbol, NumShares,NOW(), PriceType, OrderType, Percentage, PricePerShare);
 	END//
 
+drop Procedure recordOrder;
 -- Produce a list of customer mailing list
 DELIMITER //
 CREATE PROCEDURE getMailingList()
