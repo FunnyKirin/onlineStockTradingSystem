@@ -6,8 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Netrade - Record Order</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="css/mainClient.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/Header.jsp"/>
 	<h3>Record Order</h3>
 	<h3 style="color: red;">${errorString}</h3>
 	<form action="${pageContext.request.contextPath}/doRecordOrder">
@@ -47,6 +50,7 @@
 			</tr>
 		</table>
 	</form>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>
