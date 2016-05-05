@@ -8,7 +8,6 @@
 <title>Netrade</title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link href="css/mainClient.css" rel="stylesheet">
-
 <script>
 function setHandle(handle) {
 	console.log(handle);
@@ -16,7 +15,6 @@ function setHandle(handle) {
 	console.log(document.getElementById("handle").value);
 }
 </script>
-
 </head>
 <body>
  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

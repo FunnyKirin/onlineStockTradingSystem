@@ -12,22 +12,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webapp.beans.ClientWithRevenue;
 import webapp.beans.Employee;
-import webapp.beans.Trade;
+import webapp.beans.Stock;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/doReportByMonth" })
-public class DoReportByMonthServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/doRevenueByCustID" })
+public class DoRevenueByCustIDServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public DoReportByMonthServlet() {
+    public DoRevenueByCustIDServlet() {
         super();
     }
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
     	// Check User has logged on
         Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
   
@@ -37,17 +39,15 @@ public class DoReportByMonthServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/employeeLogin");
             return;
         }
-    	
-        Connection conn = MyUtils.getStoredConnection(request);
         
-        String monthStr = request.getParameter("month");
- 
-        ArrayList<Trade> trades = null;
+        Connection conn = MyUtils.getStoredConnection(request);
+       
+        ClientWithRevenue c = null;
+        int id = Integer.parseInt(request.getParameter("cust_id"));
         String errorString = null;
  
         try {
-        	int month = Integer.parseInt(monthStr);
-            trades = ManagerUtils.getSalesReportByMonth(conn, month);
+            c = ManagerUtils.getRevenueByCustID(conn, id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -59,17 +59,17 @@ public class DoReportByMonthServlet extends HttpServlet {
         // If no error.
         // The product does not exist to edit.
         // Redirect to productList page.
-        if (errorString != null && trades == null) {
-            response.sendRedirect("reportByMonth");
+        if (errorString != null && c == null) {
+            response.sendRedirect("revenueByCustName");
             return;
         }
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("trades", trades);
+        request.setAttribute("cust", c);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/SalesByMonthView.jsp");
+                .getRequestDispatcher("/WEB-INF/views/RevenueViewByCustName.jsp");
         dispatcher.forward(request, response);
  
     }
@@ -79,5 +79,5 @@ public class DoReportByMonthServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
- 
+
 }

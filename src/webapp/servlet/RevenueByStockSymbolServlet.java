@@ -3,7 +3,7 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,21 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import webapp.beans.Employee;
-import webapp.beans.Trade;
+import webapp.beans.Stock;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
 
-@WebServlet(urlPatterns = { "/doReportByMonth" })
-public class DoReportByMonthServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/revenueByStockSymbol" })
+public class RevenueByStockSymbolServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public DoReportByMonthServlet() {
+    public RevenueByStockSymbolServlet() {
         super();
     }
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
     	// Check User has logged on
         Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
   
@@ -37,39 +38,20 @@ public class DoReportByMonthServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/employeeLogin");
             return;
         }
-    	
+        
         Connection conn = MyUtils.getStoredConnection(request);
         
-        String monthStr = request.getParameter("month");
- 
-        ArrayList<Trade> trades = null;
-        String errorString = null;
- 
+        List<Stock>stocks = null;
         try {
-        	int month = Integer.parseInt(monthStr);
-            trades = ManagerUtils.getSalesReportByMonth(conn, month);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            errorString = e.getMessage();
-        } catch(NumberFormatException ee) {
-        	errorString = "Invalid input";
-        }
- 
-         
-        // If no error.
-        // The product does not exist to edit.
-        // Redirect to productList page.
-        if (errorString != null && trades == null) {
-            response.sendRedirect("reportByMonth");
-            return;
-        }
- 
-        // Store errorString in request attribute, before forward to views.
-        request.setAttribute("errorString", errorString);
-        request.setAttribute("trades", trades);
+			stocks = ManagerUtils.getStocks(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        request.setAttribute("stocks", stocks);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/SalesByMonthView.jsp");
+                .getRequestDispatcher("/WEB-INF/views/RevenueViewByStockSymbol.jsp");
         dispatcher.forward(request, response);
  
     }
@@ -79,5 +61,5 @@ public class DoReportByMonthServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
- 
+
 }
