@@ -33,60 +33,26 @@ public class DoClientMainServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-/**
-		Connection conn = MyUtils.getStoredConnection(request);
-
-		String handle = request.getParameter("handle");
-		String content = "<h3>";
-		switch (handle) {
-		case "stock_by_name":
-			try {
-				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't got no stock babe";
-				} else {
-					for (Stock s : stocks) {
-						content += s + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "stock_by_symbol":
-			try {
-				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't got no stock babe";
-				} else {
-					for (Stock s : stocks) {
-						content += s + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		default:
-			content += "Invalid Operation";
-		}
-
-		content += "</h3>";
-		request.setAttribute("mainPanel", content);
-		**/
-		// forward
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
-		dispatcher.forward(request, response);
 	}
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+    	
+    	ArrayList<Stock> currentStocks = (ArrayList<Stock>)request.getAttribute("stocks");
+    	ArrayList<Stock> orders = (ArrayList<Stock>)request.getAttribute("orders");
+    	ArrayList<Stock> bestSellers = (ArrayList<Stock>)request.getAttribute("bestSellers");
+    	ArrayList<Stock> suggestions = (ArrayList<Stock>)request.getAttribute("suggestions");
+    	
         if (request.getParameter("searchNameButton") != null) {
         	String searchText = request.getParameter("searchText");
+
         	try {
 				searchByName(searchText,request, response);
+	        	request.setAttribute("stocks", currentStocks);
+	        	request.setAttribute("orders", orders);
+	        	request.setAttribute("bestSellers", bestSellers);
+	        	request.setAttribute("suggestions", suggestions);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,6 +61,10 @@ public class DoClientMainServlet extends HttpServlet{
         
         if (request.getParameter("searchTypeButton") != null) {
         	String searchText = request.getParameter("searchText");
+        	request.setAttribute("stocks", currentStocks);
+        	request.setAttribute("orders", orders);
+        	request.setAttribute("bestSellers", bestSellers);
+        	request.setAttribute("suggestions", suggestions);
         	try {
 				searchByType(searchText,request, response);
 			} catch (SQLException e) {
@@ -107,6 +77,10 @@ public class DoClientMainServlet extends HttpServlet{
         	String searchText = request.getParameter("searchHistoryText");
         	try {
         		searchHistory(Integer.parseInt(searchText),request, response);
+            	request.setAttribute("stocks", currentStocks);
+            	request.setAttribute("orders", orders);
+            	request.setAttribute("bestSellers", bestSellers);
+            	request.setAttribute("suggestions", suggestions);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
