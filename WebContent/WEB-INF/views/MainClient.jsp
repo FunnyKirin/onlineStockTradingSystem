@@ -111,8 +111,8 @@
         			</tr>
     			</c:forEach>
 			</table>
-			
-			<table class = "currentStocks">
+			<div class = "currentStocks">
+			<table>
 				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>price</td><td>number</td></tr>
     			<c:forEach var="stock" items="${stocks}">
         			<tr>
@@ -124,6 +124,10 @@
         			</tr>
     			</c:forEach>
 			</table>
+				<input type="text" name="searchStockHistoryText" value="Stock Symbol"  class="form-control" placeholder="Stock Symbol" >
+				<input type="text" name="searchStockHistoryText" value="number"  class="form-control" placeholder="number" >
+				<input type="submit" name="searchStockHistoryButton" value="Sell"  class="form-control" placeholder="Sell">
+			</div>
 			
 			<div class = "stockPriceHis">
 						<form role="search" class="search" action="doClientMain" method="post">

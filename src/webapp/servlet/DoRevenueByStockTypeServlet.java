@@ -3,6 +3,7 @@ package webapp.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import webapp.beans.ClientWithRevenue;
 import webapp.beans.Employee;
+import webapp.beans.Stock;
 import webapp.beans.StockWithRevenue;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
@@ -42,11 +44,14 @@ public class DoRevenueByStockTypeServlet extends HttpServlet {
         Connection conn = MyUtils.getStoredConnection(request);
         
         StockWithRevenue swr = null;
-        String symbol = request.getParameter("symbol");
+        String type = request.getParameter("type");
         String errorString = null;
+        
+        List<Stock> stocks = null;
  
         try {
-            swr = ManagerUtils.getRevenueByStockSymbol(conn, symbol);
+        	stocks = ManagerUtils.getStocks(conn);
+            swr = ManagerUtils.getRevenueByStockType(conn, type);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -65,10 +70,11 @@ public class DoRevenueByStockTypeServlet extends HttpServlet {
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
+        request.setAttribute("stocks", stocks);
         request.setAttribute("cust", swr);
  
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/RevenueViewBytockType.jsp");
+                .getRequestDispatcher("/WEB-INF/views/RevenueViewByStockType.jsp");
         dispatcher.forward(request, response);
  
     }

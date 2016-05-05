@@ -8,11 +8,12 @@
 <title>Revenue by Customer Name</title>
 </head>
 <body>
-	<h3>Revenue by Stock</h3>
+	<h3>Revenue by Customer Name</h3>
+	<p style="color: red;">${errorString }</p>
 	<form action="doRevenueByCustID">
-		Input: <select name="cust_name">
+		Input: <select name="cust_id">
 			<c:forEach items="${acc}" var="s">
-				<option value="${s.lastname}">${s.lastname} ${s.firstname}</option>
+				<option value="${s.SSN}">${s.SSN}</option>
 			</c:forEach>
 		</select>
 		<input type="submit" value="Submit" />
@@ -25,12 +26,14 @@
 			<th>Email</th>
 			<th>Rating</th>
 			<th>Credit Card Number</th>
+			<th>Revenue</th>
 		</tr>
 		<tr>
-			<td>${cust.id}</td>
+			<td>${cust.SSN}</td>
 			<td>${cust.email}</td>
 			<td>${cust.rating}</td>
 			<td>${cust.creditCardNum}</td>
+			<td>${cust.revenue}</td>
 		</tr>
 	</table>
 	<br />
