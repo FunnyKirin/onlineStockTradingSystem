@@ -73,6 +73,8 @@
     			</c:forEach>
 			</table>
 			</div>
+			<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
+			<input type="submit" name="searchNameButton" class="form-control" placeholder="Search">
 			<table class = "orderHistories">
 				<tr><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">

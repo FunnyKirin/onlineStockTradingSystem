@@ -39,6 +39,7 @@ public class ClientMainServlet extends HttpServlet {
 		ArrayList<History> orderHistory;
 		ArrayList<Stock> bestSeller;
 		ArrayList<Stock> suggestion;
+		
 		try {
 			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
 			request.setAttribute("stocks", currentStocks);
@@ -50,6 +51,7 @@ public class ClientMainServlet extends HttpServlet {
 			request.setAttribute("bestSellers", bestSeller);
 			//suggestion
 			suggestion = ClientUtils.getStockSuggestions(conn, Id);
+			request.setAttribute("suggestions", suggestion);
 			
 			
 		} catch (SQLException e) {
