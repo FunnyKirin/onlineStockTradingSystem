@@ -61,12 +61,7 @@
 					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
-<<<<<<< HEAD
-			
-			<table class = "searchResult">
-=======
 			<table>
->>>>>>> 3e22d541e0096b218877dc09fd56d0f082adef35
 				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${searchResult}">
         			<tr>
@@ -78,9 +73,8 @@
     			</c:forEach>
 			</table>
 			</div>
-			<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
-			<input type="submit" name="searchNameButton" class="form-control" placeholder="Search">
-			<table class = "orderHistories">
+			<div class = "orderHistories">
+			<table>
 				<tr><td>ID</td><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="order" items="${orders}">
         			<tr onclick="getStopHis(${order})">
@@ -93,6 +87,30 @@
         			</tr>
     			</c:forEach>
 			</table>
+			<form role="search" class="search" action="doClientMain" method="post">
+			<input type="text" name="searchHistoryText" value=""  class="form-control" placeholder="Search order history" >
+			<input type="submit" name="searchNameButton" class="form-control" placeholder="Search">
+			
+			</form>
+			
+			<table>
+				<tr><td>ID</td><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
+    			<c:forEach var="OrderHistory" items="${OrderHistorys}">
+        			<tr onclick="getStopHis(${OrderHistory})">
+        				<td>${OrderHistory.id }</td>
+			        	<td>${OrderHistory.StockSymbol }</td>
+            			<td>${OrderHistory.price}</td>
+            			<td>${OrderHistory.type}</td>
+            			<td>${OrderHistory.value}</td>
+            			<td>${OrderHistory.sellPrice }</td>
+            			<td>${OrderHistory.numShares }</td>
+            			<td>${OrderHistory.date}
+			
+        			</tr>
+    			</c:forEach>
+			</table>
+			
+			</div>
 			<table class = "bestSellers">
 				<tr><td>Stock Symbol</td><td>Company</td><td>Stock Type</td><td>Price</td></tr>
     			<c:forEach var="stock" items="${bestSellers}">
