@@ -18,11 +18,11 @@ BEGIN
 DELIMITER //
 CREATE PROCEDURE giveSuggestion(IN CustID INTEGER)
 BEGIN
-    #CREATE VIEW Suggestion(Symbol, Comp AS 'Company', Price AS 'Price/Share', Type)
 	SELECT S.StockSymbol, S.CompanyName, S.PricePerShare, S.Type
 	FROM Account A, Stock S, StockOrder O, Trade T
 	WHERE A.ID = CustID AND S.StockSymbol = T.StockId AND T.AccountId = A.ID AND T.OrderId= O.ID;
 END//
+	
 drop procedure if exists giveSuggestion;
 # Successfully hook people up in the business
 DELIMITER //

@@ -16,7 +16,6 @@ import webapp.beans.Stock;
 import webapp.utils.ClientUtils;
 import webapp.utils.MyUtils;
 
- 
 @WebServlet(urlPatterns = { "/managerMain"})
 public class ManagerMainServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -28,46 +27,6 @@ public class ManagerMainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	Connection conn = MyUtils.getStoredConnection(request);
-
-		String handle = request.getParameter("handle");
-		String content = "<h3>";
-		switch (handle) {
-		case "stock_by_name":
-			try {
-				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't got no stock babe";
-				} else {
-					for (Stock s : stocks) {
-						content += s + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "stock_by_symbol":
-			try {
-				ArrayList<Stock> stocks = ClientUtils.getStocksByName(conn);
-				if (stocks.isEmpty()) {
-					content += "You don't got no stock babe";
-				} else {
-					for (Stock s : stocks) {
-						content += s + "<br />";
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		default:
-			content += "Invalid Operation";
-		}
-
-		content += "</h3>";
-		request.setAttribute("mainPanel", content);
 
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        

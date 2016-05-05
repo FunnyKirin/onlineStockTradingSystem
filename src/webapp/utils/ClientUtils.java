@@ -144,42 +144,72 @@ public class ClientUtils {
 		return stocks;
 	}
 	
-	
-	public static ArrayList<Stock> getStocksBySymbol(Connection conn) throws SQLException {
-		ArrayList<Stock> stocks = new ArrayList<Stock>();
+	public static ArrayList<Trade> getStocksByName(Connection conn) throws SQLException {
+		ArrayList<Trade> trades = new ArrayList<Trade>();
 		
-		String sql = "call stockListingBySymbol();";
+		String sql = "Select P.lastname, P.firstname, O.* from Person P, Client C, Account A"
+				+ ", Trade T, StockOrder O where T.AccountId = A.ID and O.ID = T.OrderID and "
+				+ "P.SSN = C.ID and C.ID = A.ClientID Order By P.lastname;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 		
 		while (rs.next()) {
-			String symbol = rs.getString("StockSymbol");
-			String company = rs.getString("CompanyName");
-			String type = rs.getString("Type");
+			String lastname = rs.getString("P.lastname");
+			String firstname = rs.getString("P.firstname");
+			int id = rs.getInt("O.ID");
+			int numShares = rs.getInt("NumShares");
+			String type = rs.getString("OrderType");
 			double pps = rs.getDouble("PricePerShare");
 			
-			stocks.add(new Stock(symbol, company, type, pps));
+			Account account = new Account();
+			account.setFirstname(firstname);
+			account.setLastname(lastname);
+			Order order = new Order();
+			order.setId(id);
+			order.setNumShares(numShares);
+			order.setPps(pps);
+			order.setType(type);
+			
+			Trade t = new Trade();
+			t.setAccount(account);
+			t.setOrder(order);
+			
+			trades.add(t);
 		}
 		
-		return stocks;
+		return trades;
 	}
 	
-	public static ArrayList<Stock> getStocksByName(Connection conn) throws SQLException {
-		ArrayList<Stock> stocks = new ArrayList<Stock>();
+	public static ArrayList<Trade> getStocksBySymbol(Connection conn) throws SQLException {
+		ArrayList<Trade> trades = new ArrayList<Trade>();
 		
-		String sql = "call stockListingByName();";
+		String sql = "Select S.StockSymbol , O.* from Trade T, StockOrder O, Stock S "
+				+ "where O.ID = T.OrderID and S.StockSymbol = T.StockId Order By S.StockSymbol";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 		
 		while (rs.next()) {
-			String symbol = rs.getString("StockSymbol");
-			String company = rs.getString("CompanyName");
-			String type = rs.getString("Type");
+			String symbol = rs.getString("S.StockSymbol");
+			int id = rs.getInt("O.ID");
+			int numShares = rs.getInt("NumShares");
+			String type = rs.getString("OrderType");
 			double pps = rs.getDouble("PricePerShare");
 			
-			stocks.add(new Stock(symbol, company, type, pps));
+			Stock s = new Stock();
+			s.setSymbol(symbol);
+			Order order = new Order();
+			order.setId(id);
+			order.setNumShares(numShares);
+			order.setPps(pps);
+			order.setType(type);
+			
+			Trade t = new Trade();
+			t.setStock(s);
+			t.setOrder(order);
+			
+			trades.add(t);
 		}
 		
-		return stocks;
+		return trades;
 	}
 }

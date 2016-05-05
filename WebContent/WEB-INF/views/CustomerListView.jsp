@@ -39,12 +39,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-<<<<<<< HEAD
-	<a href="addCustomer">Add Customer</a>
-=======
+
 	<a href="addCustomer" >Add Customer</a>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
->>>>>>> 792039d431e86f240b9bcad59cb31990b73126be
 </body>
 </html>
