@@ -17,7 +17,7 @@ public class Trade {
 		this.employee = employee;
 		this.order = order;
 		this.stock = stock;
-		this.transaction = transaction;
+		this.setTransaction(transaction);
 	}
 
 	public Account getAccount() {
@@ -58,6 +58,14 @@ public class Trade {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
 	}
 
 	private int id;

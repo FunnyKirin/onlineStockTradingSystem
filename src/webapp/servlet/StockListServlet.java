@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import webapp.beans.Account;
+import webapp.beans.Employee;
 import webapp.beans.Stock;
 import webapp.utils.ManagerUtils;
 import webapp.utils.MyUtils;
@@ -28,6 +29,16 @@ public class StockListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	// Check User has logged on
+        Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
+  
+        // Not logged in
+        if (loginedUser == null) {
+            // Redirect to login page.
+            response.sendRedirect(request.getContextPath() + "/employeeLogin");
+            return;
+        }
+    	
     	Connection conn = MyUtils.getStoredConnection(request);
     	 
         String errorString = null;

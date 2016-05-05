@@ -9,7 +9,9 @@ public class Order {
 	private int numShares;
 
 	private String type;
+	private String orderType;
 	private double pps;
+	private double percent;
 
 	public Order() {
 	}
@@ -61,5 +63,21 @@ public class Order {
 
 	public void setPps(double pps) {
 		this.pps = pps;
+	}
+
+	public double getPercent() {
+		return percent;
+	}
+
+	public void setPercent(double percent) {
+		this.percent = percent;
+	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
 	}
 }

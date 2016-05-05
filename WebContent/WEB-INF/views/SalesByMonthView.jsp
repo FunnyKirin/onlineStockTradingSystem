@@ -29,6 +29,10 @@
 	<br />
 	<br />
 	<p style="color: red;">${errorString}</p>
+	
+	<c:if test="${empty trades}">
+		<h3>No order this month</h3>
+	</c:if>
 
 	<c:if test="${not empty trades}">
 		<table border="1" cellpadding="5" cellspacing="1">

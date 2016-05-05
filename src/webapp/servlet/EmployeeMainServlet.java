@@ -28,6 +28,15 @@ public class EmployeeMainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	// Check User has logged on
+        Employee loginedUser = MyUtils.getLoginedEmployee(request.getSession());
+  
+        // Not logged in
+        if (loginedUser == null) {
+            // Redirect to login page.
+            response.sendRedirect(request.getContextPath() + "/employeeLogin");
+            return;
+        }
 
         // Forward to /WEB-INF/views/loginView.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)        

@@ -30,8 +30,6 @@ public class DoEmployeeLoginServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String rememberMeStr = request.getParameter("rememberMe");
-		boolean remember = "Y".equals(rememberMeStr);
 
 		Employee employee = null;
 		boolean hasError = false;
@@ -43,7 +41,7 @@ public class DoEmployeeLoginServlet extends HttpServlet {
 		} else {
 			Connection conn = MyUtils.getStoredConnection(request);
 			try {
-
+				
 				employee = DBUtils.loginAsEmployee(conn, username, password);
 
 				if (employee == null) {
@@ -78,16 +76,6 @@ public class DoEmployeeLoginServlet extends HttpServlet {
 		else {
 			HttpSession session = request.getSession();
 			MyUtils.storeLoginedUser(session, employee);
-
-			// If user checked "Remember me".
-			if (remember) {
-				MyUtils.storeUserCookie(response, employee);
-			}
-
-			// Else delete cookie.
-			else {
-				MyUtils.deleteUserCookie(response);
-			}
 
 			if (employee.getIsManager())
 				response.sendRedirect(request.getContextPath() + "/managerMain");

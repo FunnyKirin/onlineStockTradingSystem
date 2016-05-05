@@ -57,7 +57,7 @@ function setHandle(handle) {
 			<li role="presentation" class="divider"></li>
 			<li><a href="giveSuggestion">Give Suggestion</a></li>
 			<li><a href="customerList">Customer Info</a></li>
-			
+			<li><a href="recordOrder">Record an Order</a></li>
 		</ul>
 		</form>
 
@@ -66,7 +66,6 @@ function setHandle(handle) {
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" id="dynamic">
 			<div>${mainPanel}</div>
-			
 		</div>
 	</div>	<!--/.main-->
 

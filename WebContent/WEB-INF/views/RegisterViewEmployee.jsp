@@ -16,7 +16,7 @@
 	<div class="demo">
 		<div class="register">
 			<div class="register__form">
-				<h3 style="color: red;">${errorString}</h3>
+				<h2 style="color: red;">${errorString}</h2>
 				<form action="${pageContext.request.contextPath}/doEmployeeRegister">
 					<div class="login__row firstname">
 						<input type="text" name="firstname" class="login__input firstname"
@@ -27,8 +27,8 @@
 							placeholder="Last Name" />
 					</div>
 					<div class="login__row">
-						<input type="text" name="hourly_rate" class="login__input hourlyrate"
-							placeholder="Hourly Rate" />
+						<input type="text" name="hourly_rate"
+							class="login__input hourlyrate" placeholder="Hourly Rate" />
 					</div>
 					<div class="login__row">
 						<input type="text" name="username" class="login__input username"

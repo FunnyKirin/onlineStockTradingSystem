@@ -1,6 +1,6 @@
 USE netrade;
 
-#Set the share price of a stock (for simulating market fluctuations in a stock's share price)
+--Set the share price of a stock (for simulating market fluctuations in a stock's share price)
 DELIMITER //
 CREATE PROCEDURE updateStockPrice(IN stockPrice INTEGER, stockSymbol CHAR(20))
 	 BEGIN
@@ -9,8 +9,7 @@ CREATE PROCEDURE updateStockPrice(IN stockPrice INTEGER, stockSymbol CHAR(20))
 		 WHERE Stock.StockSymbol = stockSymbol;
 	 END//
 
-#Add, Edit and Delete information for an employee
-#ADD   # maybe more data to be added
+--Add, Edit and Delete information for an employee
 DELIMITER //
 CREATE PROCEDURE addEmployee(IN ID INTEGER, SSN INTEGER, StartDate DATE, HourlyRate INTEGER)
 	BEGIN
