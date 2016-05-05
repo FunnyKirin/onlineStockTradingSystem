@@ -153,7 +153,7 @@ BEGIN
         AND T.BrokerId = E.ID
     ORDER BY MaxRevenue DESC LIMIT 1;
 END //
-
+drop procedure mostRevenue_CustomerRepresentative;
 #Determine which customer generated most total revenue
 DELIMITER //
 CREATE PROCEDURE customer_mostRevenue()
@@ -165,7 +165,7 @@ BEGIN
         AND A.ClientID = C.ID
     ORDER BY MaxRevenue DESC LIMIT 1;
 END //
-
+drop procedure customer_mostRevenue;
 #Produce a list of most actively traded stocks
 DELIMITER //
 CREATE PROCEDURE activeStocks()

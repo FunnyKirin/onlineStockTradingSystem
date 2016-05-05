@@ -42,6 +42,16 @@ public class ClientMainServlet extends HttpServlet {
 		ArrayList<Stock> searchByName;
 		ArrayList<Stock> searchByType;
 		try {
+
+			//search stock by name
+	        if (request.getParameter("searchNameButton") != null) {
+	        	String searchText = request.getParameter("searchText");
+			    searchByName = ClientUtils.searchStocksByName(conn, searchText);
+	        }
+	        if (request.getParameter("searchTypeButton") != null) {
+	        	String searchText = request.getParameter("searchText");
+	        	searchByType = ClientUtils.searchStocksByType(conn, searchText);
+	        }
 			currentStocks = ClientUtils.getCurrentStocks(conn, Id);
 			request.setAttribute("stocks", currentStocks);
 			//order history
@@ -53,16 +63,6 @@ public class ClientMainServlet extends HttpServlet {
 			//suggestion
 			suggestion = ClientUtils.getStockSuggestions(conn, Id);
 			request.setAttribute("suggestions", suggestion);
-			//search stock by name
-	        if (request.getParameter("searchNameButton") != null) {
-	        	String searchText = request.getParameter("searchText");
-			    searchByName = ClientUtils.searchStocksByName(conn, searchText);
-	        }
-	        if (request.getParameter("searchTypeButton") != null) {
-	        	String searchText = request.getParameter("searchText");
-	        	searchByType = ClientUtils.searchStocksByType(conn, searchText);
-	        }
-			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

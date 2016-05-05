@@ -33,11 +33,11 @@ END//
 DELIMITER //
 CREATE PROCEDURE priceHistory(IN StockSymbol CHAR(20))
 BEGIN
-	Select S.PricePerShare
-    From Stock S
-    Where StockSymbol = S.StockSymbol;
+	Select H.PricePerShare, H.stockDate
+    From Stock S, stockHistory H
+    Where StockSymbol = S.StockSymbol AND S.StockSymbol = H.StockSymbol;
 END//
-
+drop procedure priceHistory;
 # A history of all current and past orders a customer has placed 
 DELIMITER //
 CREATE PROCEDURE orderHistory(CustID INTEGER)

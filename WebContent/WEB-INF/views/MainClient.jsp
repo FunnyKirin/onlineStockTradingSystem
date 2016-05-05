@@ -57,7 +57,7 @@
 				<div class="form-group">
 					
 					<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
-					<input type="submit" name="searchNameButton" class="form-control" placeholder="Search" id="searchButton">
+					<input type="submit" name="searchNameButton" class="form-control" value="Search by Name" placeholder="Search" id="searchButton">
 					<input type="submit" name="searchTypeButton" class="form-control" value="Search by Type" id="searchButton1">
 				</div>
 			</form>
@@ -108,13 +108,7 @@
             			<td>${OrderHistory.sellPrice }</td>
             			<td>${OrderHistory.numShares }</td>
             			<td>${OrderHistory.date}</td>
-<<<<<<< HEAD
-			
-=======
-            			<td>${OrderHistory.sellPrice}</td>
-            			<td>${OrderHistory.numShares}</td>
-            			<td>${OrderHistory.date}
->>>>>>> e42e79fc9b55b560a84337c951435b04b2fb1350
+
         			</tr>
     			</c:forEach>
 			</table>
