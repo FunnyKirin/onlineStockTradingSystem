@@ -6,8 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Customers</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="css/mainClient.css" rel="stylesheet">
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/Header.jsp"/>
 	<h3>Customer List</h3>
     <p style="color: red;">${errorString}</p>
     
@@ -33,5 +36,7 @@
 		</c:forEach>
 	</table>
 	<a href="addCustomer" >Add Customer</a>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>
