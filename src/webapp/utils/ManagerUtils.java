@@ -177,6 +177,28 @@ public class ManagerUtils {
 		return stocks;
 	}
 
+	public static ArrayList<Order> getOrders(Connection conn) throws SQLException {
+		ArrayList<Order> orders = new ArrayList<Order>();
+		String sql = "select * from StockOrder";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			int id = rs.getInt("ID");
+			int numShares = rs.getInt("NumShares");
+			String priceType = rs.getString("PriceType");
+			String orderType = rs.getString("OrderType");
+			double pps = rs.getDouble("PricePerShare");
+			Date date = rs.getDate("DateTime");
+
+			Order o = new Order(id, date, numShares, pps, priceType);
+			o.setOrderType(orderType);
+			orders.add(o);
+		}
+
+		return orders;
+	}
+	
 	public static ArrayList<Stock> getActiveStocks(Connection conn) throws SQLException {
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		String sql = "call activeStocks()";
