@@ -108,6 +108,16 @@ public class DoClientMainServlet extends HttpServlet{
 				e.printStackTrace();
 			}
         }
+        if (request.getParameter("searchStockHistoryButton") != null) {
+        	String searchText = request.getParameter("searchStockHistoryText");
+        	try {
+        		StockHistory(searchText,request, response);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     }
     
     public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
@@ -163,5 +173,21 @@ public class DoClientMainServlet extends HttpServlet{
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
 		dispatcher.forward(request, response);
 		
+    }
+    
+    public void StockHistory(String input, HttpServletRequest request, HttpServletResponse response)
+        	throws ServletException, IOException, SQLException {
+    
+    	ArrayList<OrderHistory> result = new ArrayList<OrderHistory>();
+    	Connection conn = MyUtils.getStoredConnection(request);
+    	try {
+			result=ClientUtils.StockHistory(input, conn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("StockHistory", result);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/MainClient.jsp");
+		dispatcher.forward(request, response);
     }
 }

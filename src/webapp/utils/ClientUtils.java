@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import webapp.beans.*;
 
@@ -241,5 +243,39 @@ public class ClientUtils {
 		
 		
 		return result;
+	}
+	
+	public static ArrayList<OrderHistory> StockHistory(String input,Connection conn) throws SQLException{
+		ArrayList<OrderHistory> result = new ArrayList<OrderHistory>();
+		String sql = "call priceHistory(?)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, input);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()){
+			String symbol = "";
+			double price = rs.getDouble("PricePerShare");
+			String type ="";
+			double value =0;
+			double currentPrice=0;
+			int numShares = 0;
+			Date date = rs.getDate("stockDate");
+			//System.out.println("history:"+id+symbol+numShares+priceType+orderType);
+			//Date today = (Date) Calendar.getInstance().getTime();
+			LocalDate d1 = date.toLocalDate();
+			int year1 = d1.getYear();
+			int month1 = year1*12+d1.getMonthValue();
+			
+			LocalDate today = LocalDate.now();
+			int year2 = today.getYear();
+			int month2 = year2*12 +today.getMonthValue();
+			
+			if(month2-month1<=6){
+				result.add(new OrderHistory(symbol, price, type, value, currentPrice, numShares, date));
+
+			}
+			
+		}			
+		return result;
+
 	}
 }
