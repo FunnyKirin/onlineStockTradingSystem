@@ -103,7 +103,7 @@ public class DoClientMainServlet extends HttpServlet{
 			}
         }
         
-        if (request.getParameter("searchNameButton") != null) {
+        if (request.getParameter("searchHistoryButton") != null) {
         	String searchText = request.getParameter("searchHistoryText");
         	try {
         		searchHistory(Integer.parseInt(searchText),request, response);

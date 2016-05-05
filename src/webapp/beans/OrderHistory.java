@@ -44,4 +44,7 @@ public class OrderHistory {
 	public double getValue(){
 		return value;
 	}
+	public double getSellPrice(){
+		return sellPrice;
+	}
 }

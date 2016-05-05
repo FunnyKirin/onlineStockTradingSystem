@@ -91,7 +91,7 @@
 			</table>
 			<form role="search" class="search" action="doClientMain" method="post">
 			<input type="text" name="searchHistoryText" value=""  class="form-control" placeholder="Search order history" >
-			<input type="submit" name="searchNameButton" class="form-control" placeholder="Search">
+			<input type="submit" name="searchHistoryButton" class="form-control" placeholder="Search">
 			
 			</form>
 			
@@ -99,14 +99,19 @@
 				<tr><td>ID</td><td>Stock Symbol</td><td>number of shares</td><td>Price Type</td><td>Order Type</td><td>Date</td></tr>
     			<c:forEach var="OrderHistory" items="${OrderHistorys}">
         			<tr onclick="getStopHis(${OrderHistory})">
-        				<td>${OrderHistory.id }</td>
-			        	<td>${OrderHistory.StockSymbol }</td>
+			        	<td>${OrderHistory.stockSymbol}</td>
             			<td>${OrderHistory.price}</td>
             			<td>${OrderHistory.type}</td>
             			<td>${OrderHistory.value}</td>
+<<<<<<< HEAD
             			<td>${OrderHistory.sellPrice }</td>
             			<td>${OrderHistory.numShares }</td>
             			<td>${OrderHistory.date}</td>
+=======
+            			<td>${OrderHistory.sellPrice}</td>
+            			<td>${OrderHistory.numShares}</td>
+            			<td>${OrderHistory.date}
+>>>>>>> 5e725f3e5430be0f0885c10dce20acd7a1777e44
 			
         			</tr>
     			</c:forEach>
