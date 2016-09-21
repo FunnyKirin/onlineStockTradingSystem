@@ -137,6 +137,18 @@ public class DoClientMainServlet extends HttpServlet {
 				e.printStackTrace();
 			}
         }
+        if (request.getParameter("buyButton") != null) {
+        	String symbol = request.getParameter("buysymbol");
+        	String num =  request.getParameter("buynumber");
+        	String value= request.getParameter("buyvalue");
+        	String type =  request.getParameter("buytype");
+        	try {
+        		buy(symbol, Integer.parseInt(num), accountId, type, Double.parseDouble(value),request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     }
     
     public void searchByName(String input, HttpServletRequest request, HttpServletResponse response)
@@ -248,7 +260,7 @@ public class DoClientMainServlet extends HttpServlet {
 		while (rs.next()) {
 			pricePerShares = rs.getDouble("PricePerShare");
 		}
-		
+		System.out.println("d"+value);
 		sql = "call recordOrder(?,?,?,?,?,?,?)";
 		pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);

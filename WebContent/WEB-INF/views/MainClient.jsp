@@ -47,12 +47,15 @@
         			</tr>
     			</c:forEach>
 			</table>
+						<form role="search" class="search" action="doClientMain" method="post">
+			
 			<br><br><br>
-				<input type="text" name="symbol" value=""  class="buyText" placeholder="Symbol" >
-				<input type="text" name="number" value=""  class="buyText" placeholder="number" >
-				<input type="text" name="type" value=""  class="buyText" placeholder="Type" >
-				<input type="text" name="value" value=""  class="buyText" placeholder="Value" >
-				<input type="submit" name="searchTypeButton" class="form-control" value="Buy">
+				<input type="text" name="buysymbol" value=""  class="buyText" placeholder="Symbol" >
+				<input type="text" name="buynumber" value=""  class="buyText" placeholder="number" >
+				<input type="text" name="buytype" value=""  class="buyText" placeholder="Type" >
+				<input type="text" name="buyvalue" value=""  class="buyText" placeholder="Value" >
+				<input type="submit" name="buyButton" class="form-control" value="Buy">
+			</form>
 			</div>
 
 <!-- 			<input type="text" name="searchText" value=""  class="form-control" placeholder="Search Stocks" >
